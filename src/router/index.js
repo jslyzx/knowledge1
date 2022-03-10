@@ -69,6 +69,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/cwb-control',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'CwbControl',
+        component: () => import('@/views/cwb-control/index'),
+        meta: { title: '船坞泵设备管理', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

@@ -16,7 +16,16 @@ export function getEquList(query) {
   })
 }
 
+export function getCwbList(query) {
+  return request({
+    url: '/vue-admin-template/cwb/list',
+    method: 'get',
+    params: query
+  })
+}
+
 export default{
   getList,
-  getEquList
+  getEquList,
+  getCwbList
 }
