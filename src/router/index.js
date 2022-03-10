@@ -56,6 +56,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/equ-control',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'EquControl',
+        component: () => import('@/views/equ-control/index'),
+        meta: { title: '设备控制管理', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

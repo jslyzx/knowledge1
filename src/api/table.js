@@ -7,3 +7,16 @@ export function getList(params) {
     params
   })
 }
+
+export function getEquList(query) {
+  return request({
+    url: '/vue-admin-template/equ/list',
+    method: 'get',
+    params: query
+  })
+}
+
+export default{
+  getList,
+  getEquList
+}
