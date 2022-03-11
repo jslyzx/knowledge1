@@ -32,6 +32,14 @@ export function getEquDwList(query) {
   })
 }
 
+export function getQzList(query) {
+  return request({
+    url: '/vue-admin-template/qz/list',
+    method: 'get',
+    params: query
+  })
+}
+
 export default{
   getList,
   getEquList,

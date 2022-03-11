@@ -3,6 +3,7 @@ const Mock = require('mockjs')
 const equList = []
 const cwbList = []
 const dwList = []
+const qzList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
@@ -41,6 +42,20 @@ for (let i = 0; i < count; i++) {
     sType: '@ctitle(8)',
     offset: '0',
     addr: '@integer(300, 5000)'
+  }))
+
+  qzList.push(Mock.mock({
+    id: '@increment',
+    no: '@id',
+    cs: '@ctitle(10)',
+    xh: '@ctitle(10)',
+    type: '@integer(1, 1)',
+    name: '@name',
+    qzl: '@integer(300, 5000)',
+    lj: '@integer(300, 5000)',
+    kd: '@integer(300, 5000)',
+    fd: '@integer(300, 5000)',
+    speed: '@integer(300, 5000)'
   }))
 }
 
@@ -84,6 +99,21 @@ module.exports = [{
         code: 20000,
         data: {
           total: dwList.length,
+          items: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/qz/list',
+    type: 'get',
+    response: config => {
+      const { page = 1, limit = 20 } = config.query
+      const pageList = qzList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return {
+        code: 20000,
+        data: {
+          total: qzList.length,
           items: pageList
         }
       }

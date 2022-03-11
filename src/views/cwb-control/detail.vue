@@ -1,14 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row>
-      <el-col :span="4">
-        <div class="h-title">设备详情</div>
-      </el-col>
-      <el-col :span="4" :offset="16" class="tr">
-        <el-button size="small">分享数据</el-button>
-        <el-button size="small" type="primary">导出数据</el-button>
-      </el-col>
-    </el-row>
+    <div class="h-title">设备详情</div>
     <div class="main">
       <div class="part">
         <el-row>
@@ -41,7 +33,7 @@
           <el-col :span="6">
             <div class="item">
               <span class="item-lable">设备类型:</span>
-              <span class="item-c">空压机</span>
+              <span class="item-c">船坞泵</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -172,50 +164,6 @@
           </el-col>
         </el-row>
       </div>
-      <div class="table-title">点位信息</div>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="380">
-        <el-table-column label="序号" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.no }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="字段名称" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="字段类型" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.type }}
-          </template>
-        </el-table-column>
-        <el-table-column label="数据点类型" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.dType }}
-          </template>
-        </el-table-column>
-        <el-table-column label="统计类型" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.sType }}
-          </template>
-        </el-table-column>
-        <el-table-column label="首页地址偏移" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.offset }}
-          </template>
-        </el-table-column>
-        <el-table-column label="开始地址" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.addr }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="80" align="center">
-          <template slot-scope="scope">
-            <el-button type="text" size="small">编辑</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
     </div>
   </div>
 </template>
@@ -291,6 +239,7 @@ export default {
 .main {
   background-color: #FFF;
   padding: 24px;
+  min-height: 70vh;
 
   .part {
     &:not(:first-child) {

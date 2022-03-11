@@ -75,12 +75,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/equ-detail/:id',
-    component: () => import('@/views/equ-control/detail'),
-    hidden: true
-  },
-
-  {
     path: '/cwb-control',
     component: Layout,
     children: [
@@ -89,7 +83,32 @@ export const constantRoutes = [
         name: 'CwbControl',
         component: () => import('@/views/cwb-control/index'),
         meta: { title: '船坞泵设备管理', icon: 'form' }
-      }
+      },
+      {
+        path: 'detail/:id(\\d+)',
+        component: () => import('@/views/cwb-control/detail'),
+        meta: { title: '船坞泵设备详情' },
+        hidden: true
+      },
+    ]
+  },
+
+  {
+    path: '/qz-control',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'QzControl',
+        component: () => import('@/views/qz-control/index'),
+        meta: { title: '起重设备管理', icon: 'form' }
+      },
+      {
+        path: 'detail/:id(\\d+)',
+        component: () => import('@/views/qz-control/detail'),
+        meta: { title: '起重设备详情' },
+        hidden: true
+      },
     ]
   },
 

@@ -91,7 +91,9 @@
         </el-table-column>
         <el-table-column label="操作" width="160" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small">查看</el-button>
+            <router-link :to="'/cwb-control/detail/' + scope.row.id">
+              <el-button type="text" size="small" style="margin-right: 10px;">查看</el-button>
+            </router-link>
             <el-button type="text" size="small" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-popconfirm confirm-button-text='好的' cancel-button-text='不用了' icon="el-icon-info" icon-color="red" title="确定删除吗？" @onConfirm="deleteItem(scope.row)">
               <el-button slot="reference" type="text" size="small" style="margin-left: 10px;">删除</el-button>
