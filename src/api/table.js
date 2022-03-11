@@ -24,6 +24,14 @@ export function getCwbList(query) {
   })
 }
 
+export function getEquDwList(query) {
+  return request({
+    url: '/vue-admin-template/equ/dwList',
+    method: 'get',
+    params: query
+  })
+}
+
 export default{
   getList,
   getEquList,

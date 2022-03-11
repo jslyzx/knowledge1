@@ -64,8 +64,20 @@ export const constantRoutes = [
         name: 'EquControl',
         component: () => import('@/views/equ-control/index'),
         meta: { title: '设备控制管理', icon: 'form' }
-      }
+      },
+      {
+        path: 'detail/:id(\\d+)',
+        component: () => import('@/views/equ-control/detail'),
+        meta: { title: '设备详情' },
+        hidden: true
+      },
     ]
+  },
+
+  {
+    path: '/equ-detail/:id',
+    component: () => import('@/views/equ-control/detail'),
+    hidden: true
   },
 
   {

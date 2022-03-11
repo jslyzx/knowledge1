@@ -2,6 +2,7 @@ const Mock = require('mockjs')
 
 const equList = []
 const cwbList = []
+const dwList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
@@ -31,6 +32,16 @@ for (let i = 0; i < count; i++) {
     yl: '@integer(300, 5000)',
     zs: '@integer(300, 5000)'
   }))
+
+  dwList.push(Mock.mock({
+    no: '@increment',
+    name: '@name',
+    type: '控制点',
+    dType: '@ctitle(8)',
+    sType: '@ctitle(8)',
+    offset: '0',
+    addr: '@integer(300, 5000)'
+  }))
 }
 
 module.exports = [{
@@ -58,6 +69,21 @@ module.exports = [{
         code: 20000,
         data: {
           total: cwbList.length,
+          items: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/equ/dwList',
+    type: 'get',
+    response: config => {
+      const { page = 1, limit = 20 } = config.query
+      const pageList = dwList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return {
+        code: 20000,
+        data: {
+          total: dwList.length,
           items: pageList
         }
       }
