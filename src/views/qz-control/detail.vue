@@ -168,10 +168,8 @@
   </div>
 </template>
 <script>
-import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -202,7 +200,7 @@ export default {
       dialogStatus: '',
       rules: {
         type: [{ required: true, message: '请选择设备类型', trigger: 'change' }],
-        name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }]
       },
       id: this.$route.params.id
     }

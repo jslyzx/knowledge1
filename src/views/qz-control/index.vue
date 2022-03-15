@@ -7,8 +7,7 @@
           <el-button size="middle" type="primary" @click="handleCreate">添加起重设备</el-button>
         </el-col>
         <el-col :span="6" :offset="14">
-          <el-input placeholder="请输入搜索关键字" suffix-icon="el-icon-search" v-model="keyword">
-          </el-input>
+          <el-input v-model="keyword" placeholder="请输入搜索关键字" suffix-icon="el-icon-search" />
         </el-col>
       </el-row>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="450">
@@ -68,7 +67,7 @@
               <el-button type="text" size="small" style="margin-right: 10px;">查看</el-button>
             </router-link>
             <el-button type="text" size="small" @click="handleUpdate(scope.row)">编辑</el-button>
-            <el-popconfirm confirm-button-text='好的' cancel-button-text='不用了' icon="el-icon-info" icon-color="red" title="确定删除吗？" @onConfirm="deleteItem(scope.row)">
+            <el-popconfirm confirm-button-text="好的" cancel-button-text="不用了" icon="el-icon-info" icon-color="red" title="确定删除吗？" @onConfirm="deleteItem(scope.row)">
               <el-button slot="reference" type="text" size="small" style="margin-left: 10px;">删除</el-button>
             </el-popconfirm>
           </template>
@@ -145,19 +144,19 @@ export default {
       dialogStatus: '',
       rules: {
         type: [{ required: true, message: '请选择设备类型', trigger: 'change' }],
-        name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }]
       },
       temp: {
         id: undefined,
-        no: '', //设备编号
-        name: '', //设备名称
-        cs: '', //设备厂商
-        type: '', //设备类型
-        xh: '', //设备型号
-        isFk: 1, //是否反控
-        fk: '', //反控点位
-        fzr: '' //负责人
-      },
+        no: '', // 设备编号
+        name: '', // 设备名称
+        cs: '', // 设备厂商
+        type: '', // 设备类型
+        xh: '', // 设备型号
+        isFk: 1, // 是否反控
+        fk: '', // 反控点位
+        fzr: '' // 负责人
+      }
     }
   },
   created() {
@@ -194,14 +193,14 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        no: '', //设备编号
-        name: '', //设备名称
-        cs: '', //设备厂商
-        type: '', //设备类型
-        xh: '', //设备型号
-        isFk: undefined, //是否反控
-        fk: '', //反控点位
-        fzr: '' //负责人
+        no: '', // 设备编号
+        name: '', // 设备名称
+        cs: '', // 设备厂商
+        type: '', // 设备类型
+        xh: '', // 设备型号
+        isFk: undefined, // 是否反控
+        fk: '', // 反控点位
+        fzr: '' // 负责人
       }
     },
     handleCreate() {
@@ -219,7 +218,7 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
-    },
+    }
   }
 }
 

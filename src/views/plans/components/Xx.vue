@@ -2,7 +2,7 @@
   <div class="container">
     <el-row>
       <el-col :span="4">
-        <div class="title">项修信息{{deviceId}}</div>
+        <div class="title">项修信息</div>
       </el-col>
       <el-col :span="4" :offset="16" style="text-align: right;">
         <el-button size="small" type="primary">新增项修</el-button>
@@ -209,13 +209,6 @@ export default {
       }
     }
   },
-  created() {
-    this.listQuery = {
-      ...this.listQuery,
-      deviceId: this.deviceId
-    }
-    this.fetchList()
-  },
   watch: {
     deviceId(val) {
       this.listQuery = {
@@ -224,6 +217,13 @@ export default {
       }
       this.fetchList()
     }
+  },
+  created() {
+    this.listQuery = {
+      ...this.listQuery,
+      deviceId: this.deviceId
+    }
+    this.fetchList()
   },
   methods: {
     fetchList() {
