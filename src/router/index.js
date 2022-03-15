@@ -70,7 +70,7 @@ export const constantRoutes = [
         component: () => import('@/views/equ-control/detail'),
         meta: { title: '设备详情' },
         hidden: true
-      },
+      }
     ]
   },
 
@@ -89,7 +89,19 @@ export const constantRoutes = [
         component: () => import('@/views/cwb-control/detail'),
         meta: { title: '船坞泵设备详情' },
         hidden: true
-      },
+      }
+    ]
+  },
+
+  {
+    path: '/plans',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/plans/index'),
+        meta: { title: '计划管理', icon: 'form' }
+      }
     ]
   },
 
@@ -108,7 +120,7 @@ export const constantRoutes = [
         component: () => import('@/views/qz-control/detail'),
         meta: { title: '起重设备详情' },
         hidden: true
-      },
+      }
     ]
   },
 
