@@ -114,6 +114,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/overall',
+    component: Layout,
+    name: '统筹管理',
+    redirect: '/overall/shop',
+    meta: { title: '统筹管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'shop',
+        component: () => import('@/views/overall/shop'),
+        meta: { title: '船厂项目管理', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/qz-control',
     component: Layout,
     children: [

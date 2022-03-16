@@ -40,8 +40,10 @@ export function getQzList(query) {
   })
 }
 
-export default{
-  getList,
-  getEquList,
-  getCwbList
+export function getProjects(query) {
+  return request({
+    url: '/vue-admin-template/project/list',
+    method: 'get',
+    params: query
+  })
 }

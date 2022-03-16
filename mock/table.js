@@ -4,6 +4,7 @@ const equList = []
 const cwbList = []
 const dwList = []
 const qzList = []
+const projectList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
@@ -56,6 +57,16 @@ for (let i = 0; i < count; i++) {
     kd: '@integer(300, 5000)',
     fd: '@integer(300, 5000)',
     speed: '@integer(300, 5000)'
+  }))
+
+  projectList.push(Mock.mock({
+    id: '@increment',
+    'name|1': ['氩气站项目设施项目', '氧气站项目设施项目', '空气站项目设施项目', '热力站项目设施项目', '丙烷站项目设施项目'],
+    'file|1': ['氩气站项目审核意见书', '氧气站项目审核意见书', '空气站项目审核意见书', '热力站项目审核意见书', '丙烷站项目审核意见书'],
+    progress: '@integer(0, 6)',
+    creator: '@cname',
+    date: '@date',
+    day: 23
   }))
 }
 
@@ -114,6 +125,21 @@ module.exports = [{
         code: 20000,
         data: {
           total: qzList.length,
+          items: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/project/list',
+    type: 'get',
+    response: config => {
+      const { page = 1, limit = 20 } = config.query
+      const pageList = projectList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return {
+        code: 20000,
+        data: {
+          total: projectList.length,
           items: pageList
         }
       }
