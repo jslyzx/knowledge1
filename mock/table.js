@@ -77,7 +77,8 @@ for (let i = 0; i < 8; i++) {
   codeList.push(Mock.mock({
     id: '@increment',
     name: '船体结构零件编码规则',
-    date: '@date'
+    date: '@date',
+    pic: 'https://seopic.699pic.com/photo/50129/2295.jpg_wh1200.jpg'
   }))
 }
 
