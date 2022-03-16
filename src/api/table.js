@@ -47,3 +47,11 @@ export function getProjects(query) {
     params: query
   })
 }
+
+export function getCodeList(query) {
+  return request({
+    url: '/vue-admin-template/code/list',
+    method: 'get',
+    params: query
+  })
+}

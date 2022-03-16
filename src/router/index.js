@@ -124,6 +124,11 @@ export const constantRoutes = [
         path: 'shop',
         component: () => import('@/views/overall/shop'),
         meta: { title: '船厂项目管理', icon: 'form' }
+      },
+      {
+        path: 'code',
+        component: () => import('@/views/overall/code'),
+        meta: { title: '分类编码库', icon: 'form' }
       }
     ]
   },

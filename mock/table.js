@@ -5,6 +5,7 @@ const cwbList = []
 const dwList = []
 const qzList = []
 const projectList = []
+const codeList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
@@ -67,6 +68,16 @@ for (let i = 0; i < count; i++) {
     creator: '@cname',
     date: '@date',
     day: 23
+  }))
+
+
+}
+
+for (let i = 0; i < 8; i++) {
+  codeList.push(Mock.mock({
+    id: '@increment',
+    name: '船体结构零件编码规则',
+    date: '@date'
   }))
 }
 
@@ -140,6 +151,21 @@ module.exports = [{
         code: 20000,
         data: {
           total: projectList.length,
+          items: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/code/list',
+    type: 'get',
+    response: config => {
+      const { page = 1, limit = 20 } = config.query
+      const pageList = codeList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return {
+        code: 20000,
+        data: {
+          total: codeList.length,
           items: pageList
         }
       }
