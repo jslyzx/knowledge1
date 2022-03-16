@@ -134,6 +134,46 @@ export const constantRoutes = [
   },
 
   {
+    path: '/data',
+    component: Layout,
+    name: '数据应用',
+    redirect: '/data/consume',
+    meta: { title: '数据应用', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'consume',
+        component: () => import('@/views/data/consume'),
+        meta: { title: '能耗结算报表', icon: 'form' }
+      }
+    ]
+  },
+
+  {
+    path: '/decide',
+    component: Layout,
+    name: '辅助决策系统',
+    redirect: '/decide/quality',
+    meta: { title: '辅助决策系统', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'quality',
+        component: () => import('@/views/decide/quality'),
+        meta: { title: '质量风险辅助决策', icon: 'form' }
+      },
+      {
+        path: 'safety',
+        component: () => import('@/views/decide/safety'),
+        meta: { title: '安全辅助决策', icon: 'form' }
+      },
+      {
+        path: 'price',
+        component: () => import('@/views/decide/price'),
+        meta: { title: '成本辅助决策', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/qz-control',
     component: Layout,
     children: [
