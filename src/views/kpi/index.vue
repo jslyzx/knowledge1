@@ -51,10 +51,103 @@
     <el-row :gutter="16" class="middle">
       <el-col :span="16">
         <div class="trend">
+          <div class="title">工单趋势</div>
+          <div ref="chart1" class="con"></div>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="list">
+          <div class="title">未完成的工单</div>
+          <div class="con">
+            <div class="table">
+              <el-row class="thead">
+                <el-col :span="6">
+                  <div class="th">工单编号</div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="th">工单类型</div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="th">负责人</div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="th">状态</div>
+                </el-col>
+              </el-row>
+              <div class="tbody">
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td">TNM5574</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">佴云</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td">TNM5574</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">佴云</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td">TNM5574</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">佴云</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td">TNM5574</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">佴云</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td">TNM5574</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">佴云</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td">已指派</div>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -62,19 +155,19 @@
       <el-col :span="8">
         <div class="chart">
           <div class="chart-title">团队工单统计</div>
-          <div class="chart-con" ref="chart2"></div>
+          <div ref="chart2" class="chart-con"></div>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="chart">
           <div class="chart-title">工单分类统计</div>
-          <div class="chart-con" ref="chart3"></div>
+          <div ref="chart3" class="chart-con"></div>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="chart">
           <div class="chart-title">工单分类统计</div>
-          <div class="chart-con" ref="chart4"></div>
+          <div ref="chart4" class="chart-con"></div>
         </div>
       </el-col>
     </el-row>
@@ -97,13 +190,40 @@ export default {
   created() {},
   mounted() {
     this.$nextTick(() => {
+      this.initChart1()
       this.initChart2()
+      this.initChart3()
+      this.initChart4()
     })
   },
   methods: {
+    initChart1() {
+      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart1.setOption({
+        legend: {},
+        xAxis: {
+          type: 'category',
+          data: ['06-08', '07-08', '08-08', '09-08', '10-08', '11-08', '12-08']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          name: '新增工单',
+          data: [10, 8, 15, 20, 25, 30, 45],
+          type: 'line',
+          symbol: 'none'
+        }, {
+          name: '完成工单',
+          data: [8, 8, 9, 12, 19, 27, 39],
+          symbol: 'none',
+          type: 'line'
+        }]
+      })
+    },
     initChart2() {
-      this.chart = echarts.init(this.$refs.chart2, 'macarons')
-      this.chart.setOption({
+      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
+      this.chart2.setOption({
         legend: {},
         tooltip: {
           trigger: 'axis',
@@ -128,6 +248,67 @@ export default {
           data: [280, 210, 150],
           type: 'bar',
           barWidth: 20
+        }]
+      })
+    },
+    initChart3() {
+      this.chart3 = echarts.init(this.$refs.chart3, 'macarons')
+      this.chart3.setOption({
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          top: 'middle',
+          left: 'right',
+          orient: 'verticalAlign'
+        },
+        series: [{
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          label: {
+            show: false,
+            position: 'center'
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: 55, name: '工单类型' },
+            { value: 43, name: '产品类型' },
+            { value: 33, name: '服务类型' },
+            { value: 33, name: '服务内容' }
+          ]
+        }]
+      })
+    },
+    initChart4() {
+      this.chart4 = echarts.init(this.$refs.chart4, 'macarons')
+      this.chart4.setOption({
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          top: 'middle',
+          left: 'right',
+          orient: 'verticalAlign'
+        },
+        series: [{
+          type: 'pie',
+          radius: '50%',
+          avoidLabelOverlap: false,
+          label: {
+            show: false,
+            position: 'center'
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: 55, name: '满意' },
+            { value: 43, name: '一般' },
+            { value: 33, name: '不满意' }
+          ]
         }]
       })
     }
@@ -208,11 +389,70 @@ export default {
   .trend {
     height: 396px;
     background-color: #fff;
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 24px;
+      padding: 20px 0 0 20px;
+    }
+
+    .con {
+      height: calc(100% - 44px);
+    }
   }
 
   .list {
     height: 396px;
     background-color: #fff;
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 24px;
+      padding: 20px 0 0 20px;
+    }
+
+    .con {
+      height: calc(100% - 44px);
+      padding: 10px 20px;
+
+      .table {
+        width: 100%;
+        height: 100%;
+        .thead {
+          height: 32px;
+          background: #D8D8D8;
+          opacity: 0.37;
+
+          .th {
+            text-align: left;
+            padding-left: 17px;
+            line-height: 32px;
+          }
+        }
+
+        .tbody{
+          height: calc(100% - 32px);
+          overflow: auto;
+          .tr{
+            line-height: 22px;
+            height: 22px;
+            margin: 16px 0;
+            .td{
+              text-align: left;
+              padding-left: 17px;
+              font-size: 12px;
+              font-weight: 400;
+              color: #494949;
+              line-height: 26px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
