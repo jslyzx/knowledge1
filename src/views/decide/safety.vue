@@ -157,20 +157,21 @@ export default {
     initChart2() {
       this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
       this.chart2.setOption({
+        legend: {
+          left: 125
+        },
         xAxis: [{
           type: 'category',
           data: ['07-08', '07-09', '07-10', '07-11', '07-12', '07-13', '07-14', '07-15', '07-16', '07-17', '07-18']
         }],
         yAxis: [{
             type: 'value',
-            name: '报警数',
             min: 0,
             max: 2000,
             interval: 500
           },
           {
             type: 'value',
-            name: '同比上涨',
             min: 0,
             max: 100,
             interval: 25,
@@ -187,6 +188,7 @@ export default {
           {
             name: '同比上涨',
             type: 'line',
+            yAxisIndex: 1,
             data: this.generateRandomArray(0, 100, 11),
             symbol: 'none'
           }

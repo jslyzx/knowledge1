@@ -4,11 +4,13 @@
       <div class="chart-head">
         <div class="chart-title">用点量趋势图</div>
       </div>
+      <div ref="chart1" class="chart-con"></div>
     </div>
     <div class="chart">
       <div class="chart-head">
         <div class="chart-title">工业气体用量趋势图</div>
       </div>
+      <div ref="chart2" class="chart-con"></div>
     </div>
   </div>
 </template>
@@ -38,65 +40,68 @@ export default {
           trigger: 'item'
         },
         legend: {
-          top: 'middle',
-          left: 'right',
-          orient: 'verticalAlign'
+          right: 50,
+          top: 10
         },
+        xAxis: [{
+          type: 'category',
+          data: ['2020-09', '2020-10', '2020-11', '2020-12', '2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08']
+        }],
+        yAxis: [{
+          type: 'value',
+          name: 'kWh'
+        }],
         series: [{
-          type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          label: {
-            show: false,
-            position: 'center'
-          },
-          labelLine: {
-            show: false
-          },
-          data: [
-            { value: 55, name: '用电类型报警' },
-            { value: 43, name: '空压类型报警' },
-            { value: 33, name: '工业气体报警' },
-            { value: 33, name: '其它类型报警' }
-          ]
+          type: 'bar',
+          name: '总电量',
+          data: this.generateRandomArray(0, 35000, 12)
         }]
       })
     },
     initChart2() {
       this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
       this.chart2.setOption({
-        xAxis: [{
+        legend: {
+
+        },
+        xAxis: {
           type: 'category',
-          data: ['07-08', '07-09', '07-10', '07-11', '07-12', '07-13', '07-14', '07-15', '07-16', '07-17', '07-18']
-        }],
-        yAxis: [{
-            type: 'value',
-            name: '报警数',
-            min: 0,
-            max: 2000,
-            interval: 500
-          },
-          {
-            type: 'value',
-            name: '同比上涨',
-            min: 0,
-            max: 100,
-            interval: 25,
-            axisLabel: {
-              formatter: '{value}%'
-            }
-          }
-        ],
+          boundaryGap: false,
+          data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        },
+        yAxis: {
+          type: 'value'
+        },
         series: [{
-            name: '报警数',
-            type: 'bar',
-            data: this.generateRandomArray(0, 2000, 11)
-          },
-          {
-            name: '同比上涨',
+            name: '液氧',
             type: 'line',
-            data: this.generateRandomArray(0, 100, 11),
-            symbol: 'none'
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
+          },{
+            name: '二氧化碳',
+            type: 'line',
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
+          },{
+            name: '丙烷',
+            type: 'line',
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
+          },{
+            name: '蒸汽',
+            type: 'line',
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
+          },{
+            name: '天然气',
+            type: 'line',
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
+          },{
+            name: '压缩空气',
+            type: 'line',
+            symbol: 'none',
+            data: this.generateRandomArray(0, 1000, 12)
           }
         ]
       })
@@ -115,6 +120,26 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+.chart {
+  background-color: #fff;
 
+  &-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 28px;
+    padding: 15px 9px;
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  &-con {
+    height: 420px;
+  }
+
+  &~.chart {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
 
 </style>
