@@ -28,10 +28,8 @@
   </div>
 </template>
 <script>
-import echarts from 'echarts'
 import { getElecAnalysis, getGasAnalysis } from '@/api/chart'
 import LineChart from './components/LineChart'
-require('echarts/theme/macarons') // echarts theme
 
 export default {
   components: {
