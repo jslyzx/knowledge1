@@ -8,3 +8,11 @@ export function getElecAnalysis(query) {
   })
 }
 
+export function getGasAnalysis(query) {
+  return request({
+    url: '/vue-admin-template/data/getGasAnalysis',
+    method: 'get',
+    params: query
+  })
+}
+
