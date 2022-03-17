@@ -1,39 +1,32 @@
 <template>
   <div class="app-container">
     <div class="h-title">电能质量分析</div>
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="功率因数" name="1">
-        
-      </el-tab-pane>
-      <el-tab-pane label="频率" name="2">
-        
-      </el-tab-pane>
-      <el-tab-pane label="三相电压不平衡度" name="3">
-        
-      </el-tab-pane>
-      <el-tab-pane label="三相电流不平衡度" name="4">
-        
-      </el-tab-pane>
-      <el-tab-pane label="无功功率" name="5">
-        
-      </el-tab-pane>
-      <el-tab-pane label="电压总谐波" name="6">
-        
-      </el-tab-pane>
-      <el-tab-pane label="电流总谐波" name="7">
-        
-      </el-tab-pane>
-      <el-tab-pane label="剩余电流" name="8">
-        
-      </el-tab-pane>
+    <div class="elec">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="功率因数" name="1" />
+      <el-tab-pane label="频率" name="2" />
+      <el-tab-pane label="三相电压不平衡度" name="3" />
+      <el-tab-pane label="三相电流不平衡度" name="4" />
+      <el-tab-pane label="无功功率" name="5" />
+      <el-tab-pane label="电压总谐波" name="6" />
+      <el-tab-pane label="电流总谐波" name="7" />
+      <el-tab-pane label="剩余电流" name="8" />
     </el-tabs>
+    <line-chart :chart-data="lineChartData" />
+    </div>
+    
   </div>
 </template>
 <script>
 import echarts from 'echarts'
+import { getElecAnalysis } from '@/api/chart'
+import LineChart from './components/LineChart'
 require('echarts/theme/macarons') // echarts theme
 
 export default {
+  components: {
+    LineChart
+  },
   data() {
     return {
       depId: '',
@@ -41,19 +34,36 @@ export default {
       chart2: null,
       chart3: null,
       chart4: null,
-      activeName: '1'
+      activeName: '1',
+      lineChartData: {}
     }
   },
-  created() {},
-  mounted() {
-    this.$nextTick(() => {
-      this.initChart1()
-      this.initChart2()
-      this.initChart3()
-      this.initChart4()
+  created() {
+    this.getElecAnalysis({
+      name: '功率因数',
+      type: '1'
     })
   },
+  mounted() {
+    // this.$nextTick(() => {
+    //   this.initChart1()
+    //   this.initChart2()
+    //   this.initChart3()
+    //   this.initChart4()
+    // })
+  },
   methods: {
+    handleClick(tab, event) {
+      this.getElecAnalysis({
+        name: tab.label,
+        type: tab.name
+      })
+    },
+    getElecAnalysis(data){
+      getElecAnalysis(data).then(response => {
+        this.lineChartData = response.data
+      })
+    },
     initChart1() {
       this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
@@ -181,160 +191,8 @@ export default {
   margin: 0 0 20px;
 }
 
-.form {
+.elec{
   background-color: #fff;
-  height: 80px;
-  margin-bottom: 16px;
-
-  .el-col {
-    margin-top: 20px;
-  }
+  padding: 20px 10px;
 }
-
-.data {
-  background-color: #fff;
-  padding: 20px 20px 8px 20px;
-
-  &-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.85);
-    line-height: 24px;
-    margin-bottom: 10px;
-  }
-
-  .item {
-    border-right: 1px solid rgba(0, 0, 0, .06);
-
-    &:last-child {
-      border-right: none;
-    }
-
-    &:not(:first-child) {
-      padding-left: 20px;
-    }
-
-    &-t {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(0, 0, 0, 0.65);
-      line-height: 22px;
-    }
-
-    &-c {
-      font-size: 30px;
-      color: rgba(0, 0, 0, 0.85);
-      line-height: 38px;
-    }
-  }
-
-  .compare {
-    font-size: 12px;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.45);
-    line-height: 20px;
-
-    span {
-      color: #F5222D;
-    }
-  }
-}
-
-.middle {
-  margin-top: 16px;
-
-  .trend {
-    height: 396px;
-    background-color: #fff;
-
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.85);
-      line-height: 24px;
-      padding: 20px 0 0 20px;
-    }
-
-    .con {
-      height: calc(100% - 44px);
-    }
-  }
-
-  .list {
-    height: 396px;
-    background-color: #fff;
-
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.85);
-      line-height: 24px;
-      padding: 20px 0 0 20px;
-    }
-
-    .con {
-      height: calc(100% - 44px);
-      padding: 10px 20px;
-
-      .table {
-        width: 100%;
-        height: 100%;
-
-        .thead {
-          height: 32px;
-          background: #D8D8D8;
-          opacity: 0.37;
-
-          .th {
-            text-align: left;
-            padding-left: 17px;
-            line-height: 32px;
-          }
-        }
-
-        .tbody {
-          height: calc(100% - 32px);
-          overflow: auto;
-
-          .tr {
-            line-height: 22px;
-            height: 22px;
-            margin: 16px 0;
-
-            .td {
-              text-align: left;
-              padding-left: 17px;
-              font-size: 12px;
-              font-weight: 400;
-              color: #494949;
-              line-height: 26px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.charts {
-  margin-top: 16px;
-
-  .chart {
-    background-color: #fff;
-    height: 355px;
-
-    &-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.85);
-      line-height: 24px;
-      padding: 20px 0 0 20px;
-    }
-
-    &-con {
-      height: calc(100% - 44px);
-    }
-  }
-}
-
 </style>
