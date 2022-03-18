@@ -56,6 +56,20 @@
         </el-col>
       </el-row>
     </div>
+    <div class="total">
+      <div class="title">总体情况分析</div>
+      <el-row>
+        <el-col :span="12">
+          <div class="name">工业气体用气指标综合评定</div>
+          <div class="circle">
+            <div class="inner">
+              74 <span>分</span>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="12"></el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 <script>
@@ -361,6 +375,60 @@ export default {
 
   .bar {
     height: 340px;
+  }
+}
+
+.total {
+  background-color: #fff;
+
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #494949;
+    line-height: 20px;
+    padding: 18px 20px 0;
+  }
+
+  .name {
+    width: 340px;
+    height: 43px;
+    border-radius: 22px;
+    border: 3px solid #12CAA1;
+    font-size: 24px;
+    font-weight: 500;
+    color: #494949;
+    line-height: 43px;
+    text-align: center;
+    margin: 30px auto;
+  }
+
+  .circle {
+    width: 216px;
+    height: 216px;
+    margin: 0 auto;
+    border-radius: 216px;
+    background: #F6F6F6;
+    border: 6px solid #12CAA1;
+
+    .inner {
+
+      width: 170px;
+      height: 170px;
+      background: #EBEBEB;
+      border-radius: 170px;
+      margin-top: 17px;
+      margin-left: 17px;
+      font-size: 81px;
+      color: #FC642D;
+      line-height: 170px;
+      text-align: center;
+      span{
+        color: #494949;
+        font-size: 14px;
+        position: absolute;
+        bottom: 0;
+      }
+    }
   }
 }
 
