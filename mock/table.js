@@ -6,6 +6,7 @@ const dwList = []
 const qzList = []
 const projectList = []
 const codeList = []
+const consumeList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
@@ -70,7 +71,15 @@ for (let i = 0; i < count; i++) {
     day: 23
   }))
 
-
+  consumeList.push(Mock.mock({
+    date: '@date',
+    amount: '@integer(100, 900)',
+    amountCost: '@integer(100, 900)',
+    inAmount: '@integer(100, 900)',
+    inCost: '@integer(100, 900)',
+    storage: '@integer(100, 900)',
+    price: '@integer(100, 900)'
+  }))
 }
 
 for (let i = 0; i < 8; i++) {
@@ -167,6 +176,21 @@ module.exports = [{
         code: 20000,
         data: {
           total: codeList.length,
+          items: pageList
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/consume/list',
+    type: 'get',
+    response: config => {
+      const { page = 1, limit = 20 } = config.query
+      const pageList = consumeList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return {
+        code: 20000,
+        data: {
+          total: consumeList.length,
           items: pageList
         }
       }

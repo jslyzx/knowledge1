@@ -138,6 +138,16 @@ export const constantRoutes = [
         path: 'consume',
         component: () => import('@/views/data/consume'),
         meta: { title: '能耗结算报表', icon: 'form' }
+      },
+      {
+        path: 'total',
+        component: () => import('@/views/data/total'),
+        meta: { title: '综合能效', icon: 'form' }
+      },
+      {
+        path: 'remark',
+        component: () => import('@/views/data/remark'),
+        meta: { title: '能效考评', icon: 'form' }
       }
     ]
   },

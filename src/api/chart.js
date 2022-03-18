@@ -16,3 +16,10 @@ export function getGasAnalysis(query) {
   })
 }
 
+export function getGuanZhongData(query) {
+  return request({
+    url: '/vue-admin-template/data/guanZhong',
+    method: 'get',
+    params: query
+  })
+}

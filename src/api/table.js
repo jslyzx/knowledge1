@@ -55,3 +55,13 @@ export function getCodeList(query) {
     params: query
   })
 }
+
+export function getConsumeList(query) {
+  return request({
+    url: '/vue-admin-template/consume/list',
+    method: 'get',
+    params: query
+  })
+}
+
+
