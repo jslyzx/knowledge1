@@ -12,6 +12,71 @@
       </div>
       <div ref="chart2" class="chart-con"></div>
     </div>
+    <div class="chart">
+      <div class="chart-head">
+        <div class="chart-title">用能成本分摊情况</div>
+        <div class="table">
+          <table cellspacing="0">
+            <thead>
+              <tr>
+                <th>品类</th>
+                <th>用量</th>
+                <th>金额</th>
+                <th>同比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>电量</td>
+                <td>1672.58kWh</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>氧气</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>二氧化碳</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>丙烷</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>蒸汽</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>天然气</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>压缩空气</td>
+                <td>1209.8m3</td>
+                <td>7910.87</td>
+                <td>3.42%</td>
+              </tr>
+              <tr>
+                <td>合计金额</td>
+                <td colspan="3">¥60106.02</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -22,7 +87,10 @@ export default {
     return {
       date: '',
       chart1: null,
-      chart2: null
+      chart2: null,
+      tableData: {
+
+      }
     }
   },
   created() {},
@@ -73,37 +141,36 @@ export default {
           type: 'value'
         },
         series: [{
-            name: '液氧',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          },{
-            name: '二氧化碳',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          },{
-            name: '丙烷',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          },{
-            name: '蒸汽',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          },{
-            name: '天然气',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          },{
-            name: '压缩空气',
-            type: 'line',
-            symbol: 'none',
-            data: this.generateRandomArray(0, 1000, 12)
-          }
-        ]
+          name: '液氧',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }, {
+          name: '二氧化碳',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }, {
+          name: '丙烷',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }, {
+          name: '蒸汽',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }, {
+          name: '天然气',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }, {
+          name: '压缩空气',
+          type: 'line',
+          symbol: 'none',
+          data: this.generateRandomArray(0, 1000, 12)
+        }]
       })
     },
     generateRandomArray(a, b, length) {
@@ -139,6 +206,38 @@ export default {
   &~.chart {
     margin-top: 16px;
     margin-bottom: 16px;
+  }
+
+  .table {
+    padding: 10px 20px;
+
+    table {
+      width: 100%;
+
+      th {
+        width: 25%;
+        text-align: left;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: rgba(0,0,0,.85);
+        font-weight: bold;
+        border: 1px solid #E8E8E8;
+        background: #FAFAFA;
+      }
+
+      td {
+        width: 25%;
+        text-align: left;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: rgba(0,0,0,.65);
+        border: 1px solid #E8E8E8;
+      }
+    }
   }
 }
 
