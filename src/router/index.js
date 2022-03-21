@@ -69,6 +69,18 @@ export const constantRoutes = [
   },
 
   {
+    path: '/form',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/form/index'),
+        meta: { title: '数据录入', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/cwb-control',
     component: Layout,
     children: [
