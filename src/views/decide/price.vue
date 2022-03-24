@@ -1,20 +1,20 @@
 <template>
   <div class="app-container">
-    <div class="chart">
+    <div class="chart switchBg">
       <div class="chart-head">
-        <div class="chart-title">用点量趋势图</div>
+        <div class="chart-title switchText">用点量趋势图</div>
       </div>
       <div ref="chart1" class="chart-con"></div>
     </div>
-    <div class="chart">
+    <div class="chart switchBg">
       <div class="chart-head">
-        <div class="chart-title">工业气体用量趋势图</div>
+        <div class="chart-title switchText">工业气体用量趋势图</div>
       </div>
       <div ref="chart2" class="chart-con"></div>
     </div>
-    <div class="chart">
+    <div class="chart switchBg">
       <div class="chart-head">
-        <div class="chart-title">用能成本分摊情况</div>
+        <div class="chart-title switchText">用能成本分摊情况</div>
         <div class="table">
           <table cellspacing="0">
             <thead>
@@ -90,7 +90,9 @@ export default {
       chart2: null,
       tableData: {
 
-      }
+      },
+      theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
+      isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
   created() {},
@@ -109,7 +111,10 @@ export default {
         },
         legend: {
           right: 50,
-          top: 10
+          top: 10,
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         xAxis: [{
           type: 'category',
@@ -130,7 +135,9 @@ export default {
       this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
       this.chart2.setOption({
         legend: {
-
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         xAxis: {
           type: 'category',

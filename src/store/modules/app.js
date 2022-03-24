@@ -3,7 +3,8 @@ import Cookies from 'js-cookie'
 const state = {
   sidebar: {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
-    withoutAnimation: false
+    withoutAnimation: false,
+    isDark: localStorage.getItem('theme') === 'theme-dark'
   },
   device: 'desktop'
 }
@@ -25,6 +26,9 @@ const mutations = {
   },
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
+  },
+  SWITCH_THEME: (state, isDark) => {
+    state.sidebar.isDark = isDark
   }
 }
 
@@ -37,6 +41,9 @@ const actions = {
   },
   toggleDevice({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
+  },
+  switchTheme({ commit }, isDark) {
+    commit('SWITCH_THEME', isDark)
   }
 }
 

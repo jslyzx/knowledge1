@@ -4,7 +4,7 @@
       <el-col :span="6" class="left">
         <el-tree :data="data" node-key="id" :current-node-key="selectedId" :props="defaultProps" :default-expand-all="true" :highlight-current="true" @node-click="handleNodeClick" />
       </el-col>
-      <el-col :span="18" class="right">
+      <el-col :span="18" class="right switchBg">
         <el-tabs v-model="activeName">
           <el-tab-pane label="项修" name="xx">
             <Xx :device-id="selectedId" />

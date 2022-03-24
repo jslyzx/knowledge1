@@ -1,43 +1,43 @@
 <template>
   <div class="app-container">
     <div class="h-title">船厂项目管理</div>
-    <el-row class="top">
+    <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">全部项目</div>
+          <div class="title switchText">全部项目</div>
           <div class="num">57</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot gray"></i>创建中</div>
+          <div class="title switchText"><i class="dot gray"></i>创建中</div>
           <div class="num">0</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot blue"></i>项目审查中</div>
+          <div class="title switchText"><i class="dot blue"></i>项目审查中</div>
           <div class="num">1</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot red"></i>方案评审失败</div>
+          <div class="title switchText"><i class="dot red"></i>方案评审失败</div>
           <div class="num">55</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot green"></i>方案评审成功</div>
+          <div class="title switchText"><i class="dot green"></i>方案评审成功</div>
           <div class="num">2</div>
         </div>
       </el-col>
     </el-row>
-    <div class="projects">
+    <div class="projects switchBg">
       <div class="head">
         <el-row>
           <el-col class="head" :span="3">
-            <span class="head-t">我的项目</span>
+            <span class="head-t switchText">我的项目</span>
             <span class="num">57</span>
           </el-col>
           <el-col class="search" :span="3" :offset="18">
@@ -50,13 +50,13 @@
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="450">
         <el-table-column label="项目名称" width="190" align="center">
           <template slot-scope="scope">
-            <div class="name">{{ scope.row.name }}</div>
+            <div class="name switchText">{{ scope.row.name }}</div>
             <div class="name-wrap">
               <div class="detail">
                 <i class="el-icon-document" style="font-weight: bold;"></i>
                 <span>详情</span>
               </div>
-              <div class="day">已进行{{ scope.row.day }}天</div>
+              <div class="day switchText">已进行{{ scope.row.day }}天</div>
             </div>
           </template>
         </el-table-column>

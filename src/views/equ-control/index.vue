@@ -1,46 +1,46 @@
 <template>
   <div class="app-container">
     <div class="h-title">设备控制管理</div>
-    <el-row class="top">
+    <el-row class="top switchBg">
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title">设备台数</div>
+          <div class="title switchText">设备台数</div>
           <div class="num">572</div>
         </div>
       </el-col>
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title">其中反控设备</div>
+          <div class="title switchText">其中反控设备</div>
           <div class="num">72</div>
         </div>
       </el-col>
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title"><i class="dot red"></i>当前触发报警</div>
+          <div class="title switchText"><i class="dot red"></i>当前触发报警</div>
           <div class="num">1</div>
         </div>
       </el-col>
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title"><i class="dot gray"></i>已恢复报警</div>
+          <div class="title switchText"><i class="dot gray"></i>已恢复报警</div>
           <div class="num">55</div>
         </div>
       </el-col>
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title"><i class="dot blue"></i>未恢复报警</div>
+          <div class="title switchText"><i class="dot blue"></i>未恢复报警</div>
           <div class="num">2</div>
         </div>
       </el-col>
       <el-col :span="4">
         <div class="grid-content">
-          <div class="title"><i class="dot green"></i>平均恢复时长（min）</div>
+          <div class="title switchText"><i class="dot green"></i>平均恢复时长（min）</div>
           <div class="num">15.12</div>
         </div>
       </el-col>
     </el-row>
     <el-form label-width="120px">
-      <el-row class="form">
+      <el-row class="form switchBg">
         <el-col :span="5">
           <el-form-item label="设备类型">
             <el-select v-model="form.type" placeholder="全部">
@@ -71,7 +71,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <div class="table-wrap">
+    <div class="table-wrap switchBg">
       <el-button size="middle" type="primary" @click="handleCreate">添加控制设备</el-button>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="380">
         <el-table-column label="设备编号" width="110" align="center">

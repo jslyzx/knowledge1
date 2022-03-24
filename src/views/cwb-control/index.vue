@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
     <div class="h-title">船坞泵设备管理</div>
-    <el-row class="top">
+    <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">船坞泵台数</div>
+          <div class="title switchText">船坞泵台数</div>
           <div class="num">321</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">总功率（kW）</div>
+          <div class="title switchText">总功率（kW）</div>
           <div class="num">2200</div>
         </div>
       </el-col>
@@ -22,18 +22,18 @@
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">平均转速（r/min）</div>
+          <div class="title switchText">平均转速（r/min）</div>
           <div class="num">500</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">平均每天工作时长（H）</div>
+          <div class="title switchText">平均每天工作时长（H）</div>
           <div class="num">10</div>
         </div>
       </el-col>
     </el-row>
-    <div class="table-wrap">
+    <div class="table-wrap switchBg">
       <el-row>
         <el-col :span="4">
           <el-button size="middle" type="primary" @click="handleCreate">添加船坞泵设备</el-button>

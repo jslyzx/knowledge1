@@ -5,10 +5,10 @@
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
+        :background-color="menuBg"
+        :text-color="menuText"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
+        :active-text-color="menuActiveText"
         :collapse-transition="false"
         mode="vertical"
       >
@@ -26,6 +26,13 @@ import variables from '@/styles/variables.scss'
 
 export default {
   components: { SidebarItem, Logo },
+  data(){
+    return {
+      menuBg: localStorage.getItem('theme') === 'theme-dark' ? '#304156' : '#fff',
+      menuText: localStorage.getItem('theme') === 'theme-dark' ? '#bfcbd9' : '#5C5C5C',
+      menuActiveText: localStorage.getItem('theme') === 'theme-dark' ? '#409EFF' : '#5C5C5C',
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar'
@@ -50,6 +57,19 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  watch: {
+    '$store.getters.sidebar.isDark': function(newVal){
+      if(newVal){ //深色
+        this.menuBg = '#304156'
+        this.menuText = '#bfcbd9'
+        this.menuActiveText = '#409EFF'
+      }else{ //浅色
+        this.menuBg = '#fff'
+        this.menuText = '#5C5C5C'
+        this.menuActiveText = '#5C5C5C'
+      }
     }
   }
 }

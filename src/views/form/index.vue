@@ -1,8 +1,8 @@
 <template>
-  <div class="app-container">
+  <div class="app-container switchBg">
     <el-row class="row">
       <el-col :span="8" class="part">
-        <div class="part-title">月产量信息录入</div>
+        <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form1" size="small">
           <el-form-item label="万元产值外付动能：">
             <el-input v-model="form1.data1" placeholder="请输入">
@@ -22,7 +22,7 @@
         </el-form>
       </el-col>
       <el-col :span="8" class="part">
-        <div class="part-title">日产量信息录入</div>
+        <div class="part-title switchText">日产量信息录入</div>
         <el-form label-position="top" :model="form2" size="small">
           <el-form-item label="万元产值外付动能：">
             <el-input v-model="form2.data1" placeholder="请输入">
@@ -42,7 +42,7 @@
         </el-form>
       </el-col>
       <el-col :span="8" class="part">
-        <div class="part-title">月产量信息录入</div>
+        <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form3" size="small">
           <el-form-item label="当月用电量累积：">
             <el-input v-model="form3.data1" placeholder="请输入">
@@ -59,7 +59,7 @@
     </el-row>
     <el-row class="row">
       <el-col :span="8" class="part">
-        <div class="part-title">单耗录入</div>
+        <div class="part-title switchText">单耗录入</div>
         <el-form label-position="top" :model="form4" size="small">
           <el-form-item label="液氧单耗：">
             <el-input v-model="form4.data1" placeholder="请输入">
@@ -89,7 +89,7 @@
         </el-form>
       </el-col>
       <el-col :span="8" class="part">
-        <div class="part-title">单价录入</div>
+        <div class="part-title switchText">单价录入</div>
         <el-form label-position="top" :model="form5" size="small">
           <el-form-item label="液氧单价：">
             <el-input v-model="form5.data1" placeholder="请输入">
@@ -122,7 +122,7 @@
     <el-row class="row" :gutter="30">
       <el-col :span="6">
         <div class="item">
-          <div class="item-t">核心动力设备能耗</div>
+          <div class="item-t switchText">核心动力设备能耗</div>
           <el-form size="small" v-model="form6" label-width="60px">
             <el-form-item label="年份：">
               <el-select v-model="form6.year">
@@ -194,7 +194,7 @@
       </el-col>
       <el-col :span="6">
         <div class="item">
-          <div class="item-t">万修正吨</div>
+          <div class="item-t switchText">万修正吨</div>
           <el-form size="small" v-model="form7" label-width="60px">
             <el-form-item label="年份：">
               <el-select v-model="form7.year">
@@ -266,7 +266,7 @@
       </el-col>
       <el-col :span="6">
         <div class="item">
-          <div class="item-t">整体生产能耗</div>
+          <div class="item-t switchText">整体生产能耗</div>
           <el-form size="small" v-model="form8" label-width="60px">
             <el-form-item label="年份：">
               <el-select v-model="form8.year">
@@ -338,7 +338,7 @@
       </el-col>
       <el-col :span="6">
         <div class="item">
-          <div class="item-t">主要设备停机率</div>
+          <div class="item-t switchText">主要设备停机率</div>
           <el-form size="small" v-model="form9" label-width="60px">
             <el-form-item label="年份：">
               <el-select v-model="form9.year">

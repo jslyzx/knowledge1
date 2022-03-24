@@ -71,6 +71,7 @@
     .el-menu-item.is-active{
       background-color: #E6F7FF !important;
       border-right: 1px solid #1890FF !important;
+      color: #5C5C5C;
     }
 
     // menu hover
@@ -226,6 +227,49 @@
     &::-webkit-scrollbar-thumb {
       background: #99a9bf;
       border-radius: 20px;
+    }
+  }
+}
+
+#app.theme-dark{
+  
+  .sidebar-container{
+    background-color: #304156 !important;
+    .el-menu{
+      background-color: #304156 !important;
+      .el-menu-item{
+        color: #fff !important;
+        background-color: #304156 !important;
+      }
+      .el-menu-item.is-active{
+        color: rgb(64, 158, 255) !important;
+        background-color: rgb(48, 65, 86) !important;
+        border-right: none !important;
+      }
+
+      // menu hover
+      .submenu-title-noDropdown,
+      .el-submenu__title {
+        &:hover {
+          background-color: #263445 !important;
+        }
+      }
+
+      .is-active>.el-submenu__title {
+        color: #f4f4f5 !important;
+      }
+
+      & .nest-menu .el-submenu>.el-submenu__title,
+      & .el-submenu .el-menu-item {
+        background-color: #1f2d3d!important;
+        color: #fff !important;
+        &.is-active{
+          color: rgb(64, 158, 255) !important;
+        }
+        &:hover {
+          background-color: #001528 !important;
+        }
+      }
     }
   }
 }

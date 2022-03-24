@@ -5,6 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <el-switch v-model="lightTheme" active-color="#177DDC" active-text="浅色" inactive-color="#ccc" inactive-text="深色" @change="switchTheme" class="switch-theme"></el-switch>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -41,6 +42,11 @@ export default {
     Breadcrumb,
     Hamburger
   },
+  data(){
+    return{
+      lightTheme: localStorage.getItem('theme') !== 'theme-dark'
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -54,6 +60,17 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    switchTheme(a){
+      if(a){ //浅色
+        localStorage.setItem('theme', 'theme-light')
+        document.getElementById('app').className = 'theme-light'
+        this.$store.dispatch('app/switchTheme', false)
+      }else{
+        localStorage.setItem('theme', 'theme-dark')
+        document.getElementById('app').className = 'theme-dark'
+        this.$store.dispatch('app/switchTheme', true)
+      }
     }
   }
 }
@@ -88,6 +105,22 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
+
+    ::v-deep .el-switch__label{
+      color: #ccc !important;
+    }
+
+    ::v-deep .el-switch__label.is-active{
+      color: #409EFF !important;
+    }
+
+    .switch-theme{
+      float: left;
+      margin-top: 15px;
+      margin-right: 30px;
+      border-right: 1px solid rgba(238, 238, 238, 0.2);
+      padding-right: 20px;
+    }
 
     &:focus {
       outline: none;
@@ -136,4 +169,6 @@ export default {
     }
   }
 }
+
+
 </style>

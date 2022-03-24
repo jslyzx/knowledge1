@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="h-title">安全辅助决策</div>
     <el-form label-width="90px">
-      <el-row class="form">
+      <el-row class="form switchBg">
         <el-col :span="5">
           <el-form-item label="选择月份">
             <el-date-picker v-model="date" type="month" />
@@ -14,57 +14,57 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-row class="top">
+    <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">报警总数</div>
+          <div class="title switchText">报警总数</div>
           <div class="num">57</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot red" />极高类型报警</div>
+          <div class="title switchText"><i class="dot red" />极高类型报警</div>
           <div class="num">72</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot gray" />已恢复</div>
+          <div class="title switchText"><i class="dot gray" />已恢复</div>
           <div class="num">1</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot blue" />未恢复</div>
+          <div class="title switchText"><i class="dot blue" />未恢复</div>
           <div class="num">55</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title"><i class="dot green" />平均恢复时长</div>
+          <div class="title switchText"><i class="dot green" />平均恢复时长</div>
           <div class="num">2</div>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="14" class="charts">
       <el-col :span="12">
-        <div class="chart">
-          <div class="chart-title">本月报警类型统计</div>
+        <div class="chart switchBg">
+          <div class="chart-title switchText">本月报警类型统计</div>
           <div ref="chart1" class="chart-con" />
         </div>
       </el-col>
       <el-col :span="12">
-        <div class="chart">
-          <div class="chart-title">各区域报警排名统计</div>
+        <div class="chart switchBg">
+          <div class="chart-title switchText">各区域报警排名统计</div>
           <div class="chart-con">
             <div class="rank-list">
               <div class="item" v-for="v in rankList">
                 <el-row>
                   <el-col :span="1">
-                    <div class="rank" :class="{active: v.rank <= 3}">{{v.rank}}</div>
+                    <div class="rank switchText" :class="{active: v.rank <= 3}">{{v.rank}}</div>
                   </el-col>
                   <el-col :span="5">
-                    <div class="name">{{v.name}}</div>
+                    <div class="name switchText">{{v.name}}</div>
                   </el-col>
                   <el-col :span="18">
                     <el-progress :percentage="v.num"></el-progress>
@@ -77,14 +77,17 @@
         </div>
       </el-col>
     </el-row>
-    <div class="full-chart">
-      <div class="chart-title">报警趋势分析</div>
+    <div class="full-chart switchBg">
+      <div class="chart-title switchText">报警趋势分析</div>
       <div ref="chart2" class="chart-con" />
     </div>
   </div>
 </template>
 <script>
 import echarts from 'echarts'
+echarts.registerTheme('aa', {
+  backgroundColor: "#2C3748"
+});
 require('echarts/theme/macarons') // echarts theme
 export default {
   data() {
@@ -112,7 +115,9 @@ export default {
         rank: 5,
         name: '1#配电房',
         num: 83
-      }]
+      }],
+      theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
+      isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
   created() {},
@@ -124,7 +129,7 @@ export default {
   },
   methods: {
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart1 = echarts.init(this.$refs.chart1, this.theme)
       this.chart1.setOption({
         tooltip: {
           trigger: 'item'
@@ -132,7 +137,10 @@ export default {
         legend: {
           top: 'middle',
           left: 'right',
-          orient: 'verticalAlign'
+          orient: 'verticalAlign',
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         series: [{
           type: 'pie',
@@ -155,10 +163,13 @@ export default {
       })
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
+      this.chart2 = echarts.init(this.$refs.chart2, this.theme)
       this.chart2.setOption({
         legend: {
-          left: 125
+          left: 125,
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         xAxis: [{
           type: 'category',

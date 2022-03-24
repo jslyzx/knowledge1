@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="h-title">电能质量分析</div>
-    <div class="elec">
+    <div class="elec switchBg">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="功率因数" name="1" />
         <el-tab-pane label="频率" name="2" />
@@ -15,7 +15,7 @@
       <line-chart :chart-data="lineChartData" />
     </div>
     <div class="h-title" style="margin-top: 20px;">工业气体质量分析</div>
-    <div class="elec">
+    <div class="elec switchBg">
       <el-tabs v-model="activeName2" @tab-click="handleClick2">
         <el-tab-pane label="天然气" name="1" />
         <el-tab-pane label="二氧化碳" name="2" />

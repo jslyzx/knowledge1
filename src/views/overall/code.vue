@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container switchBg">
     <div class="h-title">分类编码库</div>
     <div class="search">
       <el-row>

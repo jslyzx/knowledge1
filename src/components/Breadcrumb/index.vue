@@ -64,6 +64,10 @@ export default {
   line-height: 50px;
   margin-left: 8px;
 
+  .el-breadcrumb__inner a{
+    color: #97a8be !important;
+  }
+  
   .no-redirect {
     color: #97a8be;
     cursor: text;

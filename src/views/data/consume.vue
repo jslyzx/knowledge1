@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <div class="wrap">
-      <div class="title">能耗结算报表</div>
+    <div class="wrap switchBg">
+      <div class="title switchText">能耗结算报表</div>
       <el-form label-width="80px">
         <el-row class="middle">
           <el-col :span="3">

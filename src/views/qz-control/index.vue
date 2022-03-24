@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="h-title">起重设备管理</div>
-    <div class="table-wrap">
+    <div class="table-wrap switchBg">
       <el-row>
         <el-col :span="4">
           <el-button size="middle" type="primary" @click="handleCreate">添加起重设备</el-button>

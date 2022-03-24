@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <div class="chart">
-      <div class="chart-title">产量能耗统计</div>
+    <div class="chart switchBg">
+      <div class="chart-title switchText">产量能耗统计</div>
       <div ref="chart1" class="chart-con" />
     </div>
-    <div class="chart" style="padding-bottom: 20px;">
+    <div class="chart switchBg" style="padding-bottom: 20px;">
       <el-menu :default-active="activeIndex1" mode="horizontal" @select="handleSelect">
         <el-menu-item index="液氧">液氧</el-menu-item>
         <el-menu-item index="二氧化碳">二氧化碳</el-menu-item>
@@ -12,10 +12,10 @@
         <el-menu-item index="丙烷">丙烷</el-menu-item>
         <el-menu-item index="蒸汽">蒸汽</el-menu-item>
       </el-menu>
-      <div class="chart-title">瞬时流量曲线</div>
+      <div class="chart-title switchText">瞬时流量曲线</div>
       <div ref="chart2" class="chart-con" />
       <div class="tip">
-        <div class="tip-title">流量总体情况</div>
+        <div class="tip-title switchText">流量总体情况</div>
         <div class="tip-info">
           •本月平均瞬时流量为4343m³/h，最高瞬时流量值出现在26日为1231m³/h，最低瞬时流量出现在22日为3421m³/h.
         </div>
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="chart" style="padding-bottom: 20px;">
+    <div class="chart switchBg" style="padding-bottom: 20px;">
       <el-menu :default-active="activeIndex2" mode="horizontal" @select="handleSelect">
         <el-menu-item index="液氧">液氧</el-menu-item>
         <el-menu-item index="二氧化碳">二氧化碳</el-menu-item>
@@ -32,10 +32,10 @@
         <el-menu-item index="丙烷">丙烷</el-menu-item>
         <el-menu-item index="蒸汽">蒸汽</el-menu-item>
       </el-menu>
-      <div class="chart-title">压力曲线</div>
+      <div class="chart-title switchText">压力曲线</div>
       <div ref="chart3" class="chart-con" />
       <div class="tip">
-        <div class="tip-title">压力总体情况</div>
+        <div class="tip-title switchText">压力总体情况</div>
         <div class="tip-info">
           •本月平均压力为6.23bar，最高压力值出现在24日为7.42bar，最低压力出现在8日为2.43bar。
         </div>
@@ -44,23 +44,23 @@
         </div>
       </div>
     </div>
-    <div class="chart">
-      <div class="chart-title">报警分布统计</div>
+    <div class="chart switchBg">
+      <div class="chart-title switchText">报警分布统计</div>
       <el-row>
         <el-col :span="12">
           <div ref="chart4" class="chart-pie" />
-          <div class="warn">天然气相关报警产生较多次报警，需要密切关注该类型的用气情况。</div>
+          <div class="warn switchText">天然气相关报警产生较多次报警，需要密切关注该类型的用气情况。</div>
         </el-col>
         <el-col :span="12">
           <div ref="chart5" class="bar" />
         </el-col>
       </el-row>
     </div>
-    <div class="total">
-      <div class="title">总体情况分析</div>
+    <div class="total switchBg">
+      <div class="title switchText">总体情况分析</div>
       <el-row>
         <el-col :span="12">
-          <div class="name">工业气体用气指标综合评定</div>
+          <div class="name switchText">工业气体用气指标综合评定</div>
           <div class="circle">
             <div class="inner">
               74 <span>分</span>
@@ -99,6 +99,9 @@
 <script>
 import { getGuanZhongData } from '@/api/chart'
 import echarts from 'echarts'
+echarts.registerTheme('aa', {
+  backgroundColor: "#2C3748"
+});
 require('echarts/theme/macarons') // echarts theme
 
 export default {
@@ -113,7 +116,9 @@ export default {
       chart4: null,
       chart5: null,
       activeIndex1: '液氧',
-      activeIndex2: '液氧'
+      activeIndex2: '液氧',
+      theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
+      isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
   created() {
@@ -157,7 +162,7 @@ export default {
       };
     },
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart1 = echarts.init(this.$refs.chart1, this.theme)
       this.chart1.setOption({
         tooltip: {
           trigger: 'axis',
@@ -171,7 +176,11 @@ export default {
           bottom: '3%',
           containLabel: true
         },
-        legend: {},
+        legend: {
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
+        },
         xAxis: {
           type: 'category',
           data: ['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08', '2021-09', '2021-10']
@@ -218,7 +227,7 @@ export default {
       })
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
+      this.chart2 = echarts.init(this.$refs.chart2, this.theme)
       let base = +new Date(1988, 9, 3);
       let oneDay = 24 * 3600 * 1000;
       let data = [
@@ -269,7 +278,7 @@ export default {
       })
     },
     initChart3() {
-      this.chart3 = echarts.init(this.$refs.chart3, 'macarons')
+      this.chart3 = echarts.init(this.$refs.chart3, this.theme)
       let base = +new Date(1988, 9, 3);
       let oneDay = 24 * 3600 * 1000;
       let data = [
@@ -320,7 +329,7 @@ export default {
       })
     },
     initChart4() {
-      this.chart4 = echarts.init(this.$refs.chart4, 'macarons')
+      this.chart4 = echarts.init(this.$refs.chart4, this.theme)
       this.chart4.setOption({
         grid: {
           left: '1%',
@@ -332,7 +341,10 @@ export default {
           trigger: 'item'
         },
         legend: {
-          top: 'bottom'
+          top: 'bottom',
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         series: [{
           type: 'pie',

@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
-    <div class="top">
+    <div class="top switchBg">
       <el-row :gutter="30">
         <el-col :span="8">
           <el-row class="head">
             <el-col :span="6">
-              <div class="title">当前产量单耗</div>
+              <div class="title switchText">当前产量单耗</div>
             </el-col>
             <el-col :span="4">
-              <div class="tongji" :class="{active: type === 1}" @click="changeType(1)">按日统计</div>
+              <div class="tongji switchText" :class="{active: type === 1}" @click="changeType(1)">按日统计</div>
             </el-col>
             <el-col :span="4">
-              <div class="tongji" :class="{active: type === 2}" @click="changeType(2)">按月统计</div>
+              <div class="tongji switchText" :class="{active: type === 2}" @click="changeType(2)">按月统计</div>
             </el-col>
           </el-row>
           <table cellspacing="0" class="table">
@@ -52,7 +52,7 @@
         <el-col :span="16">
           <el-row class="head">
             <el-col :span="6">
-              <div class="title">关重参数</div>
+              <div class="title switchText">关重参数</div>
             </el-col>
           </el-row>
           <el-table :data="list" element-loading-text="Loading" border fit style="margin-top: 10px;">
@@ -85,20 +85,20 @@
         </el-col>
       </el-row>
     </div>
-    <div class="middle">
-      <div class="title">用气构成</div>
+    <div class="middle switchBg">
+      <div class="title switchText">用气构成</div>
       <el-row class="switch">
         <el-col :span="2">
-          <div class="type" :class="{active: gasType === 1}" @click="changeGasType(1)">按日统计</div>
+          <div class="type switchText" :class="{active: gasType === 1}" @click="changeGasType(1)">按日统计</div>
         </el-col>
         <el-col :span="2">
-          <div class="type" :class="{active: gasType === 2}" @click="changeGasType(2)">按月统计</div>
+          <div class="type switchText" :class="{active: gasType === 2}" @click="changeGasType(2)">按月统计</div>
         </el-col>
       </el-row>
       <div ref="chart1" class="chart"></div>
     </div>
-    <div class="bottom">
-      <div class="title">产量能耗统计</div>
+    <div class="bottom switchBg">
+      <div class="title switchText">产量能耗统计</div>
       <div ref="chart2" class="chart"></div>
     </div>
   </div>
@@ -115,7 +115,8 @@ export default {
       list: null,
       gasType: 1, // 1按日，2按月
       chart1: null,
-      chart2: null
+      chart2: null,
+      isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
   created() {
@@ -156,7 +157,11 @@ export default {
           bottom: '3%',
           containLabel: true
         },
-        legend: {},
+        legend: {
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
+        },
         xAxis: {
           type: 'category',
           data: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09', '09-10']
@@ -200,7 +205,11 @@ export default {
           bottom: '3%',
           containLabel: true
         },
-        legend: {},
+        legend: {
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
+        },
         xAxis: [{
           type: 'category',
           data: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09', '09-10']
@@ -262,9 +271,10 @@ export default {
     font-weight: 400;
     color: #494949;
     line-height: 20px;
+    cursor: pointer;
 
     &.active {
-      color: #1A90FE;
+      color: #1A90FE !important;
     }
   }
 
@@ -308,7 +318,7 @@ export default {
       cursor: pointer;
 
       &.active {
-        color: #1A90FE;
+        color: #1A90FE !important;
       }
     }
   }
