@@ -68,6 +68,11 @@
       width: 100% !important;
     }
 
+    .el-menu-item.is-active{
+      background-color: #E6F7FF !important;
+      border-right: 1px solid #1890FF !important;
+    }
+
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
