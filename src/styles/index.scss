@@ -86,6 +86,9 @@ div:focus {
   .el-form-item__label{
     color: #fff !important;
   }
+  .el-dialog .el-form-item__label{
+    color: #606266 !important;
+  }
   .pagination-container{
     background-color: #2C3748 !important;
     color: #fff !important;
@@ -105,5 +108,18 @@ div:focus {
   }
   .el-progress__text{
     color: #fff !important;
+  }
+  .el-menu--horizontal>.el-menu-item.is-active{
+    color: #fff !important;
+    border-bottom-color: #fff !important;
+  }
+  .el-menu{
+    background-color: #2C3748 !important;
+    .el-menu-item{
+      color: #fff !important;
+    }
+  }
+  .app-main{
+    background-color: #212D3F !important;
   }
 }

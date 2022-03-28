@@ -77,6 +77,39 @@
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
       </div>
     </div>
+    <el-dialog :title="编辑" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+        <el-form-item label="日期" prop="date">
+          <el-date-picker v-model="temp.date" type="date" :readonly="true" />
+        </el-form-item>
+        <el-form-item label="当日用量(t)" prop="amount">
+          <el-input v-model="temp.amount" placeholder="请输入当日用量" />
+        </el-form-item>
+        <el-form-item label="当日用量耗费(元)">
+          <el-input v-model="temp.amountCost" placeholder="请输入当日用量耗费" />
+        </el-form-item>
+        <el-form-item label="当日入库量(t)">
+          <el-input v-model="temp.inAmount" placeholder="请输入当日入库量" />
+        </el-form-item>
+        <el-form-item label="当日入库耗费(元)">
+          <el-input v-model="temp.inCost" placeholder="请输入当日入库耗费" />
+        </el-form-item>
+        <el-form-item label="当日库存(t)">
+          <el-input v-model="temp.storage" placeholder="请输入当日库存" />
+        </el-form-item>
+        <el-form-item label="当前气体单价(t/元)">
+          <el-input v-model="temp.price" placeholder="请输入当前气体单价" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="updateData()">
+          确定
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -96,7 +129,12 @@ export default {
         limit: 20,
         name: '液氧'
       },
-      activeIndex: '液氧'
+      activeIndex: '液氧',
+      dialogFormVisible: false,
+      rules: {
+        amount: [{ required: true, message: '请输入当日用量', trigger: 'blur' }]
+      },
+      temp: {}
     }
   },
   created() {
@@ -116,7 +154,14 @@ export default {
       this.listQuery.name = index
       this.fetchData()
     },
-    handleUpdate() {
+    handleUpdate(row) {
+      this.temp = Object.assign({}, row)
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    updateData() {
 
     }
   }
