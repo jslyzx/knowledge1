@@ -6,8 +6,8 @@
         <el-row class="middle">
           <el-col :span="3">
             <el-radio-group v-model="time">
-              <el-radio-button label="按月"></el-radio-button>
-              <el-radio-button label="按年"></el-radio-button>
+              <el-radio-button label="按月" />
+              <el-radio-button label="按年" />
             </el-radio-group>
           </el-col>
           <el-col :span="5">
@@ -22,7 +22,7 @@
         </el-row>
       </el-form>
       <div class="table">
-        <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect" style="margin-bottom: 10px;">
+        <el-menu :default-active="activeIndex" mode="horizontal" style="margin-bottom: 10px;" @select="handleSelect">
           <el-menu-item index="液氧">液氧</el-menu-item>
           <el-menu-item index="二氧化碳">二氧化碳</el-menu-item>
           <el-menu-item index="天然气">天然气</el-menu-item>
@@ -77,8 +77,8 @@
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
       </div>
     </div>
-    <el-dialog :title="编辑" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+    <el-dialog title="编辑" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="130px" style="width: 400px; margin-left:50px;">
         <el-form-item label="日期" prop="date">
           <el-date-picker v-model="temp.date" type="date" :readonly="true" />
         </el-form-item>

@@ -17,35 +17,35 @@
           <table cellspacing="0" class="table">
             <tr>
               <td>万元产值外付动能（元/万元）</td>
-              <td>8205.48</td>
+              <td>{{ outputValue }}</td>
             </tr>
             <tr>
               <td>吨投钢量动能（元/t）</td>
-              <td>8205.48</td>
+              <td>{{ steelQty }}</td>
             </tr>
             <tr>
               <td>修正总吨动能（元/t）</td>
-              <td>8205.48</td>
+              <td>{{ totalQty }}</td>
             </tr>
             <tr>
               <td>液氧单耗（t/Nm3）</td>
-              <td>8205.48</td>
+              <td>{{ summary.yeyangQty }}</td>
             </tr>
             <tr>
               <td>二氧化碳单耗（t/Nm3）</td>
-              <td>8205.48</td>
+              <td>{{ summary.coQty }}</td>
             </tr>
             <tr>
               <td>天然气单耗（t/Nm3）</td>
-              <td>8205.48</td>
+              <td>{{ summary.tianranqiQty }}</td>
             </tr>
             <tr>
               <td>丙烷单耗（t/Nm3）</td>
-              <td>8205.48</td>
+              <td>{{ summary.bianwanQty }}</td>
             </tr>
             <tr>
               <td>蒸汽单耗（t/Nm3）</td>
-              <td>8205.48</td>
+              <td>{{ summary.zhenqiQty }}</td>
             </tr>
           </table>
         </el-col>
@@ -95,16 +95,17 @@
           <div class="type switchText" :class="{active: gasType === 2}" @click="changeGasType(2)">按月统计</div>
         </el-col>
       </el-row>
-      <div ref="chart1" class="chart"></div>
+      <div ref="chart1" class="chart" />
     </div>
     <div class="bottom switchBg">
       <div class="title switchText">产量能耗统计</div>
-      <div ref="chart2" class="chart"></div>
+      <div ref="chart2" class="chart" />
     </div>
   </div>
 </template>
 <script>
 import { getGuanZhongData } from '@/api/chart'
+import { queryEquipmentSetting } from '@/api/equipment'
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 
@@ -116,7 +117,34 @@ export default {
       gasType: 1, // 1按日，2按月
       chart1: null,
       chart2: null,
-      isDark: localStorage.getItem('theme') === 'theme-dark'
+      isDark: localStorage.getItem('theme') === 'theme-dark',
+      summary: {}
+    }
+  },
+  computed: {
+    outputValue() {
+      if (Object.keys(this.summary).length === 0) return ''
+      if (this.type === 2) {
+        return this.summary.monthOutputValue
+      } else {
+        return this.summary.dayOutputValue
+      }
+    },
+    steelQty() {
+      if (Object.keys(this.summary).length === 0) return ''
+      if (this.type === 2) {
+        return this.summary.monthSteelQty
+      } else {
+        return this.summary.daySteelQty
+      }
+    },
+    totalQty() {
+      if (Object.keys(this.summary).length === 0) return ''
+      if (this.type === 2) {
+        return this.summary.monthTotalQty
+      } else {
+        return this.summary.dayTotalQty
+      }
     }
   },
   created() {
@@ -140,6 +168,9 @@ export default {
     fetchData() {
       getGuanZhongData().then(response => {
         this.list = response.data
+      })
+      queryEquipmentSetting().then(response => {
+        this.summary = response.data[0]
       })
     },
     initChart1() {
@@ -214,7 +245,8 @@ export default {
           type: 'category',
           data: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09', '09-10']
         }],
-        yAxis: [{
+        yAxis: [
+          {
             type: 'value',
             name: 't/m3',
             min: 0,
@@ -226,7 +258,8 @@ export default {
             name: 't'
           }
         ],
-        series: [{
+        series: [
+          {
             name: '产量',
             type: 'bar',
             data: this.generateRandomArray(0, 1000, 10)
