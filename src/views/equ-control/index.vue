@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">设备控制管理</div>
+    <div class="h-title switchText">设备控制管理</div>
     <el-row class="top switchBg">
       <el-col :span="4">
         <div class="grid-content">
