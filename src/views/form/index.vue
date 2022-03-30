@@ -5,17 +5,17 @@
         <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form1" size="small">
           <el-form-item label="万元产值外付动能：">
-            <el-input v-model="form1.data1" placeholder="请输入">
+            <el-input v-model="form1.monthOutputValue" placeholder="请输入">
               <template slot="append">元/万元</template>
             </el-input>
           </el-form-item>
           <el-form-item label="吨投钢量动能：">
-            <el-input v-model="form1.data2" placeholder="请输入">
+            <el-input v-model="form1.monthSteelQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="修正总吨动能：">
-            <el-input v-model="form1.data3" placeholder="请输入">
+            <el-input v-model="form1.monthTotalQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -25,17 +25,17 @@
         <div class="part-title switchText">日产量信息录入</div>
         <el-form label-position="top" :model="form2" size="small">
           <el-form-item label="万元产值外付动能：">
-            <el-input v-model="form2.data1" placeholder="请输入">
+            <el-input v-model="form2.dayOutputValue" placeholder="请输入">
               <template slot="append">元/万元</template>
             </el-input>
           </el-form-item>
           <el-form-item label="吨投钢量动能：">
-            <el-input v-model="form2.data2" placeholder="请输入">
+            <el-input v-model="form2.daySteelQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="修正总吨动能：">
-            <el-input v-model="form2.data3" placeholder="请输入">
+            <el-input v-model="form2.dayTotalQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -45,12 +45,12 @@
         <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form3" size="small">
           <el-form-item label="当月用电量累积：">
-            <el-input v-model="form3.data1" placeholder="请输入">
+            <el-input v-model="form3.totalElectricQty" placeholder="请输入">
               <template slot="append">kWh</template>
             </el-input>
           </el-form-item>
           <el-form-item label="当月压缩空气累积：">
-            <el-input v-model="form3.data2" placeholder="请输入">
+            <el-input v-model="form3.totalAirQty" placeholder="请输入">
               <template slot="append">Nm3</template>
             </el-input>
           </el-form-item>
@@ -62,27 +62,27 @@
         <div class="part-title switchText">单耗录入</div>
         <el-form label-position="top" :model="form4" size="small">
           <el-form-item label="液氧单耗：">
-            <el-input v-model="form4.data1" placeholder="请输入">
+            <el-input v-model="form4.yeyangQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="二氧化碳单耗：">
-            <el-input v-model="form4.data2" placeholder="请输入">
+            <el-input v-model="form4.coQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="天然气单耗：">
-            <el-input v-model="form4.data3" placeholder="请输入">
+            <el-input v-model="form4.tianranqiQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="丙烷单耗：">
-            <el-input v-model="form4.data4" placeholder="请输入">
+            <el-input v-model="form4.bianwanQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="蒸汽单耗：">
-            <el-input v-model="form4.data5" placeholder="请输入">
+            <el-input v-model="form4.zhenqiQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
@@ -92,27 +92,27 @@
         <div class="part-title switchText">单价录入</div>
         <el-form label-position="top" :model="form5" size="small">
           <el-form-item label="液氧单价：">
-            <el-input v-model="form5.data1" placeholder="请输入">
+            <el-input v-model="form5.yeyangPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="二氧化碳单价：">
-            <el-input v-model="form5.data2" placeholder="请输入">
+            <el-input v-model="form5.coPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="天然气单价：">
-            <el-input v-model="form5.data3" placeholder="请输入">
+            <el-input v-model="form5.tianranqiPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="丙烷单价：">
-            <el-input v-model="form5.data4" placeholder="请输入">
+            <el-input v-model="form5.bianwanPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="蒸汽单价：">
-            <el-input v-model="form5.data5" placeholder="请输入">
+            <el-input v-model="form5.zhenqiPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -416,32 +416,32 @@ export default {
   data() {
     return {
       form1: {
-        data1: '',
-        data2: '',
-        data3: ''
+        monthOutputValue : '',
+        monthSteelQty: '',
+        monthTotalQty: ''
       },
       form2: {
-        data1: '',
-        data2: '',
-        data3: ''
+        dayOutputValue: '',
+        daySteelQty: '',
+        dayTotalQty: ''
       },
       form3: {
-        data1: '',
-        data2: ''
+        totalElectricQty: '',
+        totalAirQty: ''
       },
       form4: {
-        data1: '',
-        data2: '',
-        data3: '',
-        data4: '',
-        data5: '',
+        yeyangQty: '',
+        coQty: '',
+        tianranqiQty: '',
+        bianwanQty: '',
+        zhenqiQty: '',
       },
       form5: {
-        data1: '',
-        data2: '',
-        data3: '',
-        data4: '',
-        data5: '',
+        yeyangPrice: '',
+        coPrice: '',
+        tianranqiPrice: '',
+        bianwanPrice: '',
+        zhenqiPrice: '',
       },
       form6: {
         year: '2022',
