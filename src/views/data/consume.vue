@@ -32,42 +32,42 @@
           <el-menu-item index="水">水</el-menu-item>
         </el-menu>
         <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="500">
-          <el-table-column label="日期" width="110" align="center">
+          <el-table-column label="日期" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.date }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="当日用量(t)" width="110" align="center">
+          <el-table-column label="当日用量(t)" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.amount }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="当日用量耗费(元)" width="130" align="center">
+          <el-table-column label="当日用量耗费(元)"align="center">
             <template slot-scope="scope">
               {{ scope.row.amountCost }}
             </template>
           </el-table-column>
-          <el-table-column label="当日入库量(t)" width="110" align="center">
+          <el-table-column label="当日入库量(t)" align="center">
             <template slot-scope="scope">
               {{ scope.row.inAmount }}
             </template>
           </el-table-column>
-          <el-table-column label="当日入库耗费(元)" width="130" align="center">
+          <el-table-column label="当日入库耗费(元)" align="center">
             <template slot-scope="scope">
               {{ scope.row.inCost }}
             </template>
           </el-table-column>
-          <el-table-column label="当日库存(t)" width="110" align="center">
+          <el-table-column label="当日库存(t)" align="center">
             <template slot-scope="scope">
               {{ scope.row.storage }}
             </template>
           </el-table-column>
-          <el-table-column label="当前气体单价(t/元)" width="140" align="center">
+          <el-table-column label="当前气体单价(t/元)" align="center">
             <template slot-scope="scope">
               {{ scope.row.price }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="160" align="center">
+          <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small">用量详情</el-button>
               <el-button type="text" size="small" @click="handleUpdate(scope.row)">编辑</el-button>

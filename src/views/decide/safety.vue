@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">安全辅助决策</div>
+    <div class="h-title switchText">安全辅助决策</div>
     <el-form label-width="90px">
       <el-row class="form switchBg">
         <el-col :span="5">

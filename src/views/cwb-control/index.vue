@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">船坞泵设备管理</div>
+    <div class="h-title switchText">船坞泵设备管理</div>
     <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
@@ -44,52 +44,52 @@
         </el-col>
       </el-row>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="450">
-        <el-table-column label="设备编号" width="110" align="center">
+        <el-table-column label="设备编号" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.no }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备名称" width="110" align="center">
+        <el-table-column label="设备名称" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备厂商" width="110" align="center">
+        <el-table-column label="设备厂商" align="center">
           <template slot-scope="scope">
             {{ scope.row.cs }}
           </template>
         </el-table-column>
-        <el-table-column label="设备类型" width="110" align="center">
+        <el-table-column label="设备类型" align="center">
           <template slot-scope="scope">
             {{ scope.row.type }}
           </template>
         </el-table-column>
-        <el-table-column label="设备型号" width="110" align="center">
+        <el-table-column label="设备型号" align="center">
           <template slot-scope="scope">
             {{ scope.row.xh }}
           </template>
         </el-table-column>
-        <el-table-column label="流量（m3/h）" width="110" align="center">
+        <el-table-column label="流量（m3/h）" align="center">
           <template slot-scope="scope">
             {{ scope.row.ll }}
           </template>
         </el-table-column>
-        <el-table-column label="扬程（m）" width="110" align="center">
+        <el-table-column label="扬程（m）" align="center">
           <template slot-scope="scope">
             {{ scope.row.yc }}
           </template>
         </el-table-column>
-        <el-table-column label="压力（MPa）" width="110" align="center">
+        <el-table-column label="压力（MPa）" align="center">
           <template slot-scope="scope">
             {{ scope.row.yl }}
           </template>
         </el-table-column>
-        <el-table-column label="转速（r/min）" width="120" align="center">
+        <el-table-column label="转速（r/min）" align="center">
           <template slot-scope="scope">
             {{ scope.row.zs }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <router-link :to="'/cwb-control/detail/' + scope.row.id">
               <el-button type="text" size="small" style="margin-right: 10px;">查看</el-button>

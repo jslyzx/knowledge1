@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">船厂项目管理</div>
+    <div class="h-title switchText">船厂项目管理</div>
     <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
@@ -48,7 +48,7 @@
         </el-row>
       </div>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="450">
-        <el-table-column label="项目名称" width="190" align="center">
+        <el-table-column label="项目名称" align="center">
           <template slot-scope="scope">
             <div class="name switchText">{{ scope.row.name }}</div>
             <div class="name-wrap">
@@ -74,12 +74,12 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="附件" width="190" align="center">
+        <el-table-column label="附件" align="center">
           <template slot-scope="scope">
             <span><i class="el-icon-folder-opened" style="color: #1A90FE;margin-right: 8px;font-weight: bold;"></i>{{ scope.row.file }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建详情" width="190" align="center">
+        <el-table-column label="创建详情" align="center">
           <template slot-scope="scope">
             <div>
               <i class="el-icon-user-solid" style="color: #1A90FE;margin-right: 8px;font-weight: bold;"></i>{{ scope.row.creator }}

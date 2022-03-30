@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">起重设备管理</div>
+    <div class="h-title switchText">起重设备管理</div>
     <div class="table-wrap switchBg">
       <el-row>
         <el-col :span="4">
@@ -16,12 +16,12 @@
             <span>{{ scope.row.no }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备名称" width="110" align="center">
+        <el-table-column label="设备名称" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备厂商" width="110" align="center">
+        <el-table-column label="设备厂商" align="center">
           <template slot-scope="scope">
             {{ scope.row.cs }}
           </template>

@@ -74,47 +74,47 @@
     <div class="table-wrap switchBg">
       <el-button size="middle" type="primary" @click="handleCreate">添加控制设备</el-button>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="380">
-        <el-table-column label="设备编号" width="110" align="center">
+        <el-table-column label="设备编号" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.no }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备名称" width="110" align="center">
+        <el-table-column label="设备名称" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设备厂商" width="110" align="center">
+        <el-table-column label="设备厂商" align="center">
           <template slot-scope="scope">
             {{ scope.row.cs }}
           </template>
         </el-table-column>
-        <el-table-column label="设备类型" width="110" align="center">
+        <el-table-column label="设备类型" align="center">
           <template slot-scope="scope">
             {{ scope.row.type }}
           </template>
         </el-table-column>
-        <el-table-column label="设备型号" width="110" align="center">
+        <el-table-column label="设备型号" align="center">
           <template slot-scope="scope">
             {{ scope.row.xh }}
           </template>
         </el-table-column>
-        <el-table-column label="是否支持反控" width="110" align="center">
+        <el-table-column label="是否支持反控" align="center">
           <template slot-scope="scope">
             {{ scope.row.isFk | isFkFilter }}
           </template>
         </el-table-column>
-        <el-table-column label="反控点位" width="110" align="center">
+        <el-table-column label="反控点位" align="center">
           <template slot-scope="scope">
             {{ scope.row.fk }}
           </template>
         </el-table-column>
-        <el-table-column label="负责人" width="110" align="center">
+        <el-table-column label="负责人" align="center">
           <template slot-scope="scope">
             {{ scope.row.fzr }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <router-link :to="'/equ-control/detail/' + scope.row.id">
               <el-button type="text" size="small" style="margin-right: 10px;">查看</el-button>

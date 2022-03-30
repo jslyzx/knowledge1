@@ -56,27 +56,27 @@
             </el-col>
           </el-row>
           <el-table :data="list" element-loading-text="Loading" border fit style="margin-top: 10px;">
-            <el-table-column label="气体类型" width="130" align="center">
+            <el-table-column label="气体类型" align="center">
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="平均用气量(m3/h)" width="180" align="center">
+            <el-table-column label="平均用气量(m3/h)" align="center">
               <template slot-scope="scope">
                 <span>{{ scope.row.data1 }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="累计流量(m3)" width="180" align="center">
+            <el-table-column label="累计流量(m3)" align="center">
               <template slot-scope="scope">
                 {{ scope.row.data2 }}
               </template>
             </el-table-column>
-            <el-table-column label="管道平均压力(MPa)" width="180" align="center">
+            <el-table-column label="管道平均压力(MPa)" align="center">
               <template slot-scope="scope">
                 {{ scope.row.data3 }}
               </template>
             </el-table-column>
-            <el-table-column label="储罐平均压力（MPa）" width="180" align="center">
+            <el-table-column label="储罐平均压力（MPa）" align="center">
               <template slot-scope="scope">
                 {{ scope.row.data4 }}
               </template>

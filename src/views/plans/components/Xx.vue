@@ -133,12 +133,12 @@
             {{ scope.row.xlbw }}
           </template>
         </el-table-column>
-        <el-table-column label="更换零件" width="110" align="center">
+        <el-table-column label="更换零件" align="center">
           <template slot-scope="scope">
             {{ scope.row.lj }}
           </template>
         </el-table-column>
-        <el-table-column label="更换零件型号" width="110" align="center">
+        <el-table-column label="更换零件型号" align="center">
           <template slot-scope="scope">
             {{ scope.row.ljxh }}
           </template>

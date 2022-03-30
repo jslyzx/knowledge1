@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="h-title">工单人效</div>
+    <div class="h-title switchText">工单人效</div>
     <el-form label-width="120px">
       <el-row class="form switchBg">
         <el-col :span="8">
