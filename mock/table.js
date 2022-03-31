@@ -25,19 +25,6 @@ for (let i = 0; i < count; i++) {
     zs: '@integer(300, 5000)'
   }))
 
-  qzList.push(Mock.mock({
-    id: '@increment',
-    no: '@id',
-    cs: '@ctitle(10)',
-    xh: '@ctitle(10)',
-    type: '@integer(1, 1)',
-    name: '@name',
-    qzl: '@integer(300, 5000)',
-    lj: '@integer(300, 5000)',
-    kd: '@integer(300, 5000)',
-    fd: '@integer(300, 5000)',
-    speed: '@integer(300, 5000)'
-  }))
 
   projectList.push(Mock.mock({
     id: '@increment',
@@ -102,6 +89,22 @@ for (let i = 1; i < 35; i++) {
     offset: '0',
     addr: dwAddr[i - 1]
   })
+}
+
+for (let i = 1; i < 50; i++) {
+  qzList.push(Mock.mock({
+    id: '@increment',
+    no: i < 9 ? '00' + i : '0' + i,
+    cs: '上海沪工',
+    xh: 'JDS' + (5874 + i),
+    type: '起重机',
+    name: i < 10 ? 'QD双梁桥式起重机#0' + i : 'QD双梁桥式起重机#' + i,
+    qzl: '@integer(300, 5000)',
+    lj: '@integer(300, 5000)',
+    kd: '0.6-1.2',
+    fd: '960',
+    speed: '960'
+  }))
 }
 
 
