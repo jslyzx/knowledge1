@@ -10,18 +10,6 @@ const consumeList = []
 const count = 100
 
 for (let i = 0; i < count; i++) {
-  equList.push(Mock.mock({
-    id: '@increment',
-    no: '@id',
-    cs: '@ctitle(10)',
-    xh: '@ctitle(10)',
-    fk: '@ctitle(10)',
-    name: '@name',
-    pageviews: '@integer(300, 5000)',
-    isFk: '@integer(0, 1)',
-    fzr: '@integer(1, 3)',
-    type: '@integer(1, 1)',
-  }))
 
   cwbList.push(Mock.mock({
     id: '@increment',
@@ -35,16 +23,6 @@ for (let i = 0; i < count; i++) {
     yc: '@integer(300, 5000)',
     yl: '@integer(300, 5000)',
     zs: '@integer(300, 5000)'
-  }))
-
-  dwList.push(Mock.mock({
-    no: '@increment',
-    name: '@name',
-    type: '控制点',
-    dType: '@ctitle(8)',
-    sType: '@ctitle(8)',
-    offset: '0',
-    addr: '@integer(300, 5000)'
   }))
 
   qzList.push(Mock.mock({
@@ -82,14 +60,50 @@ for (let i = 0; i < count; i++) {
   }))
 }
 
-for (let i = 0; i < 8; i++) {
-  codeList.push(Mock.mock({
+let fzr
+for (let i = 1; i < 50; i++) {
+  if (i <= 3) {
+    fzr = '亓广'
+  } else if (i <= 6) {
+    fzr = '封欢'
+  } else if (i <= 16) {
+    fzr = '亓广'
+  } else if (i <= 28) {
+    fzr = '郈才'
+  } else if (i <= 41) {
+    fzr = '赖政仪'
+  } else {
+    fzr = '亓广'
+  }
+  equList.push(Mock.mock({
     id: '@increment',
-    name: '船体结构零件编码规则',
-    date: '@date',
-    pic: 'https://seopic.699pic.com/photo/50129/2295.jpg_wh1200.jpg'
+    no: i < 10 ? '00' + i : '0' + i,
+    cs: '英格索兰',
+    xh: 'JDS' + (5874 + i),
+    fk: '19',
+    name: i < 10 ? '空压机#0' + i : '空压机#' + i,
+    isFk: '@integer(1, 1)',
+    fzr: fzr,
+    type: '空压机'
   }))
 }
+
+
+
+const dwNames = ['排气压力', '喷油压力', '高位加载时间', '风机频率', '排气温度', '接触器运行次数', '进气压力', '系统压力', '运行小时', '电动机电流', '通电小时', '启动次数', 'CT比率', '加载小时', '三级震动', '三级压力', '华氏三级温度', '三级震动', '二级压力', '一级震动', '华氏一级温度', '二级震动', '一级压力', '华氏二级温度', '系统压力', '油压', '油温', 'B相温度', 'C相温度', '前轴承温度', '后轴承温度', 'A相温度', '旁通阀门开度', '进气阀门开度']
+const dwAddr = ['29', '24', '17', '14', '23', '18', '20', '6', '8', '10', '40', '42', '44', '46', '38', '54', '29', '24', '17', '14', '23', '18', '20', '6', '8', '10', '40', '42', '44', '46', '38', '54', '55', '56']
+for (let i = 1; i < 35; i++) {
+  dwList.push({
+    no: i < 9 ? '00' + i : '0' + i,
+    name: dwNames[i - 1],
+    type: '控制点',
+    dType: '输入寄存器[04]',
+    sType: '波动量',
+    offset: '0',
+    addr: dwAddr[i - 1]
+  })
+}
+
 
 module.exports = [{
     url: '/vue-admin-template/equ/list',

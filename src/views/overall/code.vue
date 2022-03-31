@@ -11,10 +11,10 @@
       </el-row>
     </div>
     <div class="list">
-      <div class="item" v-for="v in list">
-        <img :src="v.pic" />
-        <div class="name">{{v.name}}</div>
-        <div class="date">更新时间：{{v.date}}</div>
+      <div class="item">
+        <img src="@/assets/code/pic-1.png" />
+        <div class="name">船舶能耗数据收集管理办法</div>
+        <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
           <el-col :span="12">
             <i class="el-icon-download"></i>下载
@@ -24,11 +24,76 @@
           </el-col>
         </el-row>
       </div>
+      <div class="item">
+        <img src="@/assets/code/pic-2.png" />
+        <div class="name">船舶总装建造智能化标准体系建设指南</div>
+        <div class="date">更新时间：2022-03-31</div>
+        <el-row class="bottom">
+          <el-col :span="12">
+            <i class="el-icon-download"></i>下载
+          </el-col>
+          <el-col :span="12">
+            <i class="el-icon-view"></i>查看
+          </el-col>
+        </el-row>
+      </div>
+      <div class="item">
+        <img src="@/assets/code/pic-3.png" />
+        <div class="name">工业互联网标识行业应用指南（船舶）</div>
+        <div class="date">更新时间：2022-03-31</div>
+        <el-row class="bottom">
+          <el-col :span="12">
+            <i class="el-icon-download"></i>下载
+          </el-col>
+          <el-col :span="12">
+            <i class="el-icon-view"></i>查看
+          </el-col>
+        </el-row>
+      </div>
+      <div class="item">
+        <img src="@/assets/code/pic-4.png" />
+        <div class="name">工业互联网船舶编码标识规范</div>
+        <div class="date">更新时间：2022-03-31</div>
+        <el-row class="bottom">
+          <el-col :span="12">
+            <i class="el-icon-download"></i>下载
+          </el-col>
+          <el-col :span="12">
+            <i class="el-icon-view"></i>查看
+          </el-col>
+        </el-row>
+      </div>
+      <div class="item">
+        <img src="@/assets/code/pic-5.png" />
+        <div class="name">海关轨迹航信船舶数据项填制规范</div>
+        <div class="date">更新时间：2022-03-31</div>
+        <el-row class="bottom">
+          <el-col :span="12">
+            <i class="el-icon-download"></i>下载
+          </el-col>
+          <el-col :span="12">
+            <i class="el-icon-view"></i>查看
+          </el-col>
+        </el-row>
+      </div>
+      <div class="item">
+        <img src="@/assets/code/pic-6.png" />
+        <div class="name">水上施工船舶分类编码</div>
+        <div class="date">更新时间：2022-03-31</div>
+        <el-row class="bottom">
+          <el-col :span="12">
+            <i class="el-icon-download"></i>下载
+          </el-col>
+          <el-col :span="12">
+            <i class="el-icon-view"></i>查看
+          </el-col>
+        </el-row>
+      </div>
+      
     </div>
   </div>
 </template>
 <script>
-import { getCodeList } from '@/api/table'
 export default {
   data() {
     return {
@@ -38,16 +103,8 @@ export default {
     }
   },
   created() {
-    this.fetchData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getCodeList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    }
   }
 }
 
