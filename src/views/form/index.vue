@@ -489,6 +489,7 @@
   </div>
 </template>
 <script>
+import { saveEquipmentSetting } from '@/api/equipment'
 export default {
   data() {
     return {
@@ -604,7 +605,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message('submit!')
+      saveEquipmentSetting(this.form).then(response => {
+        this.$notify({
+          title: '成功',
+          message: '数据提交成功',
+          type: 'success',
+          duration: 2000
+        })
+      })
     },
     onCancel() {
       this.$message({

@@ -6,3 +6,11 @@ export function queryEquipmentSetting() {
     method: 'get'
   })
 }
+
+export function saveEquipmentSetting(data) {
+  return request({
+    url: '../api/equipment/saveEquipmentSetting',
+    method: 'post',
+    data
+  })
+}
