@@ -5,17 +5,17 @@
         <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form" size="small">
           <el-form-item label="万元产值外付动能：">
-            <el-input v-model.number="form.monthOutputValue" placeholder="请输入">
+            <el-input v-model="form.monthOutputValue" placeholder="请输入">
               <template slot="append">元/万元</template>
             </el-input>
           </el-form-item>
           <el-form-item label="吨投钢量动能：">
-            <el-input v-model.number="form.monthSteelQty" placeholder="请输入">
+            <el-input v-model="form.monthSteelQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="修正总吨动能：">
-            <el-input v-model.number="form.monthTotalQty" placeholder="请输入">
+            <el-input v-model="form.monthTotalQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -25,17 +25,17 @@
         <div class="part-title switchText">日产量信息录入</div>
         <el-form label-position="top" :model="form" size="small">
           <el-form-item label="万元产值外付动能：">
-            <el-input v-model.number="form.dayOutputValue" placeholder="请输入">
+            <el-input v-model="form.dayOutputValue" placeholder="请输入">
               <template slot="append">元/万元</template>
             </el-input>
           </el-form-item>
           <el-form-item label="吨投钢量动能：">
-            <el-input v-model.number="form.daySteelQty" placeholder="请输入">
+            <el-input v-model="form.daySteelQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="修正总吨动能：">
-            <el-input v-model.number="form.dayTotalQty" placeholder="请输入">
+            <el-input v-model="form.dayTotalQty" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -45,12 +45,12 @@
         <div class="part-title switchText">月产量信息录入</div>
         <el-form label-position="top" :model="form" size="small">
           <el-form-item label="当月用电量累积：">
-            <el-input v-model.number="form.totalElectricQty" placeholder="请输入">
+            <el-input v-model="form.totalElectricQty" placeholder="请输入">
               <template slot="append">kWh</template>
             </el-input>
           </el-form-item>
           <el-form-item label="当月压缩空气累积：">
-            <el-input v-model.number="form.totalAirQty" placeholder="请输入">
+            <el-input v-model="form.totalAirQty" placeholder="请输入">
               <template slot="append">Nm3</template>
             </el-input>
           </el-form-item>
@@ -62,27 +62,27 @@
         <div class="part-title switchText">单耗录入</div>
         <el-form label-position="top" :model="form" size="small">
           <el-form-item label="液氧单耗：">
-            <el-input v-model.number="form.yeyangQty" placeholder="请输入">
+            <el-input v-model="form.yeyangQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="二氧化碳单耗：">
-            <el-input v-model.number="form.coQty" placeholder="请输入">
+            <el-input v-model="form.coQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="天然气单耗：">
-            <el-input v-model.number="form.tianranqiQty" placeholder="请输入">
+            <el-input v-model="form.tianranqiQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="丙烷单耗：">
-            <el-input v-model.number="form.bianwanQty" placeholder="请输入">
+            <el-input v-model="form.bianwanQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
           <el-form-item label="蒸汽单耗：">
-            <el-input v-model.number="form.zhenqiQty" placeholder="请输入">
+            <el-input v-model="form.zhenqiQty" placeholder="请输入">
               <template slot="append">t/Nm3：</template>
             </el-input>
           </el-form-item>
@@ -92,27 +92,27 @@
         <div class="part-title switchText">单价录入</div>
         <el-form label-position="top" :model="form" size="small">
           <el-form-item label="液氧单价：">
-            <el-input v-model.number="form.yeyangPrice" placeholder="请输入">
+            <el-input v-model="form.yeyangPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="二氧化碳单价：">
-            <el-input v-model.number="form.coPrice" placeholder="请输入">
+            <el-input v-model="form.coPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="天然气单价：">
-            <el-input v-model.number="form.tianranqiPrice" placeholder="请输入">
+            <el-input v-model="form.tianranqiPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="丙烷单价：">
-            <el-input v-model.number="form.bianwanPrice" placeholder="请输入">
+            <el-input v-model="form.bianwanPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
           <el-form-item label="蒸汽单价：">
-            <el-input v-model.number="form.zhenqiPrice" placeholder="请输入">
+            <el-input v-model="form.zhenqiPrice" placeholder="请输入">
               <template slot="append">元/t</template>
             </el-input>
           </el-form-item>
@@ -489,12 +489,12 @@
   </div>
 </template>
 <script>
-import { saveEquipmentSetting } from '@/api/equipment'
+import { saveEquipmentSetting, queryAllEquipmentSetting, queryIotSettingList, saveIotSettingList } from '@/api/equipment'
 export default {
   data() {
     return {
       form: {
-        monthOutputValue : '',
+        monthOutputValue: '',
         monthSteelQty: '',
         monthTotalQty: '',
         dayOutputValue: '',
@@ -514,7 +514,7 @@ export default {
         zhenqiPrice: ''
       },
       form1: {
-        monthOutputValue : '',
+        monthOutputValue: '',
         monthSteelQty: '',
         monthTotalQty: ''
       },
@@ -554,7 +554,8 @@ export default {
         month9: '',
         month10: '',
         month11: '',
-        month12: ''
+        month12: '',
+        settingType: 1
       },
       form7: {
         year: '2022',
@@ -569,7 +570,8 @@ export default {
         month9: '',
         month10: '',
         month11: '',
-        month12: ''
+        month12: '',
+        settingType: 2
       },
       form8: {
         year: '2022',
@@ -584,7 +586,8 @@ export default {
         month9: '',
         month10: '',
         month11: '',
-        month12: ''
+        month12: '',
+        settingType: 3
       },
       form9: {
         year: '2022',
@@ -599,13 +602,47 @@ export default {
         month9: '',
         month10: '',
         month11: '',
-        month12: ''
+        month12: '',
+        settingType: 4
       },
     }
   },
+  created() {
+    this.fetchData()
+  },
   methods: {
+    fetchData() {
+      queryAllEquipmentSetting().then(res => {
+        this.form = res.data
+      })
+      queryIotSettingList({ year: this.form6.year, settingType: this.form6.settingType }).then(res => {
+        this.form6 = res.data[0]
+      })
+      queryIotSettingList({ year: this.form7.year, settingType: this.form7.settingType }).then(res => {
+        this.form7 = res.data[0]
+      })
+      queryIotSettingList({ year: this.form8.year, settingType: this.form8.settingType }).then(res => {
+        this.form8 = res.data[0]
+      })
+      queryIotSettingList({ year: this.form9.year, settingType: this.form9.settingType }).then(res => {
+        this.form9 = res.data[0]
+      })
+    },
     onSubmit() {
       saveEquipmentSetting(this.form).then(response => {
+        this.$notify({
+          title: '成功',
+          message: '数据提交成功',
+          type: 'success',
+          duration: 2000
+        })
+      })
+      let iotSettings = []
+      iotSettings.push(this.form6)
+      iotSettings.push(this.form7)
+      iotSettings.push(this.form8)
+      iotSettings.push(this.form9)
+      saveIotSettingList({ iotSettings: iotSettings }).then(response => {
         this.$notify({
           title: '成功',
           message: '数据提交成功',
@@ -658,6 +695,11 @@ export default {
     }
 
     .el-input {
+      width: 75%;
+    }
+
+    .el-select {
+      display: block;
       width: 75%;
     }
   }

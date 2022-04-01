@@ -14,3 +14,26 @@ export function saveEquipmentSetting(data) {
     data
   })
 }
+
+export function queryAllEquipmentSetting() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryAllEquipmentSetting',
+    method: 'get'
+  })
+}
+
+export function queryIotSettingList(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryIotSettingList',
+    method: 'post',
+    data
+  })
+}
+
+export function saveIotSettingList(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/saveIotSettingList',
+    method: 'post',
+    data
+  })
+}
