@@ -38,7 +38,7 @@
         <el-row>
           <el-col class="head" :span="3">
             <span class="head-t switchText">我的项目</span>
-            <span class="num">57</span>
+            <span class="num">9</span>
           </el-col>
           <el-col class="search" :span="3" :offset="18">
             <el-input placeholder="搜索项目" v-model="keyword">

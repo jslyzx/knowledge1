@@ -108,27 +108,22 @@
     <div class="part">
       <div class="part-title">二保计划内容</div>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="350">
-        <el-table-column label="二保负责人" width="110" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.xxr }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="项修日期" width="110" align="center">
+        <el-table-column label="项修日期" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.date }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="停机开始时间" width="110" align="center">
+        <el-table-column label="停机开始时间" align="center">
           <template slot-scope="scope">
             {{ scope.row.beginDate }}
           </template>
         </el-table-column>
-        <el-table-column label="停机结束时间" width="110" align="center">
+        <el-table-column label="停机结束时间" align="center">
           <template slot-scope="scope">
             {{ scope.row.endDate }}
           </template>
         </el-table-column>
-        <el-table-column label="修理部位" width="110" align="center">
+        <el-table-column label="修理部位" align="center">
           <template slot-scope="scope">
             {{ scope.row.xlbw }}
           </template>
@@ -143,12 +138,12 @@
             {{ scope.row.ljxh }}
           </template>
         </el-table-column>
-        <el-table-column label="调试日期" width="110" align="center">
+        <el-table-column label="调试日期" align="center">
           <template slot-scope="scope">
             {{ scope.row.debugDate }}
           </template>
         </el-table-column>
-        <el-table-column label="正式完成日期" width="120" align="center">
+        <el-table-column label="正式完成日期" align="center">
           <template slot-scope="scope">
             {{ scope.row.completeDate }}
           </template>

@@ -122,4 +122,10 @@ div:focus {
   .app-main{
     background-color: #212D3F !important;
   }
+  .el-step__title.is-process{
+    color: #fff;
+  }
+  .el-step__title.is-wait{
+    coloe: #888;
+  }
 }

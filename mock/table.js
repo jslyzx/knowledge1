@@ -11,31 +11,6 @@ const count = 100
 
 for (let i = 0; i < count; i++) {
 
-  cwbList.push(Mock.mock({
-    id: '@increment',
-    no: '@id',
-    cs: '@ctitle(10)',
-    xh: '@ctitle(10)',
-    type: '@integer(1, 1)',
-    name: '@name',
-    pageviews: '@integer(300, 5000)',
-    ll: '@integer(300, 5000)',
-    yc: '@integer(300, 5000)',
-    yl: '@integer(300, 5000)',
-    zs: '@integer(300, 5000)'
-  }))
-
-
-  projectList.push(Mock.mock({
-    id: '@increment',
-    'name|1': ['氩气站项目设施项目', '氧气站项目设施项目', '空气站项目设施项目', '热力站项目设施项目', '丙烷站项目设施项目'],
-    'file|1': ['氩气站项目审核意见书', '氧气站项目审核意见书', '空气站项目审核意见书', '热力站项目审核意见书', '丙烷站项目审核意见书'],
-    progress: '@integer(0, 6)',
-    creator: '@cname',
-    date: '@date',
-    day: 23
-  }))
-
   consumeList.push(Mock.mock({
     date: '@date',
     amount: '@integer(100, 900)',
@@ -99,14 +74,119 @@ for (let i = 1; i < 50; i++) {
     xh: 'JDS' + (5874 + i),
     type: '起重机',
     name: i < 10 ? 'QD双梁桥式起重机#0' + i : 'QD双梁桥式起重机#' + i,
-    qzl: '@integer(300, 5000)',
-    lj: '@integer(300, 5000)',
+    qzl: ((i >= 15 && i <= 27) || (i >= 36 && i <= 46)) ? 1000 : 800,
+    lj: ((i >= 15 && i <= 27) || (i >= 36 && i <= 46)) ? 1000 : 800,
     kd: '0.6-1.2',
     fd: '960',
     speed: '960'
   }))
 }
 
+for (let i = 1; i < 51; i++) {
+  cwbList.push(Mock.mock({
+    id: '@increment',
+    no: i < 9 ? '00' + i : '0' + i,
+    cs: '昊泵',
+    xh: 'JDS' + (5874 + i),
+    type: '船坞泵',
+    name: i < 10 ? '单螺旋泵#0' + i : (i < 14 ? '单螺旋泵#' + i : (i < 23 ? '卧式离心泵#0' + (i - 13) : '卧式离心泵#' + (i - 13))),
+    pageviews: '@integer(300, 5000)',
+    ll: i < 14 ? 500 : 800,
+    yc: i < 14 ? 570 : 600,
+    yl: '0.6-1.2',
+    zs: '960'
+  }))
+}
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '氩气站实施项目',
+  file: '氩气站实施项目审核书',
+  progress: 4,
+  creator: '张洪泽',
+  date: '2021/12/12',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '空压站整体改造项目',
+  file: '空压站实施项目审核书',
+  progress: 6,
+  creator: '贾珍珍',
+  date: '2021/11/13',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '热力站改造项目',
+  file: '热力站站实施项目审核书',
+  progress: 6,
+  creator: '王德峰',
+  date: '2021/10/16',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '丙烷站改造项目',
+  file: '丙烷站站实施项目审核书',
+  progress: 6,
+  creator: '李玲',
+  date: '2021/9/17',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '污水处理站改造项目',
+  file: '污水处理站实施项目审核书',
+  progress: 6,
+  creator: '张洪泽',
+  date: '2021/8/18',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '氧气站改造项目',
+  file: '氧气站实施项目审核书',
+  progress: 6,
+  creator: '贾珍珍',
+  date: '2021/8/19',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '自来水站改造项目',
+  file: '自来水站实施项目审核书',
+  progress: 6,
+  creator: '王德峰',
+  date: '2021/7/20',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '电力运维改造项目',
+  file: '电力运维项目审核书',
+  progress: 5,
+  creator: '李玲',
+  date: '2021/5/23',
+  day: 23
+}))
+
+projectList.push(Mock.mock({
+  id: '@increment',
+  name: '天然气站阀门更换项目',
+  file: '天然气站阀门更换项目审核书',
+  progress: 6,
+  creator: '赵东鸥',
+  date: '2021/4/24',
+  day: 23
+}))
 
 module.exports = [{
     url: '/vue-admin-template/equ/list',
