@@ -248,4 +248,8 @@ export default {
   }
 }
 
+.theme-dark .chart .table td{
+  color: #fff;
+}
+
 </style>
