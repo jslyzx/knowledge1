@@ -86,9 +86,6 @@ div:focus {
   .el-form-item__label{
     color: #fff !important;
   }
-  .el-dialog .el-form-item__label{
-    color: #606266 !important;
-  }
   .pagination-container{
     background-color: #2C3748 !important;
     color: #fff !important;
@@ -127,5 +124,11 @@ div:focus {
   }
   .el-step__title.is-wait{
     coloe: #888;
+  }
+  .el-dialog{
+    background-color: #2C3748 !important;
+  }
+  .el-dialog__title{
+    color: #fff;
   }
 }
