@@ -37,3 +37,18 @@ export function saveIotSettingList(data) {
     data
   })
 }
+
+export function queryHoursTotalQty() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryHoursTotalQty',
+    method: 'get'
+  })
+}
+
+export function queryDayTotalQty() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryDayTotalQty',
+    method: 'get'
+  })
+}
+

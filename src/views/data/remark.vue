@@ -162,7 +162,7 @@ export default {
       };
     },
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, this.theme)
+      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
         tooltip: {
           trigger: 'axis',
@@ -227,14 +227,14 @@ export default {
       })
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, this.theme)
-      let base = +new Date(1988, 9, 3);
+      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
+      let base = +new Date();
       let oneDay = 24 * 3600 * 1000;
       let data = [
         [base, Math.random() * 300]
       ];
-      for (let i = 1; i < 20000; i++) {
-        let now = new Date((base += oneDay));
+      for (let i = 1; i < 31; i++) {
+        let now = new Date((base -= oneDay));
         data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
       }
       this.chart2.setOption({
@@ -248,11 +248,21 @@ export default {
           trigger: 'axis',
           position: function(pt) {
             return [pt[0], '10%'];
+          },
+          formatter: function(params){
+            let tip = "";
+            if (params != null && params.length > 0) {
+              tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
+            }
+            return tip
           }
         },
         xAxis: {
           type: 'time',
-          boundaryGap: false
+          boundaryGap: false,
+          axisLabel: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         yAxis: {
           type: 'value',
@@ -260,12 +270,18 @@ export default {
         },
         dataZoom: [{
             type: 'inside',
-            start: 0,
-            end: 20
+            start: 97,
+            end: 100,
+            textStyle: {
+              color: this.isDark ? '#fff' : '#000'
+            }
           },
           {
-            start: 0,
-            end: 20
+            start: 97,
+            end: 100,
+            textStyle: {
+              color: this.isDark ? '#fff' : '#000'
+            }
           }
         ],
         series: [{
@@ -278,14 +294,14 @@ export default {
       })
     },
     initChart3() {
-      this.chart3 = echarts.init(this.$refs.chart3, this.theme)
-      let base = +new Date(1988, 9, 3);
+      this.chart3 = echarts.init(this.$refs.chart3, 'macarons')
+      let base = +new Date();
       let oneDay = 24 * 3600 * 1000;
       let data = [
         [base, Math.random() * 300]
       ];
-      for (let i = 1; i < 20000; i++) {
-        let now = new Date((base += oneDay));
+      for (let i = 1; i < 31; i++) {
+        let now = new Date((base -= oneDay));
         data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
       }
       this.chart3.setOption({
@@ -299,11 +315,21 @@ export default {
           trigger: 'axis',
           position: function(pt) {
             return [pt[0], '10%'];
+          },
+          formatter: function(params){
+            let tip = "";
+            if (params != null && params.length > 0) {
+              tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
+            }
+            return tip
           }
         },
         xAxis: {
           type: 'time',
-          boundaryGap: false
+          boundaryGap: false,
+          axisLabel: {
+            color: this.isDark ? '#fff' : '#000'
+          }
         },
         yAxis: {
           type: 'value',
@@ -311,12 +337,18 @@ export default {
         },
         dataZoom: [{
             type: 'inside',
-            start: 0,
-            end: 20
+            start: 97,
+            end: 100,
+            textStyle: {
+              color: this.isDark ? '#fff' : '#000'
+            }
           },
           {
-            start: 0,
-            end: 20
+            start: 97,
+            end: 100,
+            textStyle: {
+              color: this.isDark ? '#fff' : '#000'
+            }
           }
         ],
         series: [{

@@ -105,7 +105,7 @@
 </template>
 <script>
 import { getGuanZhongData } from '@/api/chart'
-import { queryEquipmentSetting } from '@/api/equipment'
+import { queryEquipmentSetting, queryHoursTotalQty, queryDayTotalQty } from '@/api/equipment'
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 
@@ -118,7 +118,11 @@ export default {
       chart1: null,
       chart2: null,
       isDark: localStorage.getItem('theme') === 'theme-dark',
-      summary: {}
+      summary: {},
+      hours: {},
+      monthlist: {},
+      chart1Data: {},
+      chart2Data: {}
     }
   },
   computed: {
@@ -152,8 +156,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.initChart1()
-      this.initChart2()
+      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
+
     })
   },
   methods: {
@@ -164,8 +169,23 @@ export default {
     changeGasType(t) {
       if (t === this.gasType) return
       this.gasType = t
+      if (t === 1) {
+        this.initChart1()
+      } else {
+        this.initChart1_2()
+      }
     },
     fetchData() {
+      queryHoursTotalQty().then(response => {
+        this.hours = response.data.dateList
+        this.chart1Data = response.data.hoursMap
+        this.initChart1()
+      })
+      queryDayTotalQty().then(response => {
+        this.monthlist = response.data.monthlist
+        this.chart2Data = response.data
+        this.initChart2()
+      })
       getGuanZhongData().then(response => {
         this.list = response.data
       })
@@ -174,12 +194,20 @@ export default {
       })
     },
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
         tooltip: {
           trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: function(params) {
+            let tip = "";
+            if (params != null && params.length > 0) {
+              for (let i = 0; i < params.length; i++) {
+                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+              }
+            }
+            return tip
           }
         },
         grid: {
@@ -195,41 +223,124 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09', '09-10']
+          data: this.hours
         },
         yAxis: {
           type: 'value',
-          name: 't/m3',
-          min: 0,
-          max: 600,
-          interval: 100
+          name: 't/m3'
         },
         series: [{
           name: '液氧',
-          type: 'bar',
-          data: this.generateRandomArray(0, 600, 10)
+          data: this.chart1Data['液氧'],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
         }, {
           name: '天然气',
-          type: 'bar',
-          data: this.generateRandomArray(0, 600, 10)
+          data: this.chart1Data['天然气'],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
         }, {
           name: '丙烷',
-          type: 'bar',
-          data: this.generateRandomArray(0, 600, 10)
+          data: this.chart1Data['丙烷'],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
         }, {
           name: '二氧化碳',
-          type: 'bar',
-          data: this.generateRandomArray(0, 600, 10)
+          data: this.chart1Data['二氧化碳'],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
         }, {
           name: '蒸汽',
-          type: 'bar',
-          data: this.generateRandomArray(0, 600, 10)
+          data: this.chart1Data['蒸汽'],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
+        }]
+      })
+    },
+    initChart1_2() {
+      this.chart1.setOption({
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: function(params) {
+            let tip = "";
+            if (params != null && params.length > 0) {
+              for (let i = 0; i < params.length; i++) {
+                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+              }
+            }
+            return tip
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        legend: {
+          textStyle: {
+            color: this.isDark ? '#fff' : '#000'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: this.monthlist
+        },
+        yAxis: {
+          type: 'value',
+          name: 't/m3'
+        },
+        series: [{
+          name: '液氧',
+          data: this.chart2Data['液氧'],
+          type: 'bar'
+        }, {
+          name: '天然气',
+          data: this.chart2Data['天然气'],
+          type: 'bar'
+        }, {
+          name: '丙烷',
+          data: this.chart2Data['丙烷'],
+          type: 'bar'
+        }, {
+          name: '二氧化碳',
+          data: this.chart2Data['二氧化碳'],
+          type: 'bar'
+        }, {
+          name: '蒸汽',
+          data: this.chart2Data['蒸汽'],
+          type: 'bar'
         }]
       })
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
       this.chart2.setOption({
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          },
+          formatter: function(params) {
+            let tip = "";
+            if (params != null && params.length > 0) {
+              for (let i = 0; i < params.length; i++) {
+                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+              }
+            }
+            return tip
+          }
+        },
         grid: {
           left: '3%',
           right: '4%',
@@ -243,42 +354,39 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09', '09-10']
+          data: this.monthlist
         }],
-        yAxis: [
-          {
+        yAxis: [{
             type: 'value',
-            name: 't/m3',
-            min: 0,
-            max: 1000,
-            interval: 250
+            name: 't/m3'
           },
           {
             type: 'value',
             name: 't'
           }
         ],
-        series: [
-          {
+        series: [{
             name: '产量',
             type: 'bar',
-            data: this.generateRandomArray(0, 1000, 10)
+            data: this.generateRandomArray(345, 20, this.monthlist.length)
           },
           {
             name: '单耗',
             type: 'line',
             yAxisIndex: 1,
-            data: this.generateRandomArray(100, 300, 10),
+            data: this.generateRandomArray(0.5, 20, this.monthlist.length),
             symbol: 'none'
           }
         ]
       })
     },
-    generateRandomArray(a, b, length) {
+    generateRandomArray(level, percent, length) {
       var num = 0
       var ret = []
+      const n = percent * level * 4 / 100
+      const min = level * (100 - percent) / 100
       for (var i = 0; i < length; i++) {
-        num = parseInt(Math.random() * (b - a + 1) + a, 10)
+        num = Math.random() * n + min
         ret.push(num)
       }
       return ret
