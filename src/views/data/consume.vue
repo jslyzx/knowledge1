@@ -113,7 +113,7 @@
   </div>
 </template>
 <script>
-import { getConsumeList } from '@/api/table'
+import { getConsumeList, queryEnergyList } from '@/api/table'
 import Pagination from '@/components/Pagination'
 export default {
   components: { Pagination },
@@ -144,7 +144,14 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getConsumeList(this.listQuery).then(response => {
+      // getConsumeList(this.listQuery).then(response => {
+      //   this.list = response.data.items
+      //   this.listLoading = false
+      //   this.total = response.data.total
+      // })
+      queryEnergyList({
+        gasType: listQuery.name
+      }).then(response => {
         this.list = response.data.items
         this.listLoading = false
         this.total = response.data.total

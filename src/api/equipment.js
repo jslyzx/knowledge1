@@ -52,3 +52,11 @@ export function queryDayTotalQty() {
   })
 }
 
+export function queryEnergyList(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryEnergyList',
+    method: 'post',
+    data
+  })
+}
+
