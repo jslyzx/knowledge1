@@ -131,4 +131,8 @@ div:focus {
   .el-dialog__title{
     color: #fff;
   }
+  .el-menu-item:hover,
+  .el-menu-item:focus{
+    background-color: transparent !important;
+  }
 }

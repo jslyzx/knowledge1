@@ -9,6 +9,51 @@ const codeList = []
 const consumeList = []
 const count = 100
 
+const detailList = [{
+    name: '3#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '薄板中心（低压）流量计',
+    fgAmount: 'XXXXXM3↓'
+  },
+  {
+    name: '3#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '薄板中心（高压）流量计',
+    fgAmount: 'XXXXXM3↓'
+  }, {
+    name: '3#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '8#9#平台流量计',
+    fgAmount: 'XXXXXM3↓'
+  }, {
+    name: '3#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '8#9#平台流量计',
+    fgAmount: 'XXXXXM3↓'
+  }, {
+    name: '2#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '薄板中心（低压）流量计',
+    fgAmount: 'XXXXXM3'
+  },
+  {
+    name: '2#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '薄板中心（高压）流量计',
+    fgAmount: 'XXXXXM3↓'
+  }, {
+    name: '2#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '8#9#平台流量计',
+    fgAmount: 'XXXXXM3↓'
+  }, {
+    name: '2#液氧站',
+    amount: 'XXXXX M3↓',
+    fg: '8#9#平台流量计',
+    fgAmount: 'XXXXXM3↓'
+  }
+]
+
 for (let i = 0; i < count; i++) {
 
   consumeList.push(Mock.mock({
@@ -290,6 +335,16 @@ module.exports = [{
           total: consumeList.length,
           items: pageList
         }
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/equipment/queryEnergyDetail',
+    type: 'post',
+    response: config => {
+      return {
+        code: 20000,
+        data: detailList
       }
     }
   }

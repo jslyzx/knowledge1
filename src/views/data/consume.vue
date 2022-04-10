@@ -5,7 +5,7 @@
       <el-form label-width="80px">
         <el-row class="middle">
           <el-col :span="3">
-            <el-radio-group v-model="time">
+            <el-radio-group v-model="time" @change="changeType">
               <el-radio-button label="按月" />
               <el-radio-button label="按年" />
             </el-radio-group>
@@ -17,7 +17,7 @@
           </el-col>
           <el-col :span="4" :offset="12" style="text-align: right;">
             <el-button size="middle">文件导出</el-button>
-            <el-button size="middle" type="primary">库存录入</el-button>
+            <el-button size="middle" type="primary" @click="handleInput">库存录入</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -32,77 +32,135 @@
           <el-menu-item index="水">水</el-menu-item>
         </el-menu>
         <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="500">
-          <el-table-column label="日期" align="center">
-            <template slot-scope="scope">
-              <span>{{ scope.row.date }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="当日用量(t)" align="center">
-            <template slot-scope="scope">
-              <span>{{ scope.row.amount }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="当日用量耗费(元)"align="center">
-            <template slot-scope="scope">
-              {{ scope.row.amountCost }}
-            </template>
-          </el-table-column>
-          <el-table-column label="当日入库量(t)" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.inAmount }}
-            </template>
-          </el-table-column>
-          <el-table-column label="当日入库耗费(元)" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.inCost }}
-            </template>
-          </el-table-column>
-          <el-table-column label="当日库存(t)" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.storage }}
-            </template>
-          </el-table-column>
-          <el-table-column label="当前气体单价(t/元)" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.price }}
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-              <el-button type="text" size="small">用量详情</el-button>
-              <el-button type="text" size="small" @click="handleUpdate(scope.row)">编辑</el-button>
-            </template>
-          </el-table-column>
+          <template v-if="time === '按月'">
+            <el-table-column label="日期" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyDate }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当日用量(t)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyDayQty" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyDayQty }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当日用量耗费(元)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyDayCost" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyDayCost }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当日入库量(t)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyWarehouseQty" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyWarehouseQty }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当日入库耗费(元)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyWarehouseCost" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyWarehouseCost }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当日库存(t)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyStock" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyStock }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="当前气体单价(t/元)" align="center">
+              <template slot-scope="{row}">
+                <el-input v-model="row.energyPrice" class="edit-input" size="small" v-if="row.edit" />
+                <span v-else>{{ row.energyPrice }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+              <template slot-scope="{row}">
+                <el-button v-if="row.edit" type="text" size="small" @click="confirmEdit(row)">确定</el-button>
+                <el-button v-if="row.edit" type="text" size="small" @click="cancelEdit(row)">取消</el-button>
+                <el-button v-if="!row.edit" type="text" size="small" @click="row.edit=!row.edit">编辑</el-button>
+              </template>
+            </el-table-column>
+          </template>
+          <template v-else>
+            <el-table-column label="月份" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyDate }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="累计用量" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyDayQty }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="累计能耗金额" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyDayCost }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="累计入库量" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyWarehouseQty }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="日平均库存" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyStock }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="日平均用量" align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.energyWarehouseCost }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+              <template slot-scope="{row}">
+                <el-button type="text" size="small" @click="viewDetail(row)">用量详情</el-button>
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
       </div>
     </div>
-    <el-dialog title="编辑" :visible.sync="dialogFormVisible">
+    <el-dialog title="用量详情" :visible.sync="dialogFormVisible">
+      <el-table :data="scheduleList" :span-method="objectSpanMethod">
+        <el-table-column prop="name" label="区域"></el-table-column>
+        <el-table-column prop="amount" label="区域日用量"></el-table-column>
+        <el-table-column prop="fg" label="分管"></el-table-column>
+        <el-table-column prop="fgAmount" label="分管日用量"></el-table-column>
+      </el-table>
+    </el-dialog>
+    <el-dialog title="库存录入" :visible.sync="dialogFormVisible1">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="130px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="日期" prop="date">
-          <el-date-picker v-model="temp.date" type="date" :readonly="true" />
+        <el-form-item label="类型" prop="gasName">
+          <el-select v-model="temp.gasName" placeholder="请选择气体类型">
+            <el-option label="液氧" value="液氧" />
+            <el-option label="二氧化碳" value="二氧化碳" />
+            <el-option label="天然气" value="天然气" />
+            <el-option label="丙烷" value="丙烷" />
+            <el-option label="液氮" value="液氮" />
+            <el-option label="液氩" value="液氩" />
+            <el-option label="蒸汽" value="蒸汽" />
+            <el-option label="水" value="水" />
+          </el-select>
         </el-form-item>
-        <el-form-item label="当日用量(t)" prop="amount">
-          <el-input v-model="temp.amount" placeholder="请输入当日用量" />
+        <el-form-item label="单价" prop="energyPrice">
+          <el-input v-model="temp.energyPrice">
+            <template slot="append">T/吨</template>
+          </el-input>
         </el-form-item>
-        <el-form-item label="当日用量耗费(元)">
-          <el-input v-model="temp.amountCost" placeholder="请输入当日用量耗费" />
+        <el-form-item label="入库量" prop="energyStock">
+          <el-input v-model="temp.energyStock">
+            <template slot="append">吨</template>
+          </el-input>
         </el-form-item>
-        <el-form-item label="当日入库量(t)">
-          <el-input v-model="temp.inAmount" placeholder="请输入当日入库量" />
-        </el-form-item>
-        <el-form-item label="当日入库耗费(元)">
-          <el-input v-model="temp.inCost" placeholder="请输入当日入库耗费" />
-        </el-form-item>
-        <el-form-item label="当日库存(t)">
-          <el-input v-model="temp.storage" placeholder="请输入当日库存" />
-        </el-form-item>
-        <el-form-item label="当前气体单价(t/元)">
-          <el-input v-model="temp.price" placeholder="请输入当前气体单价" />
+        <el-form-item label="录入时间" prop="energyDate">
+          <el-date-picker v-model="temp.energyDate" type="date" value-format="yyyy-MM-dd" :picker-options="pickerOptions" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
+        <el-button @click="dialogFormVisible1 = false">
           取消
         </el-button>
         <el-button type="primary" @click="updateData()">
@@ -113,7 +171,7 @@
   </div>
 </template>
 <script>
-import { getConsumeList, queryEnergyList } from '@/api/table'
+import { queryEnergyList, saveEnergy, queryEnergyTotalByYear, queryEnergyDetail, saveEnergyStock } from '@/api/equipment'
 import Pagination from '@/components/Pagination'
 export default {
   components: { Pagination },
@@ -131,45 +189,166 @@ export default {
       },
       activeIndex: '液氧',
       dialogFormVisible: false,
+      dialogFormVisible1: false,
       rules: {
-        amount: [{ required: true, message: '请输入当日用量', trigger: 'blur' }]
+        gasName: [{ required: true, message: '请选择气体类型', trigger: 'blur' }]
       },
-      temp: {}
+      temp: {
+        gasName: '',
+        energyPrice: '',
+        energyStock: 0,
+        energyDate: ''
+      },
+      scheduleList: [],
+      rowIndex: '-1',
+      orderIndexArr: [],
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        }
+      }
     }
   },
   created() {
     this.fetchData()
   },
-  mounted() {},
+  mounted() {
+    this.getOrderNumber();
+  },
   methods: {
+    changeType() {
+      this.fetchData()
+    },
     fetchData() {
       this.listLoading = true
-      // getConsumeList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.listLoading = false
-      //   this.total = response.data.total
-      // })
-      queryEnergyList({
-        gasType: listQuery.name
-      }).then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-        this.total = response.data.total
-      })
+      if (this.time === '按月') {
+        queryEnergyList({
+          gasName: this.listQuery.name
+        }).then(response => {
+          this.list = response.data.map(v => {
+            this.$set(v, 'edit', false)
+            // v.originalTitle = v.title //  will be used when user click the cancel botton
+            return v
+          })
+          this.listLoading = false
+          this.total = response.data.length
+        })
+      } else {
+        queryEnergyTotalByYear({
+          gasName: this.listQuery.name,
+          year: '2022'
+        }).then(response => {
+          this.listLoading = false
+          this.total = response.data.length
+        })
+      }
     },
     handleSelect(index) {
       this.listQuery.name = index
       this.fetchData()
     },
-    handleUpdate(row) {
-      this.temp = Object.assign({}, row)
-      this.dialogFormVisible = true
+    updateData() {
+      this.$refs.dataForm.validate(valid => {
+        if (valid) {
+          saveEnergyStock(this.temp).then(response => {
+            this.dialogFormVisible1 = false
+            this.$notify({
+              title: '成功',
+              message: '数据提交成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+
+    },
+    cancelEdit(row) {
+      // row.energyDayQty = row.originalTitle
+      // row.energyDayQty = row.originalEnergyDayQty
+      row.edit = false
+    },
+    confirmEdit(row) {
+      row.edit = false
+      // row.originalEnergyDayQty = row.energyDayQty
+      saveEnergy(row).then(response => {
+        this.$notify({
+          title: '成功',
+          message: '数据提交成功',
+          type: 'success',
+          duration: 2000
+        })
+      })
+    },
+    getOrderNumber() {
+      const orderObj = {}
+      this.scheduleList.forEach((item, index) => {
+        item.rowIndex = index
+        if (orderObj[item.name]) {
+          orderObj[item.name].push(index)
+        } else {
+          orderObj[item.name] = []
+          orderObj[item.name].push(index)
+        }
+      })
+      // 将数组长度大于1的值 存储到this.orderIndexArr（也就是需要合并的项）
+      Object.keys(orderObj).forEach((key) => {
+        if (orderObj[key].length > 1) {
+          this.orderIndexArr.push(orderObj[key])
+        }
+      })
+    },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0 || columnIndex === 1) {
+        for (let i = 0; i < this.orderIndexArr.length; i += 1) {
+          let element = this.orderIndexArr[i]
+          for (let j = 0; j < element.length; j += 1) {
+            let item = element[j];
+            if (rowIndex === item) {
+              if (j === 0) {
+                return {
+                  rowspan: element.length,
+                  colspan: 1
+                }
+              }
+              if (j !== 0) {
+                return {
+                  rowspan: 0,
+                  colspan: 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    viewDetail(row) {
+      queryEnergyDetail(row).then(response => {
+        this.scheduleList = response.data
+        this.getOrderNumber()
+        this.dialogFormVisible = true
+      })
+    },
+    handleInput() {
+      this.temp.energyDate = this.getNowTime()
+      this.dialogFormVisible1 = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    updateData() {
-
+    getNowTime() {
+      var now = new Date();
+      var year = now.getFullYear(); //得到年份
+      var month = now.getMonth(); //得到月份
+      var date = now.getDate(); //得到日期
+      month = month + 1;
+      month = month.toString().padStart(2, "0");
+      date = date.toString().padStart(2, "0");
+      var defaultDate = `${year}-${month}-${date}`;
+      return defaultDate;
     }
   }
 }
@@ -194,8 +373,15 @@ export default {
 
   .table {
     padding: 10px 20px;
-
   }
+}
+
+.el-select {
+  width: 270px;
+}
+
+.el-date-editor.el-input {
+  width: 270px;
 }
 
 </style>

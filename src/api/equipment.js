@@ -60,3 +60,35 @@ export function queryEnergyList(data) {
   })
 }
 
+export function saveEnergy(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/saveEnergy',
+    method: 'post',
+    data
+  })
+}
+
+export function queryEnergyTotalByYear(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryEnergyTotalByYear',
+    method: 'post',
+    data
+  })
+}
+
+export function queryEnergyDetail(data) {
+  return request({
+    url: '/vue-admin-template/equipment/queryEnergyDetail',
+    method: 'post',
+    data
+  })
+}
+
+export function saveEnergyStock(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/saveEnergyStock',
+    method: 'post',
+    data
+  })
+}
+
