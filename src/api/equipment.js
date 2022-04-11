@@ -92,3 +92,11 @@ export function saveEnergyStock(data) {
   })
 }
 
+export function queryGasInfoByDay(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryGasInfoByDay',
+    method: 'post',
+    data
+  })
+}
+

@@ -76,6 +76,7 @@
             </el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="{row}">
+                <el-button type="text" size="small" @click="viewDetail(row)">用量详情</el-button>
                 <el-button v-if="row.edit" type="text" size="small" @click="confirmEdit(row)">确定</el-button>
                 <el-button v-if="row.edit" type="text" size="small" @click="cancelEdit(row)">取消</el-button>
                 <el-button v-if="!row.edit" type="text" size="small" @click="row.edit=!row.edit">编辑</el-button>
@@ -113,11 +114,6 @@
                 <span>{{ row.energyWarehouseCost }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
-              <template slot-scope="{row}">
-                <el-button type="text" size="small" @click="viewDetail(row)">用量详情</el-button>
-              </template>
-            </el-table-column>
           </template>
         </el-table>
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
@@ -125,10 +121,10 @@
     </div>
     <el-dialog title="用量详情" :visible.sync="dialogFormVisible">
       <el-table :data="scheduleList" :span-method="objectSpanMethod">
-        <el-table-column prop="name" label="区域"></el-table-column>
+        <el-table-column prop="projectName" label="区域"></el-table-column>
         <el-table-column prop="amount" label="区域日用量"></el-table-column>
-        <el-table-column prop="fg" label="分管"></el-table-column>
-        <el-table-column prop="fgAmount" label="分管日用量"></el-table-column>
+        <el-table-column prop="machineName" label="分管"></el-table-column>
+        <el-table-column prop="flowQty" label="分管日用量"></el-table-column>
       </el-table>
     </el-dialog>
     <el-dialog title="库存录入" :visible.sync="dialogFormVisible1">
@@ -171,7 +167,7 @@
   </div>
 </template>
 <script>
-import { queryEnergyList, saveEnergy, queryEnergyTotalByYear, queryEnergyDetail, saveEnergyStock } from '@/api/equipment'
+import { queryEnergyList, saveEnergy, queryEnergyTotalByYear, saveEnergyStock,queryGasInfoByDay } from '@/api/equipment'
 import Pagination from '@/components/Pagination'
 export default {
   components: { Pagination },
@@ -287,11 +283,11 @@ export default {
       const orderObj = {}
       this.scheduleList.forEach((item, index) => {
         item.rowIndex = index
-        if (orderObj[item.name]) {
-          orderObj[item.name].push(index)
+        if (orderObj[item.projectName]) {
+          orderObj[item.projectName].push(index)
         } else {
-          orderObj[item.name] = []
-          orderObj[item.name].push(index)
+          orderObj[item.projectName] = []
+          orderObj[item.projectName].push(index)
         }
       })
       // 将数组长度大于1的值 存储到this.orderIndexArr（也就是需要合并的项）
@@ -326,7 +322,11 @@ export default {
       }
     },
     viewDetail(row) {
-      queryEnergyDetail(row).then(response => {
+      var param = {
+        flowDate: row.energyDate,
+        gasName: row.gasName
+      }
+      queryGasInfoByDay(param).then(response => {
         this.scheduleList = response.data
         this.getOrderNumber()
         this.dialogFormVisible = true
@@ -340,15 +340,15 @@ export default {
       })
     },
     getNowTime() {
-      var now = new Date();
-      var year = now.getFullYear(); //得到年份
-      var month = now.getMonth(); //得到月份
-      var date = now.getDate(); //得到日期
-      month = month + 1;
-      month = month.toString().padStart(2, "0");
-      date = date.toString().padStart(2, "0");
-      var defaultDate = `${year}-${month}-${date}`;
-      return defaultDate;
+      var now = new Date()
+      var year = now.getFullYear() //得到年份
+      var month = now.getMonth() //得到月份
+      var date = now.getDate() //得到日期
+      month = month + 1
+      month = month.toString().padStart(2, "0")
+      date = date.toString().padStart(2, "0")
+      var defaultDate = `${year}-${month}-${date}`
+      return defaultDate
     }
   }
 }
