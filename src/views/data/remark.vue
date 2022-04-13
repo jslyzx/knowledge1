@@ -183,44 +183,38 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08', '2021-09', '2021-10']
+          data: this.getCurrentMonthArray(12, false)
         },
         yAxis: [{
             type: 'value',
             name: 't',
-            min: 0,
-            max: 1000,
-            interval: 250
           },
           {
             type: 'value',
-            name: 'm3',
-            min: 0,
-            max: 1000,
-            interval: 250
+            name: 'm3'
           }
         ],
         series: [{
             name: '本月产量',
             type: 'bar',
-            data: this.generateRandomArray(0, 1000, 10)
+            data: this.getRandomArray(9345, 20, 12)
           }, {
             name: '上月产量',
             type: 'bar',
-            data: this.generateRandomArray(0, 1000, 10)
+            data: this.getRandomArray(9345, 20, 12)
           },
           {
             name: '本月用气量',
             type: 'line',
             yAxisIndex: 1,
-            data: this.generateRandomArray(0, 1000, 10),
+            data: this.getRandomArray(500, 20, 12),
             symbol: 'none'
           },
           {
             name: '上月用气量',
             type: 'line',
             yAxisIndex: 1,
-            data: this.generateRandomArray(0, 1000, 10),
+            data: this.getRandomArray(500, 20, 12),
             symbol: 'none'
           }
         ]
@@ -249,7 +243,7 @@ export default {
           position: function(pt) {
             return [pt[0], '10%'];
           },
-          formatter: function(params){
+          formatter: function(params) {
             let tip = "";
             if (params != null && params.length > 0) {
               tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
@@ -316,7 +310,7 @@ export default {
           position: function(pt) {
             return [pt[0], '10%'];
           },
-          formatter: function(params){
+          formatter: function(params) {
             let tip = "";
             if (params != null && params.length > 0) {
               tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
@@ -391,11 +385,11 @@ export default {
             show: false
           },
           data: [
-            { value: 815, name: '液氧' },
-            { value: 924, name: '天然气' },
-            { value: 691, name: '丙烷' },
-            { value: 468, name: '二氧化碳' },
-            { value: 679, name: '蒸汽' }
+            { value: 6, name: '液氧' },
+            { value: 5, name: '天然气' },
+            { value: 9, name: '丙烷' },
+            { value: 12, name: '二氧化碳' },
+            { value: 18, name: '蒸汽' }
           ]
         }]
       })
@@ -422,12 +416,12 @@ export default {
         yAxis: {
           type: 'value',
           min: 0,
-          max: 120,
-          interval: 30
+          max: 30,
+          interval: 5
         },
         series: [{
           type: 'bar',
-          data: this.generateRandomArray(0, 120, 6)
+          data: [20, 17, 11, 3, 0, 0]
         }]
       })
     },
@@ -439,6 +433,43 @@ export default {
         ret.push(num)
       }
       return ret
+    },
+    getRandomArray(level, percent, length) {
+      var num = 0
+      var ret = []
+      const n = percent * level * 4 / 100
+      const min = level * (100 - percent) / 100
+      for (var i = 0; i < length; i++) {
+        num = Math.random() * n + min
+        ret.push(num)
+      }
+      return ret
+    },
+    getCurrentMonthArray(len, isContainCurrent) {
+      var result = []
+      var now = new Date()
+      var year = now.getFullYear() //得到年份
+      var month = now.getMonth() //得到月份
+      if (isContainCurrent) {
+        len--
+        let _month = month + 1
+        _month = _month.toString().padStart(2, "0")
+        result.push(`${year}-${_month}`)
+      }
+      let newYear, newMonth, newStr
+      for (let i = 0; i < len; i++) {
+        month -= 1
+        now.setMonth(month)
+        newYear = now.getFullYear()
+        newMonth = now.getMonth() + 1
+        newMonth = newMonth.toString().padStart(2, "0")
+        newStr = `${newYear}-${newMonth}`
+        result.push(newStr)
+        if (month === -1) {
+          month = 11
+        }
+      }
+      return result.reverse()
     }
   }
 }

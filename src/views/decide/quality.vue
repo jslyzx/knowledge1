@@ -55,43 +55,51 @@ export default {
       this.getGasAnalysis(tab.label)
     },
     getElecAnalysis(name) {
-      let data, color
+      let data, color, yAxisUnit = ''
       if (name === '功率因数') {
         data = this.generateRandomFloatArray(0.8, 1, 7)
-          color = '#C95FF2'
+        color = '#C95FF2'
       } else if (name === '频率') {
         data = this.generateRandomFloatArray(49, 51, 7)
         color = '#FF7F00'
+        yAxisUnit = 'Hz'
       } else if (name === '三相电压不平衡度') {
         data = this.generateRandomFloatArray(0, 0.5, 7)
         color = '#00ADFF'
+        yAxisUnit = '%'
       } else if (name === '三相电流不平衡度') {
         data = this.generateRandomFloatArray(0, 0.5, 7)
         color = '#61E493'
+        yAxisUnit = '%'
       } else if (name === '无功功率') {
         data = this.generateRandomFloatArray(130, 200, 7)
         color = '#9382FF'
+        yAxisUnit = 'kVar'
       } else if (name === '电压总谐波') {
         data = this.generateRandomFloatArray(0, 0.5, 7)
         color = 'blue'
+        yAxisUnit = '%'
       } else if (name === '电流总谐波') {
         data = this.generateRandomFloatArray(0, 0.5, 7)
         color = 'green'
+        yAxisUnit = '%'
       } else if (name === '剩余电流') {
         data = this.generateRandomFloatArray(300, 310, 7)
         color = 'yellow'
+        yAxisUnit = 'mA'
       }
       this.lineChartData = {
-        yAxisName: name,
+        name: name,
         xAxisData: this.getLastDayArray(7, false),
         data: data,
-        color: color
+        color: color,
+        yAxisUnit: yAxisUnit
       }
     },
     getGasAnalysis(name) {
       let color
       if (name === '天然气') {
-          color = '#C95FF2'
+        color = '#C95FF2'
       } else if (name === '二氧化碳') {
         color = '#FF7F00'
       } else if (name === '蒸汽') {
@@ -102,7 +110,7 @@ export default {
         color = '#9382FF'
       }
       this.lineChartData2 = {
-        yAxisName: name,
+        name: name,
         xAxisData: this.getLastDayArray(7, false),
         data: this.generateRandomFloatArray(0.3, 0.8, 7),
         color: color

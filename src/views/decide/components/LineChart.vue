@@ -58,12 +58,15 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ yAxisName, xAxisName, xAxisData, data, color } = {}) {
+    setOptions({ name, yAxisUnit, xAxisName, xAxisData, data, color } = {}) {
       this.chart.setOption({
+        title: {
+          text: name
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: { // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
         color: color || '#C95FF2',
@@ -72,7 +75,7 @@ export default {
           data: xAxisData
         },
         yAxis: {
-          name: yAxisName,
+          name: yAxisUnit,
           axisTick: {
             show: false
           }
