@@ -1,19 +1,6 @@
 <template>
   <div class="app-container">
     <div class="h-title switchText">安全辅助决策</div>
-    <el-form label-width="90px">
-      <el-row class="form switchBg">
-        <el-col :span="5">
-          <el-form-item label="选择月份">
-            <el-date-picker v-model="date" type="month" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="4">
-          <el-button size="middle">重置</el-button>
-          <el-button size="middle" type="primary">查询</el-button>
-        </el-col>
-      </el-row>
-    </el-form>
     <el-row class="top switchBg">
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
@@ -24,25 +11,25 @@
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
           <div class="title switchText"><i class="dot red" />极高类型报警</div>
-          <div class="num">72</div>
-        </div>
-      </el-col>
-      <el-col :lg="{span: '4-8'}">
-        <div class="grid-content">
-          <div class="title switchText"><i class="dot gray" />已恢复</div>
           <div class="num">1</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title switchText"><i class="dot blue" />未恢复</div>
+          <div class="title switchText"><i class="dot gray" />已恢复</div>
           <div class="num">55</div>
         </div>
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title switchText"><i class="dot green" />平均恢复时长</div>
+          <div class="title switchText"><i class="dot blue" />未恢复</div>
           <div class="num">2</div>
+        </div>
+      </el-col>
+      <el-col :lg="{span: '4-8'}">
+        <div class="grid-content">
+          <div class="title switchText"><i class="dot green" />平均恢复时长</div>
+          <div class="num">1</div>
         </div>
       </el-col>
     </el-row>
@@ -69,7 +56,6 @@
                   <el-col :span="18">
                     <el-progress :percentage="v.num"></el-progress>
                   </el-col>
-                  
                 </el-row>
               </div>
             </div>
@@ -98,25 +84,29 @@ export default {
       rankList: [{
         rank: 1,
         name: '2#空压站',
-        num: 83
+        num: 12
       }, {
         rank: 2,
         name: '1#空压站',
-        num: 83
+        num: 11
       }, {
         rank: 3,
         name: '2#站房',
-        num: 83
+        num: 8
       }, {
         rank: 4,
         name: '1#站房',
-        num: 83
+        num: 5
       }, {
         rank: 5,
         name: '1#配电房',
-        num: 83
+        num: 4
+      }, {
+        rank: 6,
+        name: '1#站房',
+        num: 4
       }],
-      theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
+      theme: 'macarons',
       isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
@@ -140,6 +130,20 @@ export default {
           orient: 'verticalAlign',
           textStyle: {
             color: this.isDark ? '#fff' : '#000'
+          },
+          formatter: function(a, b, c) {
+            if (a === '用电类型报警') {
+              return a + '    12'
+            }
+            if (a === '空压类型报警') {
+              return a + '    22'
+            }
+            if (a === '工业气体报警') {
+              return a + '    18'
+            }
+            if (a === '其它类型报警') {
+              return a + '    5'
+            }
           }
         },
         series: [{
@@ -147,17 +151,18 @@ export default {
           radius: ['40%', '70%'],
           avoidLabelOverlap: false,
           label: {
-            show: false,
-            position: 'center'
+            show: true,
+            position: 'inside',
+            formatter: '{d} %'
           },
           labelLine: {
             show: false
           },
           data: [
-            { value: 55, name: '用电类型报警' },
-            { value: 43, name: '空压类型报警' },
-            { value: 33, name: '工业气体报警' },
-            { value: 33, name: '其它类型报警' }
+            { value: 12, name: '用电类型报警' },
+            { value: 22, name: '空压类型报警' },
+            { value: 18, name: '工业气体报警' },
+            { value: 5, name: '其它类型报警' }
           ]
         }]
       })
@@ -165,6 +170,22 @@ export default {
     initChart2() {
       this.chart2 = echarts.init(this.$refs.chart2, this.theme)
       this.chart2.setOption({
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: function(params) {
+              let tip = "";
+              if (params != null && params.length > 0) {
+                tip += params[0].name + '<br/>'
+                for (let i = 0; i < params.length; i++) {
+                  tip += params[i].marker + params[i].seriesName + ":" + params[i].value + (params[i].seriesName === '同比上涨' ? '%' : '') +  "</br>"
+                }
+              }
+              return tip
+            }
+        },
         legend: {
           left: 125,
           textStyle: {
@@ -173,13 +194,13 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['07-08', '07-09', '07-10', '07-11', '07-12', '07-13', '07-14', '07-15', '07-16', '07-17', '07-18']
+          data: this.getLastDayArray(10, false)
         }],
         yAxis: [{
             type: 'value',
             min: 0,
-            max: 2000,
-            interval: 500
+            max: 20,
+            interval: 5
           },
           {
             type: 'value',
@@ -194,13 +215,13 @@ export default {
         series: [{
             name: '报警数',
             type: 'bar',
-            data: this.generateRandomArray(0, 2000, 11)
+            data: this.generateRandomArray(5, 20, 10)
           },
           {
             name: '同比上涨',
             type: 'line',
             yAxisIndex: 1,
-            data: this.generateRandomArray(0, 100, 11),
+            data: this.generateRandomArray(0, 100, 10),
             symbol: 'none'
           }
         ]
@@ -214,6 +235,29 @@ export default {
         ret.push(num)
       }
       return ret
+    },
+    getLastDayArray(len, isContainCurrent) {
+      var result = []
+      var now = new Date()
+      let start, end
+      if (isContainCurrent) {
+        start = 0
+        end = len
+      } else {
+        start = 1
+        end = len + 1
+      }
+      let currentDay, newMonth, newDay
+      const oneDay = 24 * 60 * 60 * 1000
+      for (; start < end; start++) {
+        currentDay = new Date(now - oneDay * start)
+        newMonth = currentDay.getMonth() + 1
+        newMonth = newMonth.toString().padStart(2, "0")
+        newDay = currentDay.getDate()
+        newDay = newDay.toString().padStart(2, "0")
+        result.push(`${newMonth}-${newDay}`)
+      }
+      return result.reverse()
     }
   }
 }
@@ -323,7 +367,7 @@ export default {
             width: 18px;
             height: 18px;
             border-radius: 18px;
-            background-color: #D9D9D9;
+            background-color: #aaa;
             text-align: center;
             color: #fff;
             font-size: 12px;
@@ -333,10 +377,11 @@ export default {
               background-color: #314659;
             }
           }
-          .name{
+
+          .name {
             font-size: 14px;
             font-weight: 400;
-            color: rgba(0,0,0,.85);
+            color: rgba(0, 0, 0, .85);
             line-height: 18px;
           }
         }
