@@ -44,37 +44,102 @@ export default {
     }
   },
   created() {
-    this.getElecAnalysis({
-      name: '功率因数',
-      type: '1'
-    })
-    this.getGasAnalysis({
-      name: '天然气',
-      type: '1'
-    })
+    this.getElecAnalysis('功率因数')
+    this.getGasAnalysis('天然气')
   },
   methods: {
     handleClick(tab, event) {
-      this.getElecAnalysis({
-        name: tab.label,
-        type: tab.name
-      })
+      this.getElecAnalysis(tab.label)
     },
     handleClick2(tab, event) {
-      this.getGasAnalysis({
-        name: tab.label,
-        type: tab.name
-      })
+      this.getGasAnalysis(tab.label)
     },
-    getElecAnalysis(data) {
-      getElecAnalysis(data).then(response => {
-        this.lineChartData = response.data
-      })
+    getElecAnalysis(name) {
+      let data, color
+      if (name === '功率因数') {
+        data = this.generateRandomFloatArray(0.8, 1, 7)
+          color = '#C95FF2'
+      } else if (name === '频率') {
+        data = this.generateRandomFloatArray(49, 51, 7)
+        color = '#FF7F00'
+      } else if (name === '三相电压不平衡度') {
+        data = this.generateRandomFloatArray(0, 0.5, 7)
+        color = '#00ADFF'
+      } else if (name === '三相电流不平衡度') {
+        data = this.generateRandomFloatArray(0, 0.5, 7)
+        color = '#61E493'
+      } else if (name === '无功功率') {
+        data = this.generateRandomFloatArray(130, 200, 7)
+        color = '#9382FF'
+      } else if (name === '电压总谐波') {
+        data = this.generateRandomFloatArray(0, 0.5, 7)
+        color = 'blue'
+      } else if (name === '电流总谐波') {
+        data = this.generateRandomFloatArray(0, 0.5, 7)
+        color = 'green'
+      } else if (name === '剩余电流') {
+        data = this.generateRandomFloatArray(300, 310, 7)
+        color = 'yellow'
+      }
+      this.lineChartData = {
+        yAxisName: name,
+        xAxisData: this.getLastDayArray(7, false),
+        data: data,
+        color: color
+      }
     },
-    getGasAnalysis(data) {
-      getGasAnalysis(data).then(response => {
-        this.lineChartData2 = response.data
-      })
+    getGasAnalysis(name) {
+      let color
+      if (name === '天然气') {
+          color = '#C95FF2'
+      } else if (name === '二氧化碳') {
+        color = '#FF7F00'
+      } else if (name === '蒸汽') {
+        color = '#00ADFF'
+      } else if (name === '液氧') {
+        color = '#61E493'
+      } else if (name === '压缩空气') {
+        color = '#9382FF'
+      }
+      this.lineChartData2 = {
+        yAxisName: name,
+        xAxisData: this.getLastDayArray(7, false),
+        data: this.generateRandomFloatArray(0.3, 0.8, 7),
+        color: color
+      }
+    },
+    generateRandomFloatArray(a, b, length) {
+      var c = b - a
+      var num = 0
+      var ret = []
+      for (let i = 0; i < length; i++) {
+        num = Math.random() * c + a
+        ret.push(num.toFixed(2))
+      }
+      return ret
+    },
+    getLastDayArray(len, isContainCurrent) {
+      var result = []
+      var now = new Date()
+      let start, end
+      if (isContainCurrent) {
+        start = 0
+        end = len
+      } else {
+        start = 1
+        end = len + 1
+      }
+      let currentDay, newMonth, newDay
+      const oneDay = 24 * 60 * 60 * 1000
+      for (; start < end; start++) {
+        currentDay = new Date(now - oneDay * start)
+        newMonth = currentDay.getMonth() + 1
+        newMonth = newMonth.toString().padStart(2, "0")
+        newDay = currentDay.getDate()
+        newDay = newDay.toString().padStart(2, "0")
+        result.push(`${newMonth}-${newDay}`)
+      }
+      return result.reverse()
     }
   }
 }
