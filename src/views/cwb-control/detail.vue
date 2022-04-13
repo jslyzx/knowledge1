@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
-    <div class="h-title">设备详情</div>
-    <div class="main">
+    <div class="h-title switchText">设备详情</div>
+    <div class="main switchBg">
       <div class="part">
         <el-row>
           <el-col :span="4">
-            <div class="title">基本信息</div>
+            <div class="title switchText">基本信息</div>
           </el-col>
           <el-col :span="2" :offset="18" class="tr">
             <el-button size="small" type="primary">编辑</el-button>
@@ -14,68 +14,68 @@
         <el-row>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">设备编号:</span>
-              <span class="item-c">BH23423423</span>
+              <span class="item-lable switchText">设备编号:</span>
+              <span class="item-c switchText">BH23423423</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">设备名称:</span>
-              <span class="item-c">空压机#01</span>
+              <span class="item-lable switchText">设备名称:</span>
+              <span class="item-c switchText">空压机#01</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">设备厂商:</span>
-              <span class="item-c">英格索兰</span>
+              <span class="item-lable switchText">设备厂商:</span>
+              <span class="item-c switchText">英格索兰</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">设备类型:</span>
-              <span class="item-c">船坞泵</span>
+              <span class="item-lable switchText">设备类型:</span>
+              <span class="item-c switchText">船坞泵</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">设备型号:</span>
-              <span class="item-c">JS2341</span>
+              <span class="item-lable switchText">设备型号:</span>
+              <span class="item-c switchText">JS2341</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">是否支持反控:</span>
-              <span class="item-c">是</span>
+              <span class="item-lable switchText">是否支持反控:</span>
+              <span class="item-c switchText">是</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">负责人:</span>
-              <span class="item-c">封欢</span>
+              <span class="item-lable switchText">负责人:</span>
+              <span class="item-c switchText">封欢</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">出厂日期:</span>
-              <span class="item-c">2018-02-14</span>
+              <span class="item-lable switchText">出厂日期:</span>
+              <span class="item-c switchText">2018-02-14</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">调试日期:</span>
-              <span class="item-c">2018-02-16</span>
+              <span class="item-lable switchText">调试日期:</span>
+              <span class="item-c switchText">2018-02-16</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">采集网管:</span>
-              <span class="item-c">D2493435</span>
+              <span class="item-lable switchText">采集网管:</span>
+              <span class="item-c switchText">D2493435</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">备注:</span>
-              <span class="item-c">34059820383204</span>
+              <span class="item-lable switchText">备注:</span>
+              <span class="item-c switchText">34059820383204</span>
             </div>
           </el-col>
         </el-row>
@@ -83,7 +83,7 @@
       <div class="part">
         <el-row>
           <el-col :span="4">
-            <div class="title">采集配置</div>
+            <div class="title switchText">采集配置</div>
           </el-col>
           <el-col :span="2" :offset="18" class="tr">
             <el-button size="small" type="primary">编辑</el-button>
@@ -92,74 +92,74 @@
         <el-row>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">模版名称:</span>
-              <span class="item-c">Test demo 001</span>
+              <span class="item-lable switchText">模版名称:</span>
+              <span class="item-c switchText">Test demo 001</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">模板描述:</span>
-              <span class="item-c">英格索兰</span>
+              <span class="item-lable switchText">模板描述:</span>
+              <span class="item-c switchText">英格索兰</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">驱动类型:</span>
-              <span class="item-c">ModBus_RTU</span>
+              <span class="item-lable switchText">驱动类型:</span>
+              <span class="item-c switchText">ModBus_RTU</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">采集间隔:</span>
-              <span class="item-c">25 ms</span>
+              <span class="item-lable switchText">采集间隔:</span>
+              <span class="item-c switchText">25 ms</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">采集超时:</span>
-              <span class="item-c">2000 ms</span>
+              <span class="item-lable switchText">采集超时:</span>
+              <span class="item-c switchText">2000 ms</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">重试次数:</span>
-              <span class="item-c">3</span>
+              <span class="item-lable switchText">重试次数:</span>
+              <span class="item-c switchText">3</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">串口号:</span>
-              <span class="item-c">COM2</span>
+              <span class="item-lable switchText">串口号:</span>
+              <span class="item-c switchText">COM2</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">站号:</span>
-              <span class="item-c">1</span>
+              <span class="item-lable switchText">站号:</span>
+              <span class="item-c switchText">1</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">波特率:</span>
-              <span class="item-c">19200</span>
+              <span class="item-lable switchText">波特率:</span>
+              <span class="item-c switchText">19200</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">数据位:</span>
-              <span class="item-c">8</span>
+              <span class="item-lable switchText">数据位:</span>
+              <span class="item-c switchText">8</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">停止位:</span>
-              <span class="item-c">1</span>
+              <span class="item-lable switchText">停止位:</span>
+              <span class="item-c switchText">1</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="item">
-              <span class="item-lable">校验:</span>
-              <span class="item-c">无校验</span>
+              <span class="item-lable switchText">校验:</span>
+              <span class="item-c switchText">无校验</span>
             </div>
           </el-col>
         </el-row>
@@ -306,5 +306,7 @@ export default {
 .el-dialog__body .filter-item {
   width: 280px;
 }
-
+.theme-dark .main .part:last-child{
+  border-bottom-color: #fff;
+}
 </style>

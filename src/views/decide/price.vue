@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="chart switchBg">
       <div class="chart-head">
-        <div class="chart-title switchText">用点量趋势图</div>
+        <div class="chart-title switchText">用电量趋势图</div>
       </div>
       <div ref="chart1" class="chart-con"></div>
     </div>
@@ -22,55 +22,33 @@
                 <th>品类</th>
                 <th>用量</th>
                 <th>金额</th>
-                <th>同比</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>电量</td>
-                <td>1672.58kWh</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
-              </tr>
-              <tr>
-                <td>氧气</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
-              </tr>
-              <tr>
-                <td>二氧化碳</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
+                <td>蒸汽</td>
+                <td>{{tableData.zqQtys | numFilter}}</td>
+                <td>{{tableData.zqQtyPrice | numFilter}}</td>
               </tr>
               <tr>
                 <td>丙烷</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
-              </tr>
-              <tr>
-                <td>蒸汽</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
+                <td>{{tableData.bwQtys | numFilter}}</td>
+                <td>{{tableData.bwQtysPrice | numFilter}}</td>
               </tr>
               <tr>
                 <td>天然气</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
+                <td>{{tableData.trQtys | numFilter}}</td>
+                <td>{{tableData.trQtysPrice | numFilter}}</td>
               </tr>
               <tr>
-                <td>压缩空气</td>
-                <td>1209.8m3</td>
-                <td>7910.87</td>
-                <td>3.42%</td>
+                <td>二氧化碳</td>
+                <td>{{tableData.eryangQtys | numFilter}}</td>
+                <td>{{tableData.eryangQtyPrice | numFilter}}</td>
               </tr>
               <tr>
-                <td>合计金额</td>
-                <td colspan="3">¥60106.02</td>
+                <td>液氧</td>
+                <td>{{tableData.yeyanQtys | numFilter}}</td>
+                <td>{{tableData.yeyanQtyPrice | numFilter}}</td>
               </tr>
             </tbody>
           </table>
@@ -80,6 +58,7 @@
   </div>
 </template>
 <script>
+import { queryDayTotalQty, queryMonthQty } from '@/api/equipment'
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 export default {
@@ -95,7 +74,22 @@ export default {
       isDark: localStorage.getItem('theme') === 'theme-dark'
     }
   },
-  created() {},
+  filters: {
+    numFilter(value) {
+      let realVal = "";
+      if (!isNaN(value) && value !== "") {
+        realVal = parseFloat(value).toFixed(2);
+      } else {
+        realVal = "";
+      }
+      return realVal;
+    },
+  },
+  created() {
+    queryMonthQty().then(response => {
+      this.tableData = response.data
+    })
+  },
   mounted() {
     this.$nextTick(() => {
       this.initChart1()
@@ -107,7 +101,14 @@ export default {
       this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
         tooltip: {
-          trigger: 'item'
+          trigger: 'axis',
+          formatter: function(params) {
+            let tip = "";
+            if (params != null && params.length > 0) {
+              tip = params[0].marker + params[0].axisValueLabel + '  ' + params[0].data.toFixed(2)
+            }
+            return tip
+          }
         },
         legend: {
           right: 50,
@@ -118,7 +119,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['2020-09', '2020-10', '2020-11', '2020-12', '2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08']
+          data: this.getCurrentMonthArray(12, false)
         }],
         yAxis: [{
           type: 'value',
@@ -127,57 +128,71 @@ export default {
         series: [{
           type: 'bar',
           name: '总电量',
-          data: this.generateRandomArray(0, 35000, 12)
+          data: this.getRandomArray(15000, 20, 12)
         }]
       })
     },
     initChart2() {
       this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
-      this.chart2.setOption({
-        legend: {
-          textStyle: {
-            color: this.isDark ? '#fff' : '#000'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          name: '液氧',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }, {
-          name: '二氧化碳',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }, {
-          name: '丙烷',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }, {
-          name: '蒸汽',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }, {
-          name: '天然气',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }, {
-          name: '压缩空气',
-          type: 'line',
-          symbol: 'none',
-          data: this.generateRandomArray(0, 1000, 12)
-        }]
+      queryDayTotalQty().then(response => {
+        let monthlist = response.data.monthlist
+        let data = response.data
+        this.chart2.setOption({
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+              let tip = "";
+              if (params != null && params.length > 0) {
+                for (let i = 0; i < params.length; i++) {
+                  tip += params[i].marker + params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+                }
+              }
+              return tip
+            }
+          },
+          legend: {
+            textStyle: {
+              color: this.isDark ? '#fff' : '#000'
+            }
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: monthlist
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            name: '液氧',
+            type: 'line',
+            symbol: 'none',
+            data: data['液氧']
+          }, {
+            name: '二氧化碳',
+            type: 'line',
+            symbol: 'none',
+            data: data['二氧化碳']
+          }, {
+            name: '丙烷',
+            type: 'line',
+            symbol: 'none',
+            data: data['丙烷']
+          }, {
+            name: '蒸汽',
+            type: 'line',
+            symbol: 'none',
+            data: data['蒸汽']
+          }, {
+            name: '天然气',
+            type: 'line',
+            symbol: 'none',
+            data: data['天然气']
+          }]
+        })
       })
     },
     generateRandomArray(a, b, length) {
@@ -188,6 +203,43 @@ export default {
         ret.push(num)
       }
       return ret
+    },
+    getRandomArray(level, percent, length) {
+      var num = 0
+      var ret = []
+      const n = percent * level * 4 / 100
+      const min = level * (100 - percent) / 100
+      for (var i = 0; i < length; i++) {
+        num = Math.random() * n + min
+        ret.push(num)
+      }
+      return ret
+    },
+    getCurrentMonthArray(len, isContainCurrent) {
+      var result = []
+      var now = new Date()
+      var year = now.getFullYear() //得到年份
+      var month = now.getMonth() //得到月份
+      if (isContainCurrent) {
+        len--
+        let _month = month + 1
+        _month = _month.toString().padStart(2, "0")
+        result.push(`${year}-${_month}`)
+      }
+      let newYear, newMonth, newStr
+      for (let i = 0; i < len; i++) {
+        month -= 1
+        now.setMonth(month)
+        newYear = now.getFullYear()
+        newMonth = now.getMonth() + 1
+        newMonth = newMonth.toString().padStart(2, "0")
+        newStr = `${newYear}-${newMonth}`
+        result.push(newStr)
+        if (month === -1) {
+          month = 11
+        }
+      }
+      return result.reverse()
     }
   }
 }
@@ -228,7 +280,7 @@ export default {
         height: 30px;
         line-height: 30px;
         font-size: 14px;
-        color: rgba(0,0,0,.85);
+        color: rgba(0, 0, 0, .85);
         font-weight: bold;
         border: 1px solid #E8E8E8;
         background: #FAFAFA;
@@ -241,14 +293,14 @@ export default {
         height: 30px;
         line-height: 30px;
         font-size: 14px;
-        color: rgba(0,0,0,.65);
+        color: rgba(0, 0, 0, .65);
         border: 1px solid #E8E8E8;
       }
     }
   }
 }
 
-.theme-dark .chart .table td{
+.theme-dark .chart .table td {
   color: #fff;
 }
 

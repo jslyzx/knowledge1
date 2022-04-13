@@ -204,7 +204,7 @@ export default {
             let tip = "";
             if (params != null && params.length > 0) {
               for (let i = 0; i < params.length; i++) {
-                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+                tip += params[i].marker + params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
               }
             }
             return tip
@@ -227,7 +227,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: 't/m3'
+          name: 'm3'
         },
         series: [{
           name: '液氧',
@@ -273,7 +273,7 @@ export default {
             let tip = "";
             if (params != null && params.length > 0) {
               for (let i = 0; i < params.length; i++) {
-                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+                tip += params[i].marker + params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
               }
             }
             return tip
@@ -296,7 +296,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: 't/m3'
+          name: 'm3'
         },
         series: [{
           name: '液氧',
@@ -335,7 +335,7 @@ export default {
             let tip = "";
             if (params != null && params.length > 0) {
               for (let i = 0; i < params.length; i++) {
-                tip += params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
+                tip += params[i].marker + params[i].seriesName + ":" + params[i].value.toFixed(2) + "</br>"
               }
             }
             return tip

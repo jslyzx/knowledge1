@@ -125,7 +125,7 @@
           <div class="item-t switchText">核心动力设备能耗</div>
           <el-form size="small" :model="form6" label-width="60px">
             <el-form-item label="年份：">
-              <el-select v-model="form6.year">
+              <el-select v-model="form6.year" @change="selectYear6">
                 <el-option label="2022" value="2022" />
                 <el-option label="2023" value="2023" />
                 <el-option label="2024" value="2024" />
@@ -513,34 +513,6 @@ export default {
         bianwanPrice: '',
         zhenqiPrice: ''
       },
-      form1: {
-        monthOutputValue: '',
-        monthSteelQty: '',
-        monthTotalQty: ''
-      },
-      form2: {
-        dayOutputValue: '',
-        daySteelQty: '',
-        dayTotalQty: ''
-      },
-      form3: {
-        totalElectricQty: '',
-        totalAirQty: ''
-      },
-      form4: {
-        yeyangQty: '',
-        coQty: '',
-        tianranqiQty: '',
-        bianwanQty: '',
-        zhenqiQty: '',
-      },
-      form5: {
-        yeyangPrice: '',
-        coPrice: '',
-        tianranqiPrice: '',
-        bianwanPrice: '',
-        zhenqiPrice: '',
-      },
       form6: {
         year: '2022',
         month1: '',
@@ -655,6 +627,11 @@ export default {
       this.$message({
         message: 'cancel!',
         type: 'warning'
+      })
+    },
+    selectYear6(){
+      queryIotSettingList({ year: this.form6.year, settingType: this.form6.settingType }).then(res => {
+        this.form6 = res.data[0]
       })
     }
   }

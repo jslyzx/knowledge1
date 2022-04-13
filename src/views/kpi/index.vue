@@ -5,8 +5,16 @@
       <el-row class="form switchBg">
         <el-col :span="8">
           <el-form-item label="选择部门">
-            <el-select v-model="depId" placeholder="全部">
-              <el-option label="部门一" value="1" />
+            <el-select v-model="depId" placeholder="请选择">
+              <el-option label="全部" value="1" />
+              <el-option label="加工部" value="2" />
+              <el-option label="组力部" value="3" />
+              <el-option label="涂装部" value="4" />
+              <el-option label="搭载部" value="5" />
+              <el-option label="船装部" value="6" />
+              <el-option label="机装调试部" value="7" />
+              <el-option label="模块部" value="8" />
+              <el-option label="工务保障部" value="9" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -25,23 +33,23 @@
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">待指派</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">3</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">已指派</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">35</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">进行中</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">12</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">今日完成</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">19</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">异常工单</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">0</div>
         </el-col>
       </el-row>
       <div class="compare switchText">
@@ -91,13 +99,13 @@
                 </el-row>
                 <el-row class="tr">
                   <el-col :span="6">
-                    <div class="td switchText">TNM5574</div>
+                    <div class="td switchText">TNM8376</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">默认工单</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="td switchText">佴云</div>
+                    <div class="td switchText">巨波茜</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">已指派</div>
@@ -105,13 +113,13 @@
                 </el-row>
                 <el-row class="tr">
                   <el-col :span="6">
-                    <div class="td switchText">TNM5574</div>
+                    <div class="td switchText">TNM1265</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">默认工单</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="td switchText">佴云</div>
+                    <div class="td switchText">燕姬</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">已指派</div>
@@ -119,13 +127,13 @@
                 </el-row>
                 <el-row class="tr">
                   <el-col :span="6">
-                    <div class="td switchText">TNM5574</div>
+                    <div class="td switchText">TNM4248</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">默认工单</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="td switchText">佴云</div>
+                    <div class="td switchText">左冰辉</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">已指派</div>
@@ -133,13 +141,41 @@
                 </el-row>
                 <el-row class="tr">
                   <el-col :span="6">
-                    <div class="td switchText">TNM5574</div>
+                    <div class="td switchText">TNM7037</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">默认工单</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="td switchText">佴云</div>
+                    <div class="td switchText">赵伦璧</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td switchText">TNM7378</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">松谦</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">已指派</div>
+                  </el-col>
+                </el-row>
+                <el-row class="tr">
+                  <el-col :span="6">
+                    <div class="td switchText">TNM5429</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">默认工单</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div class="td switchText">咸坚</div>
                   </el-col>
                   <el-col :span="6">
                     <div class="td switchText">已指派</div>
@@ -203,7 +239,7 @@ export default {
   },
   methods: {
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, this.theme)
+      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
         legend: {
           textStyle: {
@@ -231,7 +267,7 @@ export default {
       })
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, this.theme)
+      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
       this.chart2.setOption({
         legend: {
           textStyle: {
@@ -265,7 +301,7 @@ export default {
       })
     },
     initChart3() {
-      this.chart3 = echarts.init(this.$refs.chart3, this.theme)
+      this.chart3 = echarts.init(this.$refs.chart3, 'macarons')
       this.chart3.setOption({
         tooltip: {
           trigger: 'item'
@@ -299,7 +335,7 @@ export default {
       })
     },
     initChart4() {
-      this.chart4 = echarts.init(this.$refs.chart4, this.theme)
+      this.chart4 = echarts.init(this.$refs.chart4, 'macarons')
       this.chart4.setOption({
         tooltip: {
           trigger: 'item'

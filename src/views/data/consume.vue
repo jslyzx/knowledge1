@@ -120,7 +120,7 @@
       </div>
     </div>
     <el-dialog title="用量详情" :visible.sync="dialogFormVisible">
-      <el-table :data="scheduleList" :span-method="objectSpanMethod">
+      <el-table :data="scheduleList" :span-method="objectSpanMethod" row-class-name="no-border" header-row-class-name="no-border">
         <el-table-column prop="projectName" label="区域"></el-table-column>
         <el-table-column prop="amount" label="区域日用量"></el-table-column>
         <el-table-column prop="machineName" label="分管"></el-table-column>
@@ -382,6 +382,11 @@ export default {
 
 .el-date-editor.el-input {
   width: 270px;
+}
+
+::v-deep .el-table .no-border td,
+::v-deep .el-table .no-border th.is-leaf{
+  border: none;
 }
 
 </style>

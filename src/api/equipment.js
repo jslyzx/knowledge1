@@ -100,3 +100,9 @@ export function queryGasInfoByDay(data) {
   })
 }
 
+export function queryMonthQty() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryMonthQty',
+    method: 'get'
+  })
+}
