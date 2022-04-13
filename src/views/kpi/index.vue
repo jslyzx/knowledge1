@@ -5,7 +5,7 @@
       <el-row class="form switchBg">
         <el-col :span="8">
           <el-form-item label="选择部门">
-            <el-select v-model="depId" placeholder="请选择">
+            <el-select v-model="depId" placeholder="请选择" @change="selectDep">
               <el-option label="全部" value="1" />
               <el-option label="加工部" value="2" />
               <el-option label="组力部" value="3" />
@@ -239,7 +239,7 @@ export default {
   },
   methods: {
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart1 = this.chart1 || echarts.init(this.$refs.chart1, 'macarons')
       this.chart1.setOption({
         legend: {
           textStyle: {
@@ -248,19 +248,19 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['06-08', '07-08', '08-08', '09-08', '10-08', '11-08', '12-08']
+          data: this.getCurrentMonthArray(6, false)
         },
         yAxis: {
           type: 'value'
         },
         series: [{
           name: '新增工单',
-          data: [10, 8, 15, 20, 25, 30, 45],
+          data: this.generateRandomArray(8, 45, 6),
           type: 'line',
           symbol: 'none'
         }, {
           name: '完成工单',
-          data: [8, 8, 9, 12, 19, 27, 39],
+          data: this.generateRandomArray(7, 39, 6),
           symbol: 'none',
           type: 'line'
         }]
@@ -312,6 +312,20 @@ export default {
           orient: 'verticalAlign',
           textStyle: {
             color: this.isDark ? '#fff' : '#000'
+          },
+          formatter: function(a, b, c) {
+            if (a === '工单类型') {
+              return a + '    55'
+            }
+            if (a === '产品类型') {
+              return a + '    43'
+            }
+            if (a === '服务类型') {
+              return a + '    33'
+            }
+            if (a === '服务内容') {
+              return a + '    33'
+            }
           }
         },
         series: [{
@@ -319,8 +333,9 @@ export default {
           radius: ['40%', '70%'],
           avoidLabelOverlap: false,
           label: {
-            show: false,
-            position: 'center'
+            show: true,
+            position: 'inside',
+            formatter: '{d} %'
           },
           labelLine: {
             show: false
@@ -346,6 +361,17 @@ export default {
           orient: 'verticalAlign',
           textStyle: {
             color: this.isDark ? '#fff' : '#000'
+          },
+          formatter: function(a, b, c) {
+            if (a === '满意') {
+              return a + '    55'
+            }
+            if (a === '一般') {
+              return a + '    43'
+            }
+            if (a === '不满意') {
+              return a + '    33'
+            }
           }
         },
         series: [{
@@ -366,6 +392,44 @@ export default {
           ]
         }]
       })
+    },
+    getCurrentMonthArray(len, isContainCurrent) {
+      var result = []
+      var now = new Date()
+      var year = now.getFullYear() //得到年份
+      var month = now.getMonth() //得到月份
+      if (isContainCurrent) {
+        len--
+        let _month = month + 1
+        _month = _month.toString().padStart(2, "0")
+        result.push(`${year}-${_month}`)
+      }
+      let newYear, newMonth, newStr
+      for (let i = 0; i < len; i++) {
+        month -= 1
+        now.setMonth(month)
+        newYear = now.getFullYear()
+        newMonth = now.getMonth() + 1
+        newMonth = newMonth.toString().padStart(2, "0")
+        newStr = `${newYear}-${newMonth}`
+        result.push(newStr)
+        if (month === -1) {
+          month = 11
+        }
+      }
+      return result.reverse()
+    },
+    selectDep() {
+      this.initChart1()
+    },
+    generateRandomArray(a, b, length) {
+      var num = 0
+      var ret = []
+      for (var i = 0; i < length; i++) {
+        num = parseInt(Math.random() * (b - a + 1) + a, 10)
+        ret.push(num)
+      }
+      return ret
     }
   }
 }
@@ -477,6 +541,7 @@ export default {
       .table {
         width: 100%;
         height: 100%;
+
         .thead {
           height: 32px;
           background: #D8D8D8;
@@ -489,14 +554,16 @@ export default {
           }
         }
 
-        .tbody{
+        .tbody {
           height: calc(100% - 32px);
           overflow: auto;
-          .tr{
+
+          .tr {
             line-height: 22px;
             height: 22px;
             margin: 16px 0;
-            .td{
+
+            .td {
               text-align: left;
               padding-left: 17px;
               font-size: 12px;
