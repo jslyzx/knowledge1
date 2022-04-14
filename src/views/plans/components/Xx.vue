@@ -10,7 +10,7 @@
     </el-row>
     <div class="top">
       <div class="info">
-        <img src="https://seopic.699pic.com/photo/50129/2295.jpg_wh1200.jpg" class="pic">
+        <img :src="imgSrc" class="pic">
         <div class="table-wrap">
           <table cellspacing="0">
             <tr>
@@ -34,7 +34,7 @@
             <tr>
               <td>
                 <span class="label">设备名称</span>
-                <span class="con">2号区液氧储罐#2</span>
+                <span class="con">{{deviceName}}</span>
               </td>
               <td>
                 <span class="label">复杂系数</span>
@@ -87,7 +87,7 @@
           <div class="item">
             <i class="icon" />
             <span class="label">设备名称：</span>
-            <span class="con">2号区液氧储罐#2</span>
+            <span class="con">{{deviceName}}</span>
           </div>
           <div class="item">
             <i class="icon" />
@@ -163,10 +163,20 @@ export default {
     deviceId: {
       type: Number,
       default: 1
+    },
+    deviceName: {
+      type: String,
+      default: ""
     }
   },
   data() {
     return {
+      kyj: require('@/assets/device/kyj.png'),
+      cg: require('@/assets/device/cg.png'),
+      llj: require('@/assets/device/llj.png'),
+      qt: require('@/assets/device/qt.png'),
+      wdj: require('@/assets/device/wdj.png'),
+      ylb: require('@/assets/device/ylb.png'),
       filterDate: '',
       pickerOptions: {
         shortcuts: [{
@@ -201,7 +211,8 @@ export default {
       listQuery: {
         page: 1,
         limit: 20
-      }
+      },
+      imgSrc: ''
     }
   },
   watch: {
@@ -210,6 +221,12 @@ export default {
         ...this.listQuery,
         deviceId: val
       }
+      if (/空压机/.test(this.deviceName)) this.imgSrc = this.kyj
+      if (/储罐/.test(this.deviceName)) this.imgSrc = this.cg
+      if (/流量计/.test(this.deviceName)) this.imgSrc = this.llj
+      if (/压力表/.test(this.deviceName)) this.imgSrc = this.ylb
+      if (/温度计/.test(this.deviceName)) this.imgSrc = this.wdj
+      if (/其他设备/.test(this.deviceName)) this.imgSrc = this.qt
       this.fetchList()
     }
   },
@@ -218,6 +235,12 @@ export default {
       ...this.listQuery,
       deviceId: this.deviceId
     }
+    if (/空压机/.test(this.deviceName)) this.imgSrc = this.kyj
+    if (/储罐/.test(this.deviceName)) this.imgSrc = this.cg
+    if (/流量计/.test(this.deviceName)) this.imgSrc = this.llj
+    if (/压力表/.test(this.deviceName)) this.imgSrc = this.ylb
+    if (/温度计/.test(this.deviceName)) this.imgSrc = this.wdj
+    if (/其他设备/.test(this.deviceName)) this.imgSrc = this.qt
     this.fetchList()
   },
   methods: {

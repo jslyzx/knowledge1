@@ -7,13 +7,13 @@
       <el-col :span="18" class="right switchBg">
         <el-tabs v-model="activeName">
           <el-tab-pane label="项修" name="xx">
-            <Xx :device-id="selectedId" />
+            <Xx :device-id="selectedId" :device-name="deviceName" />
           </el-tab-pane>
           <el-tab-pane label="大修" name="dx">
-            <Dx :device-id="selectedId" />
+            <Dx :device-id="selectedId" :device-name="deviceName" />
           </el-tab-pane>
           <el-tab-pane label="二保计划" name="eb">
-            <Eb :device-id="selectedId" />
+            <Eb :device-id="selectedId" :device-name="deviceName" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -93,6 +93,7 @@ export default {
         }]
       }],
       selectedId: 1,
+      deviceName: '',
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -100,12 +101,15 @@ export default {
       activeName: 'xx'
     }
   },
-  created() {},
+  created() {
+    this.deviceName = this.data[0].children[0].label
+  },
   methods: {
     handleNodeClick(data) {
       console.log(data)
       this.selectedId = data.id
       this.activeName = 'xx'
+      this.deviceName = data.label
     }
   }
 }
