@@ -16,7 +16,7 @@
       </el-col>
       <el-col :lg="{span: '4-8'}">
         <div class="grid-content">
-          <div class="title">总流量（m3/h）</div>
+          <div class="title switchText">总流量（m3/h）</div>
           <div class="num">3424</div>
         </div>
       </el-col>
