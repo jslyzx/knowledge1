@@ -18,7 +18,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="2" :offset="14">
+        <el-col :span="3" :offset="13">
           <el-button size="small">重置</el-button>
           <el-button size="small" type="primary">查询</el-button>
         </el-col>

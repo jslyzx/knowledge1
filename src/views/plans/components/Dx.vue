@@ -177,6 +177,7 @@ export default {
       qt: require('@/assets/device/qt.png'),
       wdj: require('@/assets/device/wdj.png'),
       ylb: require('@/assets/device/ylb.png'),
+      sb: require('@/assets/device/sb.png'),
       filterDate: '',
       pickerOptions: {
         shortcuts: [{
@@ -226,6 +227,7 @@ export default {
     if (/流量计/.test(this.deviceName)) this.imgSrc = this.llj
     if (/压力表/.test(this.deviceName)) this.imgSrc = this.ylb
     if (/温度计/.test(this.deviceName)) this.imgSrc = this.wdj
+    if (/加压泵/.test(this.deviceName)) this.imgSrc = this.sb
     this.fetchList()
   },
   methods: {
