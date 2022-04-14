@@ -215,7 +215,7 @@
           <div class="item-t switchText">万修正吨</div>
           <el-form size="small" :model="form7" label-width="60px">
             <el-form-item label="年份：">
-              <el-select v-model="form7.year">
+              <el-select v-model="form7.year" @change="selectYear7">
                 <el-option label="2022" value="2022" />
                 <el-option label="2023" value="2023" />
                 <el-option label="2024" value="2024" />
@@ -305,7 +305,7 @@
           <div class="item-t switchText">整体生产能耗</div>
           <el-form size="small" :model="form8" label-width="60px">
             <el-form-item label="年份：">
-              <el-select v-model="form8.year">
+              <el-select v-model="form8.year" @change="selectYear8">
                 <el-option label="2022" value="2022" />
                 <el-option label="2023" value="2023" />
                 <el-option label="2024" value="2024" />
@@ -395,7 +395,7 @@
           <div class="item-t switchText">主要设备停机率</div>
           <el-form size="small" v-model="form9" label-width="60px">
             <el-form-item label="年份：">
-              <el-select v-model="form9.year">
+              <el-select v-model="form9.year" @change="selectYear9">
                 <el-option label="2022" value="2022" />
                 <el-option label="2023" value="2023" />
                 <el-option label="2024" value="2024" />
@@ -588,16 +588,32 @@ export default {
         this.form = res.data
       })
       queryIotSettingList({ year: this.form6.year, settingType: this.form6.settingType }).then(res => {
-        this.form6 = res.data[0]
+        if(res.data){
+          this.form6 = res.data[0]
+        }else{
+          this.resetForm(this.form6)
+        }
       })
       queryIotSettingList({ year: this.form7.year, settingType: this.form7.settingType }).then(res => {
-        this.form7 = res.data[0]
+        if(res.data){
+          this.form7 = res.data[0]
+        }else{
+          this.resetForm(this.form7)
+        }
       })
       queryIotSettingList({ year: this.form8.year, settingType: this.form8.settingType }).then(res => {
-        this.form8 = res.data[0]
+        if(res.data){
+          this.form8 = res.data[0]
+        }else{
+          this.resetForm(this.form8)
+        }
       })
       queryIotSettingList({ year: this.form9.year, settingType: this.form9.settingType }).then(res => {
-        this.form9 = res.data[0]
+        if(res.data){
+          this.form9 = res.data[0]
+        }else{
+          this.resetForm(this.form9)
+        }
       })
     },
     onSubmit() {
@@ -631,8 +647,53 @@ export default {
     },
     selectYear6(){
       queryIotSettingList({ year: this.form6.year, settingType: this.form6.settingType }).then(res => {
-        this.form6 = res.data[0]
+        if(res.data){
+          this.form6 = res.data[0]
+        }else{
+          this.resetForm(this.form6)
+        }
       })
+    },
+    selectYear7(){
+      queryIotSettingList({ year: this.form7.year, settingType: this.form7.settingType }).then(res => {
+        if(res.data){
+          this.form7 = res.data[0]
+        }else{
+          this.resetForm(this.form7)
+        }
+      })
+    },
+    selectYear8(){
+      queryIotSettingList({ year: this.form8.year, settingType: this.form8.settingType }).then(res => {
+        if(res.data){
+          this.form8 = res.data[0]
+        }else{
+          this.resetForm(this.form8)
+        }
+      })
+    },
+    selectYear9(){
+      queryIotSettingList({ year: this.form9.year, settingType: this.form9.settingType }).then(res => {
+        if(res.data){
+          this.form9 = res.data[0]
+        }else{
+          this.resetForm(this.form9)
+        }
+      })
+    },
+    resetForm(form) {
+        form.month1 = ''
+        form.month2 = ''
+        form.month3 = ''
+        form.month4 = ''
+        form.month5 = ''
+        form.month6 = ''
+        form.month7 = ''
+        form.month8 = ''
+        form.month9 = ''
+        form.month10 = ''
+        form.month11 = ''
+        form.month12 = ''
     }
   }
 }
