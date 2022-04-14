@@ -221,12 +221,12 @@ export default {
         ...this.listQuery,
         deviceId: val
       }
+      this.imgSrc = this.qt
       if (/空压机/.test(this.deviceName)) this.imgSrc = this.kyj
       if (/储罐/.test(this.deviceName)) this.imgSrc = this.cg
       if (/流量计/.test(this.deviceName)) this.imgSrc = this.llj
       if (/压力表/.test(this.deviceName)) this.imgSrc = this.ylb
       if (/温度计/.test(this.deviceName)) this.imgSrc = this.wdj
-      if (/其他设备/.test(this.deviceName)) this.imgSrc = this.qt
       this.fetchList()
     }
   },
@@ -235,12 +235,12 @@ export default {
       ...this.listQuery,
       deviceId: this.deviceId
     }
+    this.imgSrc = this.qt
     if (/空压机/.test(this.deviceName)) this.imgSrc = this.kyj
     if (/储罐/.test(this.deviceName)) this.imgSrc = this.cg
     if (/流量计/.test(this.deviceName)) this.imgSrc = this.llj
     if (/压力表/.test(this.deviceName)) this.imgSrc = this.ylb
     if (/温度计/.test(this.deviceName)) this.imgSrc = this.wdj
-    if (/其他设备/.test(this.deviceName)) this.imgSrc = this.qt
     this.fetchList()
   },
   methods: {

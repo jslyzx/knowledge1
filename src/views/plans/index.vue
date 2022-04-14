@@ -24,75 +24,13 @@
 import Xx from './components/Xx'
 import Dx from './components/Dx'
 import Eb from './components/Eb'
+import { getAllMachineList } from '@/api/equipment'
 export default {
   components: { Xx, Dx, Eb },
   data() {
     return {
-      data: [{
-        id: 14,
-        label: '空压机',
-        children: [{
-          label: '空压机1#',
-          id: 1
-        }, {
-          label: '空压机2#',
-          id: 2
-        }]
-      }, {
-        id: 15,
-        label: '储罐',
-        children: [{
-          label: '2号区液氧储罐#1',
-          id: 3
-        }, {
-          label: '2号区液氧储罐#2',
-          id: 4
-        }, {
-          label: '2号区二氧化碳储罐#1',
-          id: 5
-        }]
-      }, {
-        id: 16,
-        label: '流量计',
-        children: [{
-          label: '流量计#',
-          id: 6
-        }, {
-          label: '流量计#',
-          id: 7
-        }]
-      }, {
-        id: 17,
-        label: '压力表',
-        children: [{
-          label: '压力表#1',
-          id: 8
-        }, {
-          label: '压力表#2',
-          id: 9
-        }]
-      }, {
-        id: 18,
-        label: '温度计',
-        children: [{
-          label: '温度计#1',
-          id: 10
-        }, {
-          label: '温度计#2',
-          id: 11
-        }]
-      }, {
-        id: 19,
-        label: '其他设备',
-        children: [{
-          label: '其他设备#1',
-          id: 12
-        }, {
-          label: '其他设备#2',
-          id: 13
-        }]
-      }],
-      selectedId: 1,
+      data: [],
+      selectedId: 498,
       deviceName: '',
       defaultProps: {
         children: 'children',
@@ -102,7 +40,10 @@ export default {
     }
   },
   created() {
-    this.deviceName = this.data[0].children[0].label
+    getAllMachineList().then(res => {
+      this.data = res.data
+      this.deviceName = this.data[0].children[0].label
+    })
   },
   methods: {
     handleNodeClick(data) {

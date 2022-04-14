@@ -106,3 +106,10 @@ export function queryMonthQty() {
     method: 'get'
   })
 }
+
+export function getAllMachineList() {
+  return request({
+    url: '../api/equipment/getAllMachineList',
+    method: 'get'
+  })
+}
