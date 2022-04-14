@@ -17,7 +17,7 @@
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
           <el-col :span="12">
-            <i class="el-icon-download"></i>下载
+            <a class="el-icon-download"></a>下载
           </el-col>
           <el-col :span="12">
             <i class="el-icon-view"></i>查看

@@ -5,16 +5,16 @@
       <el-row class="form switchBg">
         <el-col :span="8">
           <el-form-item label="选择部门">
-            <el-select v-model="depId" placeholder="请选择" @change="selectDep">
-              <el-option label="全部" value="1" />
-              <el-option label="加工部" value="2" />
-              <el-option label="组力部" value="3" />
-              <el-option label="涂装部" value="4" />
-              <el-option label="搭载部" value="5" />
-              <el-option label="船装部" value="6" />
-              <el-option label="机装调试部" value="7" />
-              <el-option label="模块部" value="8" />
-              <el-option label="工务保障部" value="9" />
+            <el-select v-model.number="depId" placeholder="请选择" @change="selectDep">
+              <el-option label="全部" :value="1" />
+              <el-option label="加工部" :value="2" />
+              <el-option label="组力部" :value="3" />
+              <el-option label="涂装部" :value="4" />
+              <el-option label="搭载部" :value="5" />
+              <el-option label="船装部" :value="6" />
+              <el-option label="机装调试部" :value="7" />
+              <el-option label="模块部" :value="8" />
+              <el-option label="工务保障部" :value="9" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -29,27 +29,27 @@
       <el-row>
         <el-col :span="4" class="item">
           <div class="item-t switchText">工单总数</div>
-          <div class="item-c switchText">79</div>
+          <div class="item-c switchText">{{infoData[depId - 1][0]}}</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">待指派</div>
-          <div class="item-c switchText">3</div>
+          <div class="item-c switchText">{{infoData[depId - 1][1]}}</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">已指派</div>
-          <div class="item-c switchText">35</div>
+          <div class="item-c switchText">{{infoData[depId - 1][2]}}</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">进行中</div>
-          <div class="item-c switchText">12</div>
+          <div class="item-c switchText">{{infoData[depId - 1][3]}}</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">今日完成</div>
-          <div class="item-c switchText">19</div>
+          <div class="item-c switchText">{{infoData[depId - 1][4]}}</div>
         </el-col>
         <el-col :span="4" class="item">
           <div class="item-t switchText">异常工单</div>
-          <div class="item-c switchText">0</div>
+          <div class="item-c switchText">{{infoData[depId - 1][5]}}</div>
         </el-col>
       </el-row>
       <div class="compare switchText">
@@ -219,13 +219,14 @@ require('echarts/theme/macarons') // echarts theme
 export default {
   data() {
     return {
-      depId: '',
+      depId: 1,
       chart1: null,
       chart2: null,
       chart3: null,
       chart4: null,
       theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
-      isDark: localStorage.getItem('theme') === 'theme-dark'
+      isDark: localStorage.getItem('theme') === 'theme-dark',
+      infoData: [[79,3,35,12,19,0],[78,4,30,13,17,0],[79,4,30,13,17,0],[80,3,30,13,17,0],[78,4,30,13,17,0],[79,5,30,13,17,0],[80,3,30,13,17,0],[78,4,30,13,17,0],[79,5,30,13,17,0]]
     }
   },
   created() {},
