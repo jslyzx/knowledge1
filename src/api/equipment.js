@@ -109,7 +109,7 @@ export function queryMonthQty() {
 
 export function getAllMachineList() {
   return request({
-    url: '../api/equipment/getAllMachineList',
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/getAllMachineList',
     method: 'get'
   })
 }
