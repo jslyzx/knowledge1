@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function queryEquipmentSetting() {
   return request({
-    url: '../api/equipment/queryEquipmentSetting',
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryEquipmentSetting',
     method: 'get'
   })
 }
