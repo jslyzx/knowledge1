@@ -105,8 +105,8 @@
         </el-col>
       </el-row>
     </div>
-    <div class="part">
-      <div class="part-title">项修内容</div>
+    <div class="part switchBg">
+      <div class="part-title switchText">项修内容</div>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="350">
         <el-table-column label="项修日期" align="center">
           <template slot-scope="scope">
