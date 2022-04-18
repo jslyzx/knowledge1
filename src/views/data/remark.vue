@@ -4,8 +4,12 @@
       <div class="chart-title switchText">产量能耗统计</div>
       <div ref="chart1" class="chart-con" />
     </div>
-    <div class="chart switchBg" style="padding-bottom: 20px;">
-      <el-menu :default-active="activeIndex1" mode="horizontal" @select="handleSelect">
+    <div class="chart switchBg" style="padding-bottom: 20px">
+      <el-menu
+        :default-active="activeIndex1"
+        mode="horizontal"
+        @select="handleSelect"
+      >
         <el-menu-item index="液氧">液氧</el-menu-item>
         <el-menu-item index="二氧化碳">二氧化碳</el-menu-item>
         <el-menu-item index="天然气">天然气</el-menu-item>
@@ -24,8 +28,12 @@
         </div>
       </div>
     </div>
-    <div class="chart switchBg" style="padding-bottom: 20px;">
-      <el-menu :default-active="activeIndex2" mode="horizontal" @select="handleSelect">
+    <div class="chart switchBg" style="padding-bottom: 20px">
+      <el-menu
+        :default-active="activeIndex2"
+        mode="horizontal"
+        @select="handleSelect1"
+      >
         <el-menu-item index="液氧">液氧</el-menu-item>
         <el-menu-item index="二氧化碳">二氧化碳</el-menu-item>
         <el-menu-item index="天然气">天然气</el-menu-item>
@@ -49,7 +57,9 @@
       <el-row>
         <el-col :span="12">
           <div ref="chart4" class="chart-pie" />
-          <div class="warn switchText">天然气相关报警产生较多次报警，需要密切关注该类型的用气情况。</div>
+          <div class="warn switchText">
+            天然气相关报警产生较多次报警，需要密切关注该类型的用气情况。
+          </div>
         </el-col>
         <el-col :span="12">
           <div ref="chart5" class="bar" />
@@ -62,9 +72,7 @@
         <el-col :span="12">
           <div class="name switchText">工业气体用气指标综合评定</div>
           <div class="circle">
-            <div class="inner">
-              74 <span>分</span>
-            </div>
+            <div class="inner">74 <span>分</span></div>
           </div>
         </el-col>
         <el-col :span="12">
@@ -97,12 +105,13 @@
   </div>
 </template>
 <script>
-import { getGuanZhongData } from '@/api/chart'
-import echarts from 'echarts'
-echarts.registerTheme('aa', {
-  backgroundColor: "#2C3748"
+import { getGuanZhongData } from "@/api/chart";
+import { queryMonthInstant, queryMonthInstantYL } from "@/api/equipment";
+import echarts from "echarts";
+echarts.registerTheme("aa", {
+  backgroundColor: "#2C3748",
 });
-require('echarts/theme/macarons') // echarts theme
+require("echarts/theme/macarons"); // echarts theme
 
 export default {
   data() {
@@ -115,40 +124,53 @@ export default {
       chart3: null,
       chart4: null,
       chart5: null,
-      activeIndex1: '液氧',
-      activeIndex2: '液氧',
-      theme: localStorage.getItem('theme') === 'theme-dark' ? 'aa' : 'macarons',
-      isDark: localStorage.getItem('theme') === 'theme-dark'
-    }
+      activeIndex1: "液氧",
+      activeIndex2: "液氧",
+      gasName: "液氧",
+      gasName1: "液氧",
+      theme: localStorage.getItem("theme") === "theme-dark" ? "aa" : "macarons",
+      isDark: localStorage.getItem("theme") === "theme-dark",
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   mounted() {
     this.$nextTick(() => {
-      this.initChart1()
-      this.initChart2()
-      this.initChart3()
-      this.initChart4()
-      this.initChart5()
-    })
+      this.initChart1();
+      this.initChart2();
+      this.initChart3();
+      this.initChart4();
+      this.initChart5();
+    });
   },
   methods: {
     changeType(t) {
-      if (t === this.type) return
-      this.type = t
+      if (t === this.type) return;
+      this.type = t;
     },
     changeGasType(t) {
-      if (t === this.gasType) return
-      this.gasType = t
+      if (t === this.gasType) return;
+      this.gasType = t;
     },
-    handleSelect() {
-
+    handleSelect(e) {
+      console.log(e);
+      this.gasName = e;
+      this.$nextTick(() => {
+        this.initChart2();
+      });
+    },
+    handleSelect1(e) {
+      console.log(e);
+      this.gasName1 = e;
+      this.$nextTick(() => {
+        this.initChart3();
+      });
     },
     fetchData() {
-      getGuanZhongData().then(response => {
-        this.list = response.data
-      })
+      getGuanZhongData().then((response) => {
+        this.list = response.data;
+      });
     },
     randomData(now, value, oneDay) {
       now = new Date(+now + oneDay);
@@ -156,324 +178,341 @@ export default {
       return {
         name: now.toString(),
         value: [
-          [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
-          Math.round(value)
-        ]
+          [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
+          Math.round(value),
+        ],
       };
     },
     initChart1() {
-      this.chart1 = echarts.init(this.$refs.chart1, 'macarons')
+      this.chart1 = echarts.init(this.$refs.chart1, "macarons");
       this.chart1.setOption({
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           axisPointer: {
-            type: 'shadow'
-          }
+            type: "shadow",
+          },
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
         },
         legend: {
           textStyle: {
-            color: this.isDark ? '#fff' : '#000'
-          }
+            color: this.isDark ? "#fff" : "#000",
+          },
         },
         xAxis: {
-          type: 'category',
-          data: this.getCurrentMonthArray(12, false)
+          type: "category",
+          data: this.getCurrentMonthArray(12, false),
         },
-        yAxis: [{
-            type: 'value',
-            name: 't',
+        yAxis: [
+          {
+            type: "value",
+            name: "t",
           },
           {
-            type: 'value',
-            name: 'm3'
-          }
+            type: "value",
+            name: "m3",
+          },
         ],
-        series: [{
-            name: '本月产量',
-            type: 'bar',
-            data: this.getRandomArray(9345, 20, 12)
-          }, {
-            name: '上月产量',
-            type: 'bar',
-            data: this.getRandomArray(9345, 20, 12)
+        series: [
+          {
+            name: "本月产量",
+            type: "bar",
+            data: this.getRandomArray(9345, 20, 12),
           },
           {
-            name: '本月用气量',
-            type: 'line',
-            yAxisIndex: 1,
-            data: this.getRandomArray(500, 20, 12),
-            symbol: 'none'
+            name: "上月产量",
+            type: "bar",
+            data: this.getRandomArray(9345, 20, 12),
           },
           {
-            name: '上月用气量',
-            type: 'line',
+            name: "本月用气量",
+            type: "line",
             yAxisIndex: 1,
             data: this.getRandomArray(500, 20, 12),
-            symbol: 'none'
-          }
-        ]
-      })
+            symbol: "none",
+          },
+          {
+            name: "上月用气量",
+            type: "line",
+            yAxisIndex: 1,
+            data: this.getRandomArray(500, 20, 12),
+            symbol: "none",
+          },
+        ],
+      });
     },
     initChart2() {
-      this.chart2 = echarts.init(this.$refs.chart2, 'macarons')
-      let base = +new Date();
-      let oneDay = 24 * 3600 * 1000;
-      let data = [
-        [base, Math.random() * 300]
-      ];
-      for (let i = 1; i < 31; i++) {
-        let now = new Date((base -= oneDay));
-        data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
-      }
-      this.chart2.setOption({
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        tooltip: {
-          trigger: 'axis',
-          position: function(pt) {
-            return [pt[0], '10%'];
-          },
-          formatter: function(params) {
-            let tip = "";
-            if (params != null && params.length > 0) {
-              tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
-            }
-            return tip
-          }
-        },
-        xAxis: {
-          type: 'time',
-          boundaryGap: false,
-          axisLabel: {
-            color: this.isDark ? '#fff' : '#000'
-          }
-        },
-        yAxis: {
-          type: 'value',
-          boundaryGap: [0, '100%']
-        },
-        dataZoom: [{
-            type: 'inside',
-            start: 97,
-            end: 100,
-            textStyle: {
-              color: this.isDark ? '#fff' : '#000'
-            }
-          },
-          {
-            start: 97,
-            end: 100,
-            textStyle: {
-              color: this.isDark ? '#fff' : '#000'
-            }
-          }
-        ],
-        series: [{
-          type: 'line',
-          smooth: true,
-          symbol: 'none',
-          areaStyle: {},
-          data: data
-        }]
-      })
+      var param = {};
+      param.gasName = this.gasName;
+      var data = [];
+      queryMonthInstant(param).then((response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          data.push([response.data[i].flowTime, response.data[i].qty]);
+          this.chart2 = echarts.init(this.$refs.chart2, "macarons");
+          this.chart2.setOption({
+            grid: {
+              left: "3%",
+              right: "4%",
+              bottom: "3%",
+              containLabel: true,
+            },
+            tooltip: {
+              trigger: "axis",
+              position: function (pt) {
+                return [pt[0], "10%"];
+              },
+              formatter: function (params) {
+                let tip = "";
+                if (params != null && params.length > 0) {
+                  tip =
+                    params[0].axisValueLabel +
+                    "  " +
+                    params[0].data[1].toFixed(2);
+                }
+                return tip;
+              },
+            },
+            xAxis: {
+              type: "time",
+              boundaryGap: false,
+              axisLabel: {
+                color: this.isDark ? "#fff" : "#000",
+              },
+            },
+            yAxis: {
+              type: "value",
+              boundaryGap: [0, "100%"],
+            },
+            dataZoom: [
+              {
+                type: "inside",
+                start: 97,
+                end: 100,
+                textStyle: {
+                  color: this.isDark ? "#fff" : "#000",
+                },
+              },
+              {
+                start: 97,
+                end: 100,
+                textStyle: {
+                  color: this.isDark ? "#fff" : "#000",
+                },
+              },
+            ],
+            series: [
+              {
+                type: "line",
+                smooth: true,
+                symbol: "none",
+                areaStyle: {},
+                data: data,
+              },
+            ],
+          });
+        }
+      });
     },
     initChart3() {
-      this.chart3 = echarts.init(this.$refs.chart3, 'macarons')
-      let base = +new Date();
-      let oneDay = 24 * 3600 * 1000;
-      let data = [
-        [base, Math.random() * 300]
-      ];
-      for (let i = 1; i < 31; i++) {
-        let now = new Date((base -= oneDay));
-        data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
-      }
-      this.chart3.setOption({
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        tooltip: {
-          trigger: 'axis',
-          position: function(pt) {
-            return [pt[0], '10%'];
+      var param = {};
+      param.gasName = this.gasName1;
+      var data = [];
+      queryMonthInstant(param).then((response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          data.push([response.data[i].flowTime, response.data[i].qty]);
+        }
+        this.chart3 = echarts.init(this.$refs.chart3, "macarons");
+
+        this.chart3.setOption({
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true,
           },
-          formatter: function(params) {
-            let tip = "";
-            if (params != null && params.length > 0) {
-              tip = params[0].axisValueLabel + '  ' + params[0].data[1].toFixed(2)
-            }
-            return tip
-          }
-        },
-        xAxis: {
-          type: 'time',
-          boundaryGap: false,
-          axisLabel: {
-            color: this.isDark ? '#fff' : '#000'
-          }
-        },
-        yAxis: {
-          type: 'value',
-          boundaryGap: [0, '100%']
-        },
-        dataZoom: [{
-            type: 'inside',
-            start: 97,
-            end: 100,
-            textStyle: {
-              color: this.isDark ? '#fff' : '#000'
-            }
+          tooltip: {
+            trigger: "axis",
+            position: function (pt) {
+              return [pt[0], "10%"];
+            },
+            formatter: function (params) {
+              let tip = "";
+              if (params != null && params.length > 0) {
+                tip =
+                  params[0].axisValueLabel +
+                  "  " +
+                  params[0].data[1].toFixed(2);
+              }
+              return tip;
+            },
           },
-          {
-            start: 97,
-            end: 100,
-            textStyle: {
-              color: this.isDark ? '#fff' : '#000'
-            }
-          }
-        ],
-        series: [{
-          type: 'line',
-          smooth: true,
-          symbol: 'none',
-          areaStyle: {},
-          data: data
-        }]
-      })
+          xAxis: {
+            type: "time",
+            boundaryGap: false,
+            axisLabel: {
+              color: this.isDark ? "#fff" : "#000",
+            },
+          },
+          yAxis: {
+            type: "value",
+            boundaryGap: [0, "100%"],
+          },
+          dataZoom: [
+            {
+              type: "inside",
+              start: 97,
+              end: 100,
+              textStyle: {
+                color: this.isDark ? "#fff" : "#000",
+              },
+            },
+            {
+              start: 97,
+              end: 100,
+              textStyle: {
+                color: this.isDark ? "#fff" : "#000",
+              },
+            },
+          ],
+          series: [
+            {
+              type: "line",
+              smooth: true,
+              symbol: "none",
+              areaStyle: {},
+              data: data,
+            },
+          ],
+        });
+      });
     },
     initChart4() {
-      this.chart4 = echarts.init(this.$refs.chart4, this.theme)
+      this.chart4 = echarts.init(this.$refs.chart4, this.theme);
       this.chart4.setOption({
         grid: {
-          left: '1%',
-          right: '1%',
-          bottom: '1%',
-          containLabel: true
+          left: "1%",
+          right: "1%",
+          bottom: "1%",
+          containLabel: true,
         },
         tooltip: {
-          trigger: 'item'
+          trigger: "item",
         },
         legend: {
-          top: 'bottom',
+          top: "bottom",
           textStyle: {
-            color: this.isDark ? '#fff' : '#000'
-          }
+            color: this.isDark ? "#fff" : "#000",
+          },
         },
-        series: [{
-          type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          label: {
-            show: true,
-            position: 'inside',
-            formatter: '{c}'
+        series: [
+          {
+            type: "pie",
+            radius: ["40%", "70%"],
+            avoidLabelOverlap: false,
+            label: {
+              show: true,
+              position: "inside",
+              formatter: "{c}",
+            },
+            labelLine: {
+              show: false,
+            },
+            data: [
+              { value: 6, name: "液氧" },
+              { value: 5, name: "天然气" },
+              { value: 9, name: "丙烷" },
+              { value: 12, name: "二氧化碳" },
+              { value: 18, name: "蒸汽" },
+            ],
           },
-          labelLine: {
-            show: false
-          },
-          data: [
-            { value: 6, name: '液氧' },
-            { value: 5, name: '天然气' },
-            { value: 9, name: '丙烷' },
-            { value: 12, name: '二氧化碳' },
-            { value: 18, name: '蒸汽' }
-          ]
-        }]
-      })
+        ],
+      });
     },
     initChart5() {
-      this.chart5 = echarts.init(this.$refs.chart5, 'macarons')
+      this.chart5 = echarts.init(this.$refs.chart5, "macarons");
       this.chart5.setOption({
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           axisPointer: {
-            type: 'shadow'
-          }
+            type: "shadow",
+          },
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
         },
         xAxis: {
-          type: 'category',
-          data: ['低级', '一般', '中级', '中高', '高级', '极高']
+          type: "category",
+          data: ["低级", "一般", "中级", "中高", "高级", "极高"],
         },
         yAxis: {
-          type: 'value',
+          type: "value",
           min: 0,
           max: 30,
-          interval: 5
+          interval: 5,
         },
-        series: [{
-          type: 'bar',
-          data: [20, 17, 11, 3, 0, 0]
-        }]
-      })
+        series: [
+          {
+            type: "bar",
+            data: [20, 17, 11, 3, 0, 0],
+          },
+        ],
+      });
     },
     generateRandomArray(a, b, length) {
-      var num = 0
-      var ret = []
+      var num = 0;
+      var ret = [];
       for (var i = 0; i < length; i++) {
-        num = parseInt(Math.random() * (b - a + 1) + a, 10)
-        ret.push(num)
+        num = parseInt(Math.random() * (b - a + 1) + a, 10);
+        ret.push(num);
       }
-      return ret
+      return ret;
     },
     getRandomArray(level, percent, length) {
-      var num = 0
-      var ret = []
-      const n = percent * level * 4 / 100
-      const min = level * (100 - percent) / 100
+      var num = 0;
+      var ret = [];
+      const n = (percent * level * 4) / 100;
+      const min = (level * (100 - percent)) / 100;
       for (var i = 0; i < length; i++) {
-        num = Math.random() * n + min
-        ret.push(num)
+        num = Math.random() * n + min;
+        ret.push(num);
       }
-      return ret
+      return ret;
     },
     getCurrentMonthArray(len, isContainCurrent) {
-      var result = []
-      var now = new Date()
-      var year = now.getFullYear() //得到年份
-      var month = now.getMonth() //得到月份
+      var result = [];
+      var now = new Date();
+      var year = now.getFullYear(); //得到年份
+      var month = now.getMonth(); //得到月份
       if (isContainCurrent) {
-        len--
-        let _month = month + 1
-        _month = _month.toString().padStart(2, "0")
-        result.push(`${year}-${_month}`)
+        len--;
+        let _month = month + 1;
+        _month = _month.toString().padStart(2, "0");
+        result.push(`${year}-${_month}`);
       }
-      let newYear, newMonth, newStr
+      let newYear, newMonth, newStr;
       for (let i = 0; i < len; i++) {
-        month -= 1
-        now.setMonth(month)
-        newYear = now.getFullYear()
-        newMonth = now.getMonth() + 1
-        newMonth = newMonth.toString().padStart(2, "0")
-        newStr = `${newYear}-${newMonth}`
-        result.push(newStr)
+        month -= 1;
+        now.setMonth(month);
+        newYear = now.getFullYear();
+        newMonth = now.getMonth() + 1;
+        newMonth = newMonth.toString().padStart(2, "0");
+        newStr = `${newYear}-${newMonth}`;
+        result.push(newStr);
         if (month === -1) {
-          month = 11
+          month = 11;
         }
       }
-      return result.reverse()
-    }
-  }
-}
-
+      return result.reverse();
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .chart {
@@ -503,7 +542,7 @@ export default {
       margin-left: 30px;
       height: 33px;
       line-height: 33px;
-      background: #F2F2F2;
+      background: #f2f2f2;
       border-radius: 17px;
       display: inline-block;
       color: #494949;
@@ -551,7 +590,7 @@ export default {
     width: 340px;
     height: 43px;
     border-radius: 22px;
-    border: 3px solid #12CAA1;
+    border: 3px solid #12caa1;
     font-size: 24px;
     font-weight: 500;
     color: #494949;
@@ -565,19 +604,18 @@ export default {
     height: 216px;
     margin: 0 auto;
     border-radius: 216px;
-    background: #F6F6F6;
-    border: 6px solid #12CAA1;
+    background: #f6f6f6;
+    border: 6px solid #12caa1;
 
     .inner {
-
       width: 170px;
       height: 170px;
-      background: #EBEBEB;
+      background: #ebebeb;
       border-radius: 170px;
       margin-top: 17px;
       margin-left: 17px;
       font-size: 81px;
-      color: #FC642D;
+      color: #fc642d;
       line-height: 170px;
       text-align: center;
 
@@ -595,7 +633,7 @@ export default {
     margin-top: 30px;
 
     td {
-      border: 1px solid #F0F0F0;
+      border: 1px solid #f0f0f0;
       font-size: 12px;
       line-height: 32px;
       height: 32px;
@@ -609,7 +647,7 @@ export default {
     width: 80%;
     height: 33px;
     line-height: 33px;
-    background: #F2F2F2;
+    background: #f2f2f2;
     color: #494949;
     border-radius: 17px;
     font-size: 14px;
@@ -617,5 +655,4 @@ export default {
     margin-top: 44px;
   }
 }
-
 </style>

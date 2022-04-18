@@ -8,10 +8,22 @@
               <div class="title switchText">当前产量单耗</div>
             </el-col>
             <el-col :span="4">
-              <div class="tongji switchText" :class="{active: type === 1}" @click="changeType(1)">按日统计</div>
+              <div
+                class="tongji switchText"
+                :class="{ active: type === 1 }"
+                @click="changeType(1)"
+              >
+                按日统计
+              </div>
             </el-col>
             <el-col :span="4">
-              <div class="tongji switchText" :class="{active: type === 2}" @click="changeType(2)">按月统计</div>
+              <div
+                class="tongji switchText"
+                :class="{ active: type === 2 }"
+                @click="changeType(2)"
+              >
+                按月统计
+              </div>
             </el-col>
           </el-row>
           <table cellspacing="0" class="table">
@@ -55,30 +67,36 @@
               <div class="title switchText">关重参数</div>
             </el-col>
           </el-row>
-          <el-table :data="list" element-loading-text="Loading" border fit style="margin-top: 10px;">
+          <el-table
+            :data="list"
+            element-loading-text="Loading"
+            border
+            fit
+            style="margin-top: 10px"
+          >
             <el-table-column label="气体类型" align="center">
               <template slot-scope="scope">
-                <span>{{ scope.row.name }}</span>
+                <span>{{ scope.row.gasName }}</span>
               </template>
             </el-table-column>
             <el-table-column label="平均用气量(m3/h)" align="center">
               <template slot-scope="scope">
-                <span>{{ scope.row.data1 }}</span>
+                <span>{{ scope.row.avgQty }}</span>
               </template>
             </el-table-column>
             <el-table-column label="累计流量(m3)" align="center">
               <template slot-scope="scope">
-                {{ scope.row.data2 }}
+                {{ scope.row.totalQty }}
               </template>
             </el-table-column>
             <el-table-column label="管道平均压力(MPa)" align="center">
               <template slot-scope="scope">
-                {{ scope.row.data3 }}
+                {{ scope.row.ylQty }}
               </template>
             </el-table-column>
             <el-table-column label="储罐平均压力（MPa）" align="center">
               <template slot-scope="scope">
-                {{ scope.row.data4 }}
+                {{ scope.row.cgQty }}
               </template>
             </el-table-column>
           </el-table>
@@ -89,10 +107,22 @@
       <div class="title switchText">用气构成</div>
       <el-row class="switch">
         <el-col :span="2">
-          <div class="type switchText" :class="{active: gasType === 1}" @click="changeGasType(1)">按日统计</div>
+          <div
+            class="type switchText"
+            :class="{ active: gasType === 1 }"
+            @click="changeGasType(1)"
+          >
+            按日统计
+          </div>
         </el-col>
         <el-col :span="2">
-          <div class="type switchText" :class="{active: gasType === 2}" @click="changeGasType(2)">按月统计</div>
+          <div
+            class="type switchText"
+            :class="{ active: gasType === 2 }"
+            @click="changeGasType(2)"
+          >
+            按月统计
+          </div>
         </el-col>
       </el-row>
       <div ref="chart1" class="chart" />
@@ -105,7 +135,7 @@
 </template>
 <script>
 import { getGuanZhongData } from '@/api/chart'
-import { queryEquipmentSetting, queryHoursTotalQty, queryDayTotalQty } from '@/api/equipment'
+import { queryEquipmentSetting, queryHoursTotalQty, queryDayTotalQty,queryDayAgvQty,queryMonthAgvQty } from '@/api/equipment'
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 
@@ -165,6 +195,11 @@ export default {
     changeType(t) {
       if (t === this.type) return
       this.type = t
+      if (this.type==1){
+        this.queryDayAgvQty();
+      } else  {
+        this.queryMonthAgvQty();
+      }
     },
     changeGasType(t) {
       if (t === this.gasType) return
@@ -174,6 +209,18 @@ export default {
       } else {
         this.initChart1_2()
       }
+    },
+    queryMonthAgvQty(){
+      queryMonthAgvQty().then(response => {
+        console.log(response)
+        this.list = response.data
+      })
+    },
+    queryDayAgvQty(){
+      queryDayAgvQty().then(response => {
+        console.log(response)
+        this.list = response.data
+      })
     },
     fetchData() {
       queryHoursTotalQty().then(response => {
@@ -186,9 +233,7 @@ export default {
         this.chart2Data = response.data
         this.initChart2()
       })
-      getGuanZhongData().then(response => {
-        this.list = response.data
-      })
+       this.queryDayAgvQty();
       queryEquipmentSetting().then(response => {
         this.summary = response.data[0]
       })
@@ -415,7 +460,7 @@ export default {
     cursor: pointer;
 
     &.active {
-      color: #1A90FE !important;
+      color: #1a90fe !important;
     }
   }
 
@@ -424,7 +469,7 @@ export default {
     margin-top: 10px;
 
     td {
-      border: 1px solid #F0F0F0;
+      border: 1px solid #f0f0f0;
       font-size: 12px;
       line-height: 32px;
       height: 32px;
@@ -459,7 +504,7 @@ export default {
       cursor: pointer;
 
       &.active {
-        color: #1A90FE !important;
+        color: #1a90fe !important;
       }
     }
   }
@@ -486,5 +531,4 @@ export default {
     height: 350px;
   }
 }
-
 </style>

@@ -113,3 +113,34 @@ export function getAllMachineList() {
     method: 'get'
   })
 }
+
+export function queryDayAgvQty() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryDayAgvQty',
+    method: 'get'
+  })
+}
+
+export function queryMonthAgvQty() {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryMonthAgvQty',
+    method: 'get'
+  })
+}
+
+export function queryMonthInstant(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryMonthInstant',
+    method: 'post',
+    data
+  })
+}
+
+export function queryMonthInstantYL(data) {
+  return request({
+    url: 'http://117.144.170.42:8089/prod-api/api/equipment/queryMonthInstantYL',
+    method: 'post',
+    data
+  })
+}
+
