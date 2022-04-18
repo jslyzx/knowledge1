@@ -31,7 +31,7 @@
           <el-menu-item index="蒸汽">蒸汽</el-menu-item>
           <el-menu-item index="水">水</el-menu-item>
         </el-menu>
-        <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row max-height="500">
+        <el-table v-loading="listLoading" :data="list.slice((listQuery.page-1)*listQuery.limit,listQuery.page*listQuery.limit)" element-loading-text="Loading" border fit highlight-current-row max-height="500">
           <template v-if="time === '按月'">
             <el-table-column label="日期" align="center">
               <template slot-scope="{row}">

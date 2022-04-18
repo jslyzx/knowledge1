@@ -21,7 +21,7 @@
       <div class="tip">
         <div class="tip-title switchText">流量总体情况</div>
         <div class="tip-info">
-          •本月平均瞬时流量为4343m³/h，最高瞬时流量值出现在26日为1231m³/h，最低瞬时流量出现在22日为3421m³/h.
+          •本月平均瞬时流量为 {{agvQty}} m³/h，最高瞬时流量值出现在 {{maxDay}} 日为 {{maxQty}} m³/h，最低瞬时流量出现在{{minDay}}日为 {{minQty}} m³/h.
         </div>
         <div class="tip-info">
           •本月瞬时流量波动率为12.322，上月瞬时流量波动率32.123环比下降，12.34%。
@@ -45,7 +45,7 @@
       <div class="tip">
         <div class="tip-title switchText">压力总体情况</div>
         <div class="tip-info">
-          •本月平均压力为6.23bar，最高压力值出现在24日为7.42bar，最低压力出现在8日为2.43bar。
+          •本月平均压力为 {{agvQty1}} bar，最高压力值出现在 {{maxDay1}} 日为 {{maxQty1}} bar，最低压力出现在 {{minDay1}} 日为 {{minQty1}} bar。
         </div>
         <div class="tip-info">
           •本月压力波动率为12.322%，上月压力波动率32.123%环比下降，12.34%。
@@ -128,6 +128,16 @@ export default {
       activeIndex2: "液氧",
       gasName: "液氧",
       gasName1: "液氧",
+      maxDay:"-",
+      minDay:"-",
+      agvQty:"0",
+      maxQty:"0",
+      minQty:"0",
+      maxDay1:"-",
+      minDay1:"-",
+      agvQty1:"0",
+      maxQty1:"0",
+      minQty1:"0",
       theme: localStorage.getItem("theme") === "theme-dark" ? "aa" : "macarons",
       isDark: localStorage.getItem("theme") === "theme-dark",
     };
@@ -250,8 +260,14 @@ export default {
       param.gasName = this.gasName;
       var data = [];
       queryMonthInstant(param).then((response) => {
-        for (var i = 0; i < response.data.length; i++) {
-          data.push([response.data[i].flowTime, response.data[i].qty]);
+        var list=response.data.instantQtyModels;
+        this.maxDay=response.data.maxDay;
+        this.minDay=response.data.minDay;
+        this.agvQty=response.data.agvQty.toFixed(2);
+        this.maxQty=response.data.maxQty;
+        this.minQty=response.data.minQty;
+        for (var i = 0; i < list.length; i++) {
+          data.push([list[i].flowTime, list[i].qty]);
           this.chart2 = echarts.init(this.$refs.chart2, "macarons");
           this.chart2.setOption({
             grid: {
@@ -290,14 +306,14 @@ export default {
             dataZoom: [
               {
                 type: "inside",
-                start: 97,
+                start: 0,
                 end: 100,
                 textStyle: {
                   color: this.isDark ? "#fff" : "#000",
                 },
               },
               {
-                start: 97,
+                start: 100,
                 end: 100,
                 textStyle: {
                   color: this.isDark ? "#fff" : "#000",
@@ -321,9 +337,15 @@ export default {
       var param = {};
       param.gasName = this.gasName1;
       var data = [];
-      queryMonthInstant(param).then((response) => {
-        for (var i = 0; i < response.data.length; i++) {
-          data.push([response.data[i].flowTime, response.data[i].qty]);
+      queryMonthInstantYL(param).then((response) => {
+        var list=response.data.instantQtyModels;
+        this.maxDay1=response.data.maxDay;
+        this.minDay1=response.data.minDay;
+        this.agvQty1=response.data.agvQty.toFixed(2);
+        this.maxQty1=response.data.maxQty;
+        this.minQty1=response.data.minQty;
+        for (var i = 0; i < list.length; i++) {
+          data.push([list[i].flowTime, list[i].qty]);
         }
         this.chart3 = echarts.init(this.$refs.chart3, "macarons");
 
@@ -364,14 +386,14 @@ export default {
           dataZoom: [
             {
               type: "inside",
-              start: 97,
+              start: 0,
               end: 100,
               textStyle: {
                 color: this.isDark ? "#fff" : "#000",
               },
             },
             {
-              start: 97,
+              start: 0,
               end: 100,
               textStyle: {
                 color: this.isDark ? "#fff" : "#000",
