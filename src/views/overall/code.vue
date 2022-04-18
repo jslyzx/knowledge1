@@ -16,12 +16,16 @@
         <div class="name">船舶能耗数据收集管理办法</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/船舶能耗数据收集管理办法.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/船舶能耗数据收集管理办法.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
       <div class="item">
@@ -29,12 +33,16 @@
         <div class="name">船舶总装建造智能化标准体系建设指南</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/船舶总装建造智能化标准体系建设指南.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/船舶总装建造智能化标准体系建设指南.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
       <div class="item">
@@ -42,12 +50,16 @@
         <div class="name">工业互联网标识行业应用指南（船舶）</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/工业互联网标识行业应用指南（船舶）.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/工业互联网标识行业应用指南（船舶）.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
       <div class="item">
@@ -55,12 +67,16 @@
         <div class="name">工业互联网船舶编码标识规范</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/工业互联网船舶编码标识规范.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/工业互联网船舶编码标识规范.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
       <div class="item">
@@ -68,12 +84,16 @@
         <div class="name">海关轨迹航信船舶数据项填制规范</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/海关轨迹航信船舶数据项填制规范.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/海关轨迹航信船舶数据项填制规范.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
       <div class="item">
@@ -81,15 +101,18 @@
         <div class="name">水上施工船舶分类编码</div>
         <div class="date">更新时间：2022-03-31</div>
         <el-row class="bottom">
-          <el-col :span="12">
-            <i class="el-icon-download"></i>下载
-          </el-col>
-          <el-col :span="12">
-            <i class="el-icon-view"></i>查看
-          </el-col>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/水上施工船舶分类编码.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-download"></i>下载
+            </el-col>
+          </div>
+          <div @click="download('http://117.144.170.42:8089/prod-api/profile/pdfs/水上施工船舶分类编码.pdf')">
+            <el-col :span="12">
+              <i class="el-icon-view"></i>查看
+            </el-col>
+          </div>
         </el-row>
       </div>
-      
     </div>
   </div>
 </template>
@@ -105,6 +128,9 @@ export default {
   created() {
   },
   methods: {
+    download(_url) {
+      window.open(_url, '_target')
+    }
   }
 }
 
