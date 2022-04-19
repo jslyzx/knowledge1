@@ -175,7 +175,7 @@ export default {
     return {
       time: '按月',
       date: '',
-      list: null,
+      list: [],
       listLoading: true,
       total: 0,
       listQuery: {
@@ -382,11 +382,6 @@ export default {
 
 .el-date-editor.el-input {
   width: 270px;
-}
-
-::v-deep .el-table .no-border td,
-::v-deep .el-table .no-border th.is-leaf{
-  border: none;
 }
 
 </style>
