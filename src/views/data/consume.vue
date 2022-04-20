@@ -47,7 +47,10 @@
             <el-table-column label="当日用量耗费(元)" align="center">
               <template slot-scope="{row}">
                 <el-input v-model="row.energyDayCost" class="edit-input" size="small" v-if="row.edit" />
-                <span v-else>{{ row.energyDayCost }}</span>
+                <template v-else>
+                  <span v-if="!row.energyDayQty || !row.energyPrice">*</span>
+                  <span v-else>{{calculateNum(row.energyDayQty, row.energyPrice)}}</span>
+                </template>
               </template>
             </el-table-column>
             <el-table-column label="当日入库量(t)" align="center">
@@ -59,7 +62,10 @@
             <el-table-column label="当日入库耗费(元)" align="center">
               <template slot-scope="{row}">
                 <el-input v-model="row.energyWarehouseCost" class="edit-input" size="small" v-if="row.edit" />
-                <span v-else>{{ row.energyWarehouseCost }}</span>
+                <template v-else>
+                  <span v-if="!row.energyWarehouseQty || !row.energyPrice">*</span>
+                  <span v-else>{{calculateNum(row.energyWarehouseQty, row.energyPrice)}}</span>
+                </template>
               </template>
             </el-table-column>
             <el-table-column label="当日库存(t)" align="center">
@@ -350,6 +356,9 @@ export default {
       date = date.toString().padStart(2, "0")
       var defaultDate = `${year}-${month}-${date}`
       return defaultDate
+    },
+    calculateNum(a, b){
+      return (a * b).toFixed(2)
     }
   }
 }
