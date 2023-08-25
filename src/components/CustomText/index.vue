@@ -9,6 +9,9 @@
             <div class="leading-relaxed break-words">
               <div class="whitespace-pre-wrap" v-if="inversion" v-text="displayText" />
               <div v-else class="markdown-body" v-html="displayText" />
+              <template v-if="loading">
+                <span class="dark:text-white animate-blink" style="width: 4px;height: 20px;display: block;" />
+              </template>
             </div>
           </div>
         </div>
@@ -33,18 +36,18 @@ const mdi = new MarkdownIt({
   highlight(code, language) {
     const validLang = !!(language && hljs.getLanguage(language))
     if (validLang) {
-      const lang = language ? language : ''
+      const lang = language || ''
       return highlightBlock(hljs.highlight(code, { language: lang }).value, lang)
     }
     return highlightBlock(hljs.highlightAuto(code).value, '')
-  },
+  }
 })
 
-mdi.use(mila, { attrs: { target: '_blank', rel: 'noopener' } })
+mdi.use(mila, { attrs: { target: '_blank', rel: 'noopener' }})
 mdi.use(mdKatex, { blockClass: 'katexmath-block rounded-md p-[10px]', errorColor: ' #cc0000' })
 
 function highlightBlock(str, lang) {
-  return `<pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">${lang}</span><span class="code-block-header__copy">${t('chat.copyCode')}</span></div><code class="hljs code-block-body ${lang}">${str}</code></pre>`
+  return `<pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">${lang}</span></div><code class="hljs code-block-body ${lang}">${str}</code></pre>`
 }
 
 export default {
@@ -78,5 +81,19 @@ export default {
 </script>
 <style lang="less" scoped>
 @import url(./style.less);
+
+@keyframes blink {
+
+  0%, 100% {
+    background-color: currentColor;
+  }
+
+  50% {
+    background-color: transparent;
+  }
+}
+.animate-blink {
+  animation: blink 1.2s infinite steps(1, start);
+}
 
 </style>

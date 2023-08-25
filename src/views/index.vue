@@ -9,12 +9,13 @@
             <div class="project">药品智能知识库</div>
           </div>
         </div>
-        <div class="add-chat">新建聊天</div>
+        <div class="add-chat" @click="addChat">新建聊天</div>
         <div class="item" v-for="(v, i) in historyList" :key="i" :class="{selected: i === selectedIndex}" @click="switchChat(i, v.uuid)">
           <i class="icon fl"></i>
-          <p class="name fl">{{ v.title }}</p>
-          <i class="del fr"></i>
-          <i class="edit fr"></i>
+          <p class="name fl" v-if="!v.isEdit && v.title">{{ v.title }}</p>
+          <el-input v-model="chatName" v-else class="edit-name" @keyup.enter.native="handleName(v)"></el-input>
+          <i class="del fr" @click="del(i)"></i>
+          <i class="edit fr" @click="edit(v)"></i>
         </div>
       </div>
       <div class="right">
@@ -29,10 +30,10 @@
           <footer class="p-4">
             <div class="foot-wrap">
               <div class="flex items-center justify-between space-x-2">
-                <div class="clear">
+                <div class="clear" @click="clearHis">
                   <i></i>
                 </div>
-                <div class="download">
+                <div class="download" @click="downloadHis">
                   <i></i>
                 </div>
                 <div class="n-auto-complete">
@@ -53,6 +54,7 @@ import mdKatex from '@traptitech/markdown-it-katex'
 import mila from 'markdown-it-link-attributes'
 import hljs from 'highlight.js'
 import CustomText from '@/components/CustomText'
+import { doChat } from '@/api/chat'
 
 export default {
   components: {
@@ -65,12 +67,12 @@ export default {
       historyList: [],
       selectedIndex: 0,
       currentChat: undefined,
-      storageKey: '--knowledge--chat--data'
+      storageKey: '--knowledge--chat--data',
+      chatName: '',
+      storageData: undefined
     }
   },
   created() {
-    // this.selectedIndex = 1
-    // this.currentChat = this.chatList[1]
     this.loadData()
   },
   methods: {
@@ -88,6 +90,7 @@ export default {
         if (storageData) {
           const { data, expire } = storageData
           if (data) {
+            this.storageData = data
             const { active, chat, history } = data
             this.chatList = chat
             this.historyList = history
@@ -97,20 +100,113 @@ export default {
         }
       }
     },
+    setData() {
+      const storageData = {
+        data: this.storageData,
+        expire: null
+      }
+
+      const json = JSON.stringify(storageData)
+      window.localStorage.setItem(this.storageKey, json)
+    },
     getChatHistoryByCurrentActive(uuid) {
       this.selectedIndex = this.historyList.findIndex(item => item.uuid === uuid)
+      if (this.historyList[this.selectedIndex].isEdit) {
+        this.chatName = this.historyList[this.selectedIndex].title
+      }
     },
     getChatByUuid(uuid) {
       const index = this.chatList.findIndex(item => item.uuid === uuid)
       this.currentChat = this.chatList[index]
     },
+    updateChat(result) {
+      const index = this.chatList.findIndex(item => item.uuid === this.currentChat.uuid)
+      let obj = this.currentChat.data[this.currentChat.data.length - 1]
+      obj.loading = false
+      obj.text = result
+      this.chatList[index] = this.currentChat
+      this.setData()
+    },
     switchChat(i, uuid) {
       this.selectedIndex = i
       this.getChatByUuid(uuid)
+      this.storageData.active = uuid
+      this.setData()
+    },
+    syncChat(chat){
+      const index = this.chatList.findIndex(item => item.uuid === chat.uuid)
+      this.chatList[index] = chat
+      this.setData()
     },
     handleSubmit() {
-      if (this.input)
-        console.log(this.input)
+      if (this.input) {
+        this.currentChat.data.push({
+          dateTime: new Date().toLocaleString(),
+          text: this.input,
+          inversion: true,
+          error: false
+        })
+        this.currentChat.data.push({
+          dateTime: new Date().toLocaleString(),
+          text: '',
+          inversion: false,
+          error: false,
+          loading: true
+        })
+        this.syncChat(this.currentChat)
+        const _data = { "knowledge_base_id": "med_doc3w3", "question": this.input, "history": [] }
+        this.input = ''
+        doChat(_data).then((res) => {
+          console.log(res)
+          const result = `${res.data.response}\n\n数据来源：\n\n>${res.data.source_documents.join('>')}`
+          this.updateChat(result)
+        })
+      }
+    },
+    addChat() {
+      const uuid = Date.now()
+      this.historyList.unshift({ uuid, title: 'New Chat', isEdit: false })
+      this.selectedIndex = 0
+      this.storageData.active = uuid
+      this.storageData.history = this.historyList
+      this.chatList.unshift({ data: [], uuid })
+      this.storageData.chat = this.chatList
+      this.setData()
+    },
+    del(i) {
+      const uuid = this.historyList[i].uuid
+      const index = this.chatList.findIndex(item => item.uuid === uuid)
+      this.chatList.splice(index, 1)
+      this.historyList.splice(i, 1)
+      this.storageData.history = this.historyList
+      this.storageData.chat = this.chatList
+      // 如果还有其他会话,重新设置当前会话
+      if (this.historyList.length) {
+        this.switchChat(0, this.historyList[0].uuid)
+      }
+
+      this.setData()
+    },
+    edit(v) {
+      v.isEdit = true
+      this.chatName = v.title
+      this.storageData.history = this.historyList
+      this.setData()
+    },
+    handleName(v) {
+      v.title = this.chatName
+      v.isEdit = false
+      this.storageData.history = this.historyList
+      this.setData()
+    },
+    clearHis() {
+      this.currentChat.data = []
+      const index = this.chatList.findIndex(item => item.uuid === this.currentChat.uuid)
+      this.chatList[index].data = []
+      this.setData()
+    },
+    downloadHis(){
+
     }
   }
 }
@@ -255,6 +351,10 @@ export default {
 
         &.selected .name {
           color: rgba(58, 126, 251, 1);
+        }
+
+        .edit-name {
+          width: 160px;
         }
 
         .edit {
